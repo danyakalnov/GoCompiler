@@ -1,0 +1,3 @@
+﻿  Process "grammar.y" bison file
+D:\University\GoCompiler\win_flex_bison\custom_build_rules\win_flex_bison\win_flex_bison_custom_build.targets(55,5): error MSB3721: The command "
+D:\University\GoCompiler\win_flex_bison\custom_build_rules\win_flex_bison\win_flex_bison_custom_build.targets(55,5): error MSB3721:       "D:\University\GoCompiler\win_flex_bison\"win_bison.exe --output="grammar.tab.cpp" --defines="grammar.tab.h"  "grammar.y"" exited with code -1073741819.

@@ -1,0 +1,75 @@
+break
+fallthrough
+defer
+package
+chan
+const
+
++
+-
+*
+/
+%
+<<==
+!=
+&=
+|
+&
+^
+!
+=
+==
+
+:
+;
+.
+,
+
+
+{}
+()
+[]
+
+42
+4_2
+0600
+0_600
+0o600
+0O600
+0xBadFace
+0xBad_Face
+0x_67_7a_2f_cc_40_c6
+170141183460469231731687303715884105727
+170_141183_460469_231731_687303_715884_105727
+0b1101
+0B1_1_0_1
+
+0i
+0123i
+0o123i
+0xabci
+
+"Hello, w	orld\nGolang"
+"Hello, Go"
+
+// Comment
+
+/*
+Multiline comment
+*/
+
+/* One more
+multiline comment */
+
+'a'
+'ä'
+'本'
+'\t'
+'\000'
+'\007'
+'\377'
+'\x07'
+'\xff'
+'\u12e4'
+'\U00101234'
+'\''        
