@@ -1,1 +1,12 @@
 .vs
+*.flex.cpp
+*.flex.c
+*.tab.cpp
+*.tab.c
+*.tab.h
+*.output
+*.user
+GoCompiler/Debug/
+GoCompiler/Release/
+/Debug/
+/Release/
