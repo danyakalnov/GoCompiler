@@ -10,3 +10,5 @@ GoCompiler/Debug/
 GoCompiler/Release/
 /Debug/
 /Release/
+x64/
+GoCompiler/x64
