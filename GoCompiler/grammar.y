@@ -28,7 +28,7 @@ struct program_struct * root;
 %token GREATER_OR_EQUAL
 %token LESS_OR_EQUAL
 %token OR
-%token END
+%token AND
 
 %token PLUS_ASSIGN
 %token MINUS_ASSIGN
@@ -74,7 +74,7 @@ expr: ID
     | expr DIVISION_ASSIGN expr
     | expr '<' expr
     | expr '>' expr
-    | 
+    | /* empty */
     | '(' expr ')'
 ;
 
