@@ -31,7 +31,7 @@ identifierList: ID
 | ID ',' identifierList
 ;
 
-expr: 
+expr: ID
 | expr '+' expr
 | expr '-' expr
 | expr '*' expr
