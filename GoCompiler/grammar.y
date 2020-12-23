@@ -73,10 +73,6 @@ expr: ID
     | expr '-' expr
     | expr '*' expr
     | expr '/' expr
-    | expr PLUS_ASSIGN expr
-    | expr MINUS_ASSIGN expr
-    | expr MULTIPLY_ASSIGN expr
-    | expr DIVISION_ASSIGN expr
     | expr '<' expr
     | expr '>' expr
     | /* empty */
