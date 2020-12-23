@@ -164,7 +164,7 @@ stmt_list: /* empty */
 block: '{' stmt_list '}'
 ;
 
-for_clause: simple_stmt ";" expression ";" simple_stmt
+for_clause: simple_stmt ';' expression ';' simple_stmt
 ;
 
 
