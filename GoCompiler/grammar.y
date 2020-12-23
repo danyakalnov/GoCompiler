@@ -132,6 +132,26 @@ declaration: const_decl
 | var_decl
 ;
 
+inc_dec_stmt: expr INCREMENT
+| expr DECREMENT
+;
+
+assign_op: '='
+| PLUS_ASSIGN
+| MINUS_ASSIGN
+| MULTIPLY_ASSIGN
+| DIVISION_ASSIGN
+;
+
+assignment: identifier_list assing_op expr_list
+;
+
+simple_stmt: /* TODO */
+| expr
+| inc_dec_stmt
+| assignment
+;
+
 %%
 
 void main(int argc, char **argv ){
