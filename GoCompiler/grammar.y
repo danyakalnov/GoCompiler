@@ -195,6 +195,32 @@ if_stmt: if_stmt_with_stmt
 | simple_if_stmt
 ;
 
+param_decl: identifier_list type
+    | type
+;
+
+param_list: param_decl
+    | param_list ',' param_decl
+;
+
+params: '(' param_list ')'
+    | '(' /* Empty */ ')'
+    | '(' param_list ',' ')' 
+;
+
+func_result: params
+    | type
+;
+
+func_signature: params 
+    | params func_result
+;
+
+func_type: FUNC_KEYWORD func_signature;
+
+func_decl: FUNC_KEYWORD ID func_signature
+    | FUNC_KEYWORD ID func_signature block
+;
 %%
 
 void main(int argc, char **argv ){
