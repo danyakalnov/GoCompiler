@@ -57,8 +57,8 @@ struct program_struct * root;
 
 %%
 
-identifierList: ID 
-| ID ',' identifierList
+identifier_list: ID 
+| identifier_list ',' ID
 ;
 
 expr: ID
@@ -76,6 +76,45 @@ expr: ID
     | expr '>' expr
     | /* empty */
     | '(' expr ')'
+;
+
+expr_list: /* empty */
+| expr_list_not_empty
+;
+
+expr_list_not_empty: expr
+| expr_list ',' expr
+;
+
+const_spec: identifier_list '=' expr_list
+| identifier_list type '=' expr_list
+;
+
+const_spec_terminated: const_spec ';'
+;
+
+const_spec_list: /* empty */
+| const_spec_list_not_empty
+;
+
+const_spec_list_not_empty: const_spec_terminated
+| const_spec_list_not_empty const_spec_terminated
+;
+
+const_decl: CONST_KEYWORD const_spec
+| CONST_KEYWORD '(' const_spec_list ')'
+;
+
+var_spec: identifier_list type 
+| identifier_list type '=' expr_list
+| identifier_list '=' expr_list
+;
+
+var_decl: VAR_KEYWORD var_spec
+;
+
+declaration: const_decl 
+| var_decl
 ;
 
 %%
