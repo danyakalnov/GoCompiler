@@ -82,6 +82,8 @@ identifier_list: ID
 expr: ID
     | INT
     | STRING
+    | TRUE_KEYWORD
+    | FALSE_KEYWORD
     | expr '+' expr
     | expr '-' expr
     | expr '*' expr
@@ -89,7 +91,7 @@ expr: ID
     | expr '<' expr
     | expr '>' expr
     | /* empty */
-    | '(' expr ')'
+    | primary_expr
 ;
 
 expr_list: /* empty */
@@ -259,6 +261,18 @@ top_level_decl_list_not_empty: top_level_decl ';'
 top_level_decl_list: /* empty */
 | top_level_decl_list_not_empty
 ;
+
+operand: identifier
+| '(' expr ')'
+;
+
+primary_expr: operand 
+| type '(' expr ')'
+| primary_expr '[' expr ']'
+| primary_expr arguments
+
+arguments: '(' /* empty */ ')'
+| '(' expr_list ')'
 
 %%
 
