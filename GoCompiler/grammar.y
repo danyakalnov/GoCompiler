@@ -57,6 +57,11 @@ struct program_struct * root;
 
 %%
 
+type: INT_KEYWORD
+| BOOL_KEYWORD
+| BYTE_KEYWORD
+| STRING_KEYWORD
+
 identifier_list: ID 
 | identifier_list ',' ID
 ;
