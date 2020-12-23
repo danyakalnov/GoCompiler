@@ -29,6 +29,7 @@ struct program_struct * root;
 %token LESS_OR_EQUAL
 %token OR
 %token AND
+%token SHORT_EQUALS
 
 %token PLUS_ASSIGN
 %token MINUS_ASSIGN
@@ -154,10 +155,14 @@ assign_op: '='
 assignment: identifier_list assing_op expr_list
 ;
 
+short_var_decl: identifier_list SHORT_EQUALS expr_list
+;
+
 simple_stmt: /* TODO */
 | expr
 | inc_dec_stmt
 | assignment
+| short_var_decl
 ;
 
 return_stmt: RETURN_KEYWORD
