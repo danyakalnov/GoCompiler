@@ -274,6 +274,11 @@ primary_expr: operand
 arguments: '(' /* empty */ ')'
 | '(' expr_list ')'
 
+composite_lit: array_type lit_value
+;
+
+lit_value: '{' /* TODO element list */ '}'
+
 %%
 
 void main(int argc, char **argv ){
