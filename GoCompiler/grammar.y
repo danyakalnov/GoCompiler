@@ -148,6 +148,10 @@ simple_stmt: /* TODO */
 | assignment
 ;
 
+stmt: simple_stmt
+;
+
+
 %%
 
 void main(int argc, char **argv ){
