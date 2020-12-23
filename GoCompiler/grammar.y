@@ -98,12 +98,12 @@ const_spec: identifier_list '=' expr_list
 const_spec_terminated: const_spec ';'
 ;
 
-const_spec_list: /* empty */
-| const_spec_list_not_empty
-;
-
 const_spec_list_not_empty: const_spec_terminated
 | const_spec_list_not_empty const_spec_terminated
+;
+
+const_spec_list: /* empty */
+| const_spec_list_not_empty
 ;
 
 const_decl: CONST_KEYWORD const_spec
@@ -115,7 +115,17 @@ var_spec: identifier_list type
 | identifier_list '=' expr_list
 ;
 
+var_spec_terminated: var_spec ';'
+
+var_spec_list_not_empty: var_spec_terminated
+| var_spec_list_not_empty var_spec_terminated
+;
+
+var_spec_list: /* empty */
+| var_spec_list_not_empty
+
 var_decl: VAR_KEYWORD var_spec
+| VAR KEYWORD var_spec_list
 ;
 
 declaration: const_decl 
