@@ -148,7 +148,16 @@ simple_stmt: /* TODO */
 | assignment
 ;
 
+return_stmt: RETURN_KEYWORD
+| RETURN_KEYWORD expr_list
+;
+
 stmt: simple_stmt
+| declaration
+| return_stmt
+| if_stmt
+| for_stmt
+| block
 ;
 
 stmt_terminated: stmt ';'
