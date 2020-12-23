@@ -151,6 +151,18 @@ simple_stmt: /* TODO */
 stmt: simple_stmt
 ;
 
+stmt_terminated: stmt ';'
+
+stmt_list_not_empty: stmt_terminated 
+| stmt_list_not_empty stmt_terminated
+;
+
+stmt_list: /* empty */
+| stmt_list_not_empty
+;
+
+block: '{' stmt_list '}'
+;
 for_clause: simple_stmt ";" expression ";" simple_stmt
 ;
 
