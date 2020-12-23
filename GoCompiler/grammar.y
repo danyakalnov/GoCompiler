@@ -151,6 +151,9 @@ simple_stmt: /* TODO */
 stmt: simple_stmt
 ;
 
+for_clause: simple_stmt ";" expression ";" simple_stmt
+;
+
 
 %%
 
