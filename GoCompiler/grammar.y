@@ -51,11 +51,18 @@ struct program_struct * root;
 %token TRUE_KEYWORD;
 %token FALSE_KEYWORD;
 %token NIL_KEYWORD;
+%token PACKAGE_KEYWORD;
 %token <Id> ID
 %token <Int_val> INT 
 %token <String> STRING
 
 %%
+
+program: package_clause ';' top_level_decl_list
+;
+
+package_clause: PACKAGE_KEYWORD ID
+;
 
 array_type: '[' expr ']' type
 ;
@@ -235,6 +242,19 @@ func_type: FUNC_KEYWORD func_signature;
 func_decl: FUNC_KEYWORD ID func_signature
     | FUNC_KEYWORD ID func_signature block
 ;
+
+top_level_decl: declaration
+| func_decl
+;
+
+top_level_decl_list_not_empty: top_level_decl ';'
+| top_level_decl_list_not_empty top_level_decl ';' 
+;
+
+top_level_decl_list: /* empty */
+| top_level_decl_list_not_empty
+;
+
 %%
 
 void main(int argc, char **argv ){
