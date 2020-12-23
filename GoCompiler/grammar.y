@@ -164,6 +164,23 @@ stmt_list: /* empty */
 block: '{' stmt_list '}'
 ;
 
+for_clause: simple_stmt ';' expression ';' simple_stmt
+;
+
+empty_for: FOR_KEYWORD block
+;
+
+for_with_condition: FOR_KEYWORD expr block
+;
+
+for_with_clause: FOR_KEYWORD for_clause block
+;
+
+for_stmt: empty_for
+    | for_with_condition
+    | for_with_clause
+;
+
 if_stmt_with_stmt: IF_KEYWORD simple_stmt ';' expr block
 | if_stmt_with_stmt ELSE_KEYWORD if_stmt_with_stmt
 | if_stmt_with_stmt ELSE_KEYWORD block
