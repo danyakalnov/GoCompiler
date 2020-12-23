@@ -164,6 +164,20 @@ stmt_list: /* empty */
 block: '{' stmt_list '}'
 ;
 
+if_stmt_with_stmt: IF_KEYWORD simple_stmt ';' expr block
+| if_stmt_with_stmt ELSE_KEYWORD if_stmt_with_stmt
+| if_stmt_with_stmt ELSE_KEYWORD block
+;
+
+simple_if_stmt: IF_KEYWORD expr block
+| simple_if_stmt ELSE_KEYWORD simple_if_stmt
+| simple_if_stmt ELSE_KEYWORD block
+;
+
+if_stmt: if_stmt_with_stmt
+| simple_if_stmt
+;
+
 %%
 
 void main(int argc, char **argv ){
