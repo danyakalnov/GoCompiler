@@ -35,5 +35,3 @@ enum stmt_type {
 	return_stmt
 };
 
-
-
