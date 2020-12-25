@@ -35,5 +35,19 @@ enum stmt_type {
 	return_stmt
 };
 
+struct stmt_struct {
+	enum stmt_type type;
 
+	struct stmt_list_struct* block;
+	
+};
 
+struct expr_list_struct {
+	struct expr_struct* first;
+	struct expr_struct* last;
+};
+
+struct stmt_list_struct {
+	struct stmt_struct* first;
+	struct stmt_struct* last;
+};
