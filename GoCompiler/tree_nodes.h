@@ -39,7 +39,13 @@ struct stmt_struct {
 	enum stmt_type type;
 
 	struct stmt_list_struct* block;
-	
+	struct expr_struct* expr_field;
+	struct if_stmt_struct* if_stmt_field;
+	// TODO: описание структур циклов, поле для циклов в этой структуре
+	struct assignment_stmt_struct* assignment_field;
+	struct return_stmt_struct* return_stmt_field;
+	struct decl_stmt_struct* decl_stmt_field;
+	struct decl_stmt_struct* short_var_decl_field; // TODO: указывать 0 в поле type структуры decl_stmt_struct при заполнении
 };
 
 struct expr_list_struct {
@@ -65,4 +71,28 @@ struct if_stmt_struct {
 struct if_stmt_list_struct {
 	struct if_stmt_struct* first;
 	struct if_stmt_struct* last;
+};
+
+struct assignment_stmt_struct {
+	struct expr_struct* left;
+	struct expr_struct* right;
+};
+
+struct return_stmt_struct {
+	struct expr_struct* return_value;
+};
+
+struct id_struct {
+	char* name;
+};
+
+struct id_list {
+	struct id_struct* first;
+	struct id_struct* last;
+};
+
+struct decl_stmt_struct {
+	struct id_list* ids;
+	struct expr_list* values;
+	char* type;
 };
