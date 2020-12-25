@@ -56,7 +56,7 @@ struct stmt_struct {
 	struct stmt_list_struct* block;
 	struct expr_struct* expr_field;
 	struct if_stmt_struct* if_stmt_field;
-	// TODO: описание структур циклов, поле для циклов в этой структуре
+	struct for_stmt_struct* for_stmt_field;
 	struct assignment_stmt_struct* assignment_field;
 	struct return_stmt_struct* return_stmt_field;
 	struct decl_stmt_struct* decl_stmt_field;
@@ -110,5 +110,21 @@ struct decl_stmt_struct {
 	struct id_list* ids;
 	struct expr_list* values;
 	char* type;
+};
+
+struct param_decl_struct {
+	struct id_list* ids;
+	char* type;
+};
+
+struct param_list_struct {
+	struct param_decl_struct* first;
+	struct param_decl_struct* last;
+};
+
+struct func_type_struct {
+	char* func_name;
+	struct param_list_struct* params;
+	struct param_list_struct* return_values;
 };
 
