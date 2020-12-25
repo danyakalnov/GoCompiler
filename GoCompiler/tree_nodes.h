@@ -35,17 +35,32 @@ enum stmt_type {
 	return_stmt
 };
 
+enum for_type {
+	empty_for,
+	for_with_condition,
+	for_with_clause
+};
+
+struct for_stmt_struct {
+	enum for_type type;
+
+	struct stmt_struct* for_clause_init_stmt;
+	struct stmt_struct* for_clause_post_stmt;
+	struct expr_struct* for_condition;
+	struct stmt_struct* block;
+};
+
 struct stmt_struct {
 	enum stmt_type type;
 
 	struct stmt_list_struct* block;
 	struct expr_struct* expr_field;
 	struct if_stmt_struct* if_stmt_field;
-	// TODO: �������� �������� ������, ���� ��� ������ � ���� ���������
+	// TODO: описание структур циклов, поле для циклов в этой структуре
 	struct assignment_stmt_struct* assignment_field;
 	struct return_stmt_struct* return_stmt_field;
 	struct decl_stmt_struct* decl_stmt_field;
-	struct decl_stmt_struct* short_var_decl_field; // TODO: ��������� 0 � ���� type ��������� decl_stmt_struct ��� ����������
+	struct decl_stmt_struct* short_var_decl_field; // TODO: указывать 0 в поле type структуры decl_stmt_struct при заполнении
 };
 
 struct expr_list_struct {
@@ -96,3 +111,4 @@ struct decl_stmt_struct {
 	struct expr_list* values;
 	char* type;
 };
+
