@@ -64,7 +64,7 @@ struct program_struct * root;
 %left '+' '-'
 %left '*' '/'
 %left UMINUS
-%nonassoc '(' ')'
+%nonassoc ')'
 
 %%
 
