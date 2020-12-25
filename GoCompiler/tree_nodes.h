@@ -17,6 +17,23 @@ enum expr_type {
 };
 
 struct expr_struct {
-	enum expr_type ;
+	enum expr_type type;
+
 	char* str_value;
+	int int_value;
 };
+
+enum stmt_type {
+	expr_stmt,
+	for_loop,
+	if_stmt,
+	assignment,
+	short_var_decl,
+	var_decl,
+	const_decl,
+	block,
+	return_stmt
+};
+
+
+
