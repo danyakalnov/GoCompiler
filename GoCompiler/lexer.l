@@ -110,6 +110,8 @@ ESCAPED_CHAR \\[abfnrtv\\'"]
 	long long int num;
 
 	int runeCodePoint;
+
+	int lastSymbol;
 %}
 
 "/*" {
