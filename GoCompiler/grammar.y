@@ -274,10 +274,26 @@ primary_expr: operand
 arguments: '(' /* empty */ ')'
 | '(' expr_list ')'
 
-composite_lit: array_type lit_value
+array_lit: array_type array_value
 ;
 
-lit_value: '{' /* TODO element list */ '}'
+array_value: '{' /* empty */ '}'
+| '{' array_element_list '}'
+;
+
+array_element_list: array_keyed_element
+| array_element_list ',' array_keyed_element
+;
+
+array_keyed_element: element
+| array_key ':' element
+;
+
+array_key: INT;
+
+element: expr |
+array_value
+;
 
 %%
 
