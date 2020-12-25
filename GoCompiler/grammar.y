@@ -58,6 +58,8 @@ struct program_struct * root;
 %token <Int_val> INT 
 %token <String> STRING
 
+%start program
+
 %left '<' '>' EQUAL NOT_EQUAL LESS_OR_EQUAL GREATER_OR_EQUAL
 %left '+' '-'
 %left '*' '/'
