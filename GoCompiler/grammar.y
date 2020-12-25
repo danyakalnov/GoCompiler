@@ -206,7 +206,7 @@ assignment: identifier_list assing_op expr_list
 short_var_decl: identifier_list SHORT_EQUALS expr_list
 ;
 
-simple_stmt: /* TODO */
+simple_stmt: /* empty_stmt */
 | expr
 | inc_dec_stmt
 | assignment
