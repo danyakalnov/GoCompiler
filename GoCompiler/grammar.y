@@ -58,6 +58,12 @@ struct program_struct * root;
 %token <Int_val> INT 
 %token <String> STRING
 
+%left '<' '>' EQUAL NOT_EQUAL LESS_OR_EQUAL GREATER_OR_EQUAL
+%left '+' '-'
+%left '*' '/'
+%left UMINUS
+%nonassoc '(' ')'
+
 %%
 
 program: package_clause ';' top_level_decl_list
@@ -130,6 +136,8 @@ binary_op: '+'
 | '>'
 | GREATER_OR_EQUAL
 | LESS_OR_EQUAL
+| EQUAL
+| NOT_EQUAL
 ;
 
 expr_list: /* empty */
