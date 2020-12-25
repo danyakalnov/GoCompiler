@@ -53,6 +53,7 @@ struct program_struct * root;
 %token FALSE_KEYWORD;
 %token NIL_KEYWORD;
 %token PACKAGE_KEYWORD;
+%token IMPORT_KEYWORD
 %token <Id> ID
 %token <Int_val> INT 
 %token <String> STRING
@@ -60,6 +61,23 @@ struct program_struct * root;
 %%
 
 program: package_clause ';' top_level_decl_list
+| package_clause ';' import_decl_list top_level_decl_list
+;
+
+import_decl: IMPORT_KEYWORD import_spec
+| IMPORT_KEYWORD '(' import_spec_list ')' ';'
+;
+
+import_decl_list: import_decl
+| import_decl_list import_decl
+;
+
+import_spec_list: import_spec
+| import_spec_list import_spec
+;
+
+import_spec: '.' STRING ';'
+| ID STRING ';'
 ;
 
 package_clause: PACKAGE_KEYWORD ID
