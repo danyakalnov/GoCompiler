@@ -21,7 +21,10 @@ struct program_struct * root;
     char* Id;
     char* String;
 
-    struct basic_lit_struct basic_lit_value;
+    struct basic_lit_struct* basic_lit_value;
+    struct expr_struct* expr_value;
+    struct for_stmt_struct* for_stmt_value;
+    struct stmt_block_struct* block_value;
 }
 
 %token LESS
@@ -61,7 +64,10 @@ struct program_struct * root;
 %token <Int_val> INT 
 %token <String> STRING
 
-%type<> basic_lit
+%type<basic_lit_value> basic_lit
+%type<expr_value> expr
+%type<for_stmt_value> for_stmt
+%type<block_value> block
 
 %start program
 
@@ -110,8 +116,8 @@ identifier_list: ID
 | identifier_list ',' ID
 ;
 
-basic_lit: INT { $$ = create_int_expr($1); }
-| STRING { $$ = create_string_expr($1); }
+basic_lit: INT
+| STRING
 | TRUE_KEYWORD 
 | FALSE_KEYWORD
 ;
@@ -132,19 +138,16 @@ unary_expr: primary_expr
 ;
 
 expr: unary_expr
-| expr binary_op expr
-;
-
-binary_op: '+'
-| '-' { $$ = create_operation_expr(integer, $1, $3); }
-| '*' { $$ = create_operation_expr(mul, $1, $3); }
-| '/' { $$ = create_operation_expr(divide, $1, $3); }
-| '<' { $$ = create_operation_expr(less, $1, $3); }
-| '>' { $$ = create_operation_expr(greater, $1, $3); }
-| GREATER_OR_EQUAL { $$ = create_operation_expr(greater_or_equal, $1, $3); }
-| LESS_OR_EQUAL { $$ = create_operation_expr(less_or_equal, $1, $3); }
-| EQUAL { $$ = create_operation_expr(equal, $1, $3); }
-| NOT_EQUAL { $$ = create_operation_expr(not_equal, $1, $3); }
+| expr '-' expr { $$ = create_operation_expr(minus, $1, $3); }
+| expr '+' expr { $$ = create_operation_expr(plus, $1, $3 ); }
+| expr '*' expr { $$ = create_operation_expr(mul, $1, $3); }
+| expr '/' expr { $$ = create_operation_expr(divide, $1, $3); }
+| expr '<' expr { $$ = create_operation_expr(less, $1, $3); }
+| expr '>' expr { $$ = create_operation_expr(greater, $1, $3); }
+| expr GREATER_OR_EQUAL expr { $$ = create_operation_expr(greater_or_equal, $1, $3); }
+| expr LESS_OR_EQUAL expr { $$ = create_operation_expr(less_or_equal, $1, $3); }
+| expr EQUAL expr { $$ = create_operation_expr(equal, $1, $3); }
+| expr NOT_EQUAL expr { $$ = create_operation_expr(not_equal, $1, $3); }
 ;
 
 expr_list: /* empty */
@@ -245,18 +248,9 @@ stmt_list: /* empty */
 block: '{' stmt_list '}'
 ;
 
-empty_for: FOR_KEYWORD block { $$ = create_empty_for_stmt($2); }
-;
-
-for_with_condition: FOR_KEYWORD expr block { $$ = create_for_with_condition($2, $3); }
-;
-
-for_with_clause: FOR_KEYWORD simple_stmt ';' expr ';' simple_stmt block { $$ = create_for_clause_stmt($2, $6, $4, $7); }
-;
-
-for_stmt: empty_for { $$ = $1; }
-    | for_with_condition { $$ = $1; }
-    | for_with_clause { $$ = $1; }
+for_stmt: FOR_KEYWORD block { $$ = create_empty_for_stmt($2); }
+    | FOR_KEYWORD expr block { $$ = create_for_with_condition($2, $3); }
+    | FOR_KEYWORD simple_stmt ';' expr ';' simple_stmt block { $$ = create_for_clause_stmt($2, $6, $4, $7); }
 ;
 
 if_stmt_with_stmt: IF_KEYWORD simple_stmt ';' expr block
