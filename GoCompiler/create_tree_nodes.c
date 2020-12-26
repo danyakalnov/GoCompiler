@@ -114,3 +114,11 @@ struct stmt_list_struct* add_to_stmt_list(struct stmt_list_struct* list, struct 
     return list;
 }
 
+struct top_level_decl_struct* create_func_decl(struct func_signature_struct* signature, struct stmt_struct* block) {
+    struct func_decl_struct* func_decl = (struct func_decl_struct*)malloc(sizeof(struct func_decl_struct));
+
+    func_decl->func_signature = signature;
+    func_decl->block = block;
+
+    struct top_level_decl_struct* result = (struct top_level_decl_struct*)malloc(sizeof(struct top_level_decl_struct));
+}
