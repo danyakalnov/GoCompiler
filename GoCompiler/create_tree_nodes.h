@@ -2,18 +2,24 @@
 
 struct expr_struct* create_int_expr(int value);
 struct expr_struct* create_string_expr(char* value);
+struct expr_struct* create_operation_expr(enum expr_type type, struct expr_struct* left, struct expr_struct* right);
 struct for_stmt_struct* create_empty_for_stmt(struct stmt_struct* block);
 struct for_stmt_struct* create_for_with_condition(struct expr_struct* condition, struct stmt_struct* block);
 struct for_stmt_struct* create_for_clause_stmt(
 	struct stmt_struct* init_stmt, struct stmt_struct* post_stmt, struct expr_struct* condition, struct stmt_struct* block
 );
 struct if_stmt_struct* create_if_stmt(
-	struct stmt_struct* pre_condition_stmt,
-	struct expr_struct* condition,
-	struct stmt_struct* if_block,	
-	struct if_stmt_list_struct* else_if_stmts,
+	struct if_stmt_part_struct* if_stmt_part,
+	struct else_if_stmt_list_struct* else_if_stmts,
 	struct stmt_struct* else_block
 );
+struct if_stmt_part_struct* create_if_stmt_part(
+	struct stmt_struct* pre_condition_stmt,
+	struct expr_struct* condition,
+	struct stmt_struct* block
+);
+struct else_if_stmt_list_struct* create_else_if_stmt_list(struct if_stmt_part_struct* el);
+struct else_if_stmt_list_struct* add_to_else_if_stmt_list(struct else_if_stmt_list_struct* list, struct if_stmt_part_struct* el);
 struct stmt_list_struct* create_stmt_list(struct stmt_struct* first_stmt);
 struct stmt_list_struct* add_to_stmt_list(struct stmt_list_struct* list, struct stmt_struct* stmt);
 struct func_decl_struct* create_func_decl(struct func_signature_struct* signature, struct stmt_struct* block);
