@@ -3,6 +3,7 @@
 %{
 #include <stdio.h>
 #include <malloc.h>
+#include "create_tree_nodes.h"
 
 void yyerror(const char* message) {
     fprintf(stderr, message);
@@ -105,9 +106,9 @@ identifier_list: ID
 | identifier_list ',' ID
 ;
 
-basic_lit: INT
-| STRING
-| TRUE_KEYWORD
+basic_lit: INT { $$ = create_int_expr($1); }
+| STRING { $$ = create_string_expr($1); }
+| TRUE_KEYWORD 
 | FALSE_KEYWORD
 ;
 
@@ -131,15 +132,15 @@ expr: unary_expr
 ;
 
 binary_op: '+'
-| '-'
-| '*'
-| '/'
-| '<'
-| '>'
-| GREATER_OR_EQUAL
-| LESS_OR_EQUAL
-| EQUAL
-| NOT_EQUAL
+| '-' { $$ = create_operation_expr(integer, $1, $3); }
+| '*' { $$ = create_operation_expr(mul, $1, $3); }
+| '/' { $$ = create_operation_expr(divide, $1, $3); }
+| '<' { $$ = create_operation_expr(less, $1, $3); }
+| '>' { $$ = create_operation_expr(greater, $1, $3); }
+| GREATER_OR_EQUAL { $$ = create_operation_expr(greater_or_equal, $1, $3); }
+| LESS_OR_EQUAL { $$ = create_operation_expr(less_or_equal, $1, $3); }
+| EQUAL { $$ = create_operation_expr(equal, $1, $3); }
+| NOT_EQUAL { $$ = create_operation_expr(not_equal, $1, $3); }
 ;
 
 expr_list: /* empty */
@@ -240,21 +241,18 @@ stmt_list: /* empty */
 block: '{' stmt_list '}'
 ;
 
-for_clause: simple_stmt ';' expr ';' simple_stmt
+empty_for: FOR_KEYWORD block { $$ = create_empty_for_stmt($2); }
 ;
 
-empty_for: FOR_KEYWORD block
+for_with_condition: FOR_KEYWORD expr block { $$ = create_for_with_condition($2, $3); }
 ;
 
-for_with_condition: FOR_KEYWORD expr block
+for_with_clause: FOR_KEYWORD simple_stmt ';' expr ';' simple_stmt block { $$ = create_for_clause_stmt($2, $6, $4, $7); }
 ;
 
-for_with_clause: FOR_KEYWORD for_clause block
-;
-
-for_stmt: empty_for
-    | for_with_condition
-    | for_with_clause
+for_stmt: empty_for { $$ = $1; }
+    | for_with_condition { $$ = $1; }
+    | for_with_clause { $$ = $1; }
 ;
 
 if_stmt_with_stmt: IF_KEYWORD simple_stmt ';' expr block
