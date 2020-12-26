@@ -112,7 +112,9 @@ struct decl_stmt_struct {
 	char* type;
 };
 
-
+struct package_decl_struct {
+	char* package_name;
+};
 
 struct param_decl_struct {
 	struct id_list* ids;
