@@ -128,3 +128,27 @@ struct func_type_struct {
 	struct param_list_struct* return_values;
 };
 
+struct array_type_struct {
+	char* type;
+	struct expr_struct* length;
+};
+
+struct array_element_list_struct {
+	struct array_keyed_element* first;
+	struct array_keyed_element* last;
+};
+
+struct array_keyed_element {
+	struct expr_struct* expr;
+	expr_type key;
+	struct array_value_struct* array_value;
+};
+
+struct array_value_struct {
+	struct array_element_list* el_list;
+};
+
+struct array_lit_struct {
+	struct array_type_struct* type;
+
+};
