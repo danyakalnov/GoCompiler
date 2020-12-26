@@ -144,6 +144,8 @@ struct import_spec_list_struct {
 struct import_decl_struct {
 	struct import_spec_struct* import_spec;
 	struct import_spec_list_struct* import_spec_list;
+
+	struct import_decl_struct* next;
 };
 
 struct import_decl_list_struct {
