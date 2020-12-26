@@ -149,7 +149,12 @@
     <ClCompile Include="lexer.flex.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Bison Include="grammar.y" />
+    <Bison Include="grammar.y">
+      <Verbose Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</Verbose>
+      <Verbose Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</Verbose>
+      <Verbose Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</Verbose>
+      <Verbose Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</Verbose>
+    </Bison>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="create_tree_nodes.h" />
