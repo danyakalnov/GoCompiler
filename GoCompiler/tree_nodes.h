@@ -122,10 +122,16 @@ struct param_list_struct {
 	struct param_decl_struct* last;
 };
 
-struct func_type_struct {
+struct func_signature_struct {
 	char* func_name;
 	struct param_list_struct* params;
 	struct param_list_struct* return_values;
+};
+
+struct func_decl_struct {
+	struct id_struct* func_name;
+	struct func_signature_struct* func_signature;
+	struct stmt_list_struct* block;
 };
 
 struct array_type_struct {
