@@ -136,6 +136,11 @@ struct import_decl_list_struct {
 	struct import_decl_struct* last;
 };
 
+struct top_level_decl_struct {
+	struct decl_stmt_struct* decl;
+	struct func_decl_struct* func_decl;
+};
+
 struct param_decl_struct {
 	struct id_list* ids;
 	char* type;
