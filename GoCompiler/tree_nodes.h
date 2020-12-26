@@ -112,6 +112,8 @@ struct decl_stmt_struct {
 	char* type;
 };
 
+
+
 struct param_decl_struct {
 	struct id_list* ids;
 	char* type;
@@ -146,12 +148,12 @@ struct array_element_list_struct {
 
 struct array_keyed_element {
 	struct expr_struct* expr;
-	expr_type key;
+	int key;
 	struct array_value_struct* array_value;
 };
 
 struct array_value_struct {
-	struct array_element_list* el_list;
+	struct array_element_list_struct* el_list;
 };
 
 struct array_lit_struct {
