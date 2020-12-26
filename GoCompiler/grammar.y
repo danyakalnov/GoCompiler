@@ -110,6 +110,7 @@ type: INT_KEYWORD
 | BYTE_KEYWORD
 | STRING_KEYWORD
 | array_type
+| func_type
 ;
 
 identifier_list: ID 
