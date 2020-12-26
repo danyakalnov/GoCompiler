@@ -147,7 +147,7 @@ expr_list: /* empty */
 ;
 
 expr_list_not_empty: expr
-| expr_list ',' expr
+| expr_list_not_empty ',' expr
 ;
 
 const_spec: identifier_list '=' expr_list
