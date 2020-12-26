@@ -13,7 +13,8 @@ enum expr_type {
 	equal,
 	not_equal,
 	call,
-	array_indexing
+	array_indexing,
+	array_lit
 };
 
 struct expr_struct {
