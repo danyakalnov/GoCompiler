@@ -88,7 +88,7 @@ import_spec: '.' STRING ';'
 | ID STRING ';'
 ;
 
-package_clause: PACKAGE_KEYWORD ID
+package_clause: PACKAGE_KEYWORD ID ';'
 ;
 
 array_type: '[' expr ']' type
@@ -165,7 +165,7 @@ const_spec_list: /* empty */
 | const_spec_list_not_empty
 ;
 
-const_decl: CONST_KEYWORD const_spec
+const_decl: CONST_KEYWORD const_spec_terminated
 | CONST_KEYWORD '(' const_spec_list ')'
 ;
 
@@ -183,8 +183,8 @@ var_spec_list_not_empty: var_spec_terminated
 var_spec_list: /* empty */
 | var_spec_list_not_empty
 
-var_decl: VAR_KEYWORD var_spec
-| VAR KEYWORD var_spec_list
+var_decl: VAR_KEYWORD var_spec_terminated
+| VAR KEYWORD var_spec_list ';'
 ;
 
 declaration: const_decl 
