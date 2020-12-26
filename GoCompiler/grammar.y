@@ -132,15 +132,15 @@ expr: unary_expr
 ;
 
 binary_op: '+'
-| '-'
-| '*'
-| '/'
-| '<'
-| '>'
-| GREATER_OR_EQUAL
-| LESS_OR_EQUAL
-| EQUAL
-| NOT_EQUAL
+| '-' { $$ = create_operation_expr(integer, $1, $3); }
+| '*' { $$ = create_operation_expr(mul, $1, $3); }
+| '/' { $$ = create_operation_expr(divide, $1, $3); }
+| '<' { $$ = create_operation_expr(less, $1, $3); }
+| '>' { $$ = create_operation_expr(greater, $1, $3); }
+| GREATER_OR_EQUAL { $$ = create_operation_expr(greater_or_equal, $1, $3); }
+| LESS_OR_EQUAL { $$ = create_operation_expr(less_or_equal, $1, $3); }
+| EQUAL { $$ = create_operation_expr(equal, $1, $3); }
+| NOT_EQUAL { $$ = create_operation_expr(not_equal, $1, $3); }
 ;
 
 expr_list: /* empty */
