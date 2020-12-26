@@ -3,6 +3,7 @@
 %{
 #include <stdio.h>
 #include <malloc.h>
+#include "create_tree_nodes.h"
 
 void yyerror(const char* message) {
     fprintf(stderr, message);
@@ -105,9 +106,9 @@ identifier_list: ID
 | identifier_list ',' ID
 ;
 
-basic_lit: INT
-| STRING
-| TRUE_KEYWORD
+basic_lit: INT { $$ = create_int_expr($1); }
+| STRING { $$ = create_string_expr($1); }
+| TRUE_KEYWORD 
 | FALSE_KEYWORD
 ;
 
