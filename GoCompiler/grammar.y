@@ -330,8 +330,8 @@ array_keyed_element: element
 
 array_key: INT;
 
-element: expr |
-array_value
+element: expr 
+| array_value
 ;
 
 %%
