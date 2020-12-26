@@ -133,7 +133,7 @@ struct func_signature_struct {
 };
 
 struct func_decl_struct {
-	struct id_struct* func_name;
+	char* func_name;
 	struct func_signature_struct* func_signature;
 	struct stmt_struct* block;
 };
