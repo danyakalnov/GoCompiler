@@ -15,6 +15,7 @@ struct if_stmt_struct* create_if_stmt(
 	struct stmt_struct* else_block
 );
 struct stmt_list_struct* create_stmt_list(struct stmt_struct* first_stmt);
+struct stmt_list_struct* add_to_stmt_list(struct stmt_list_struct* list, struct stmt_struct* stmt);
 struct func_decl_struct* create_func_decl(struct func_signature_struct* signature, struct stmt_struct* block);
 struct func_signature_struct* create_func_signature(char* name, struct param_list_struct* params, struct param_list_struct* return_values);
 struct param_list_struct* create_param_list(struct param_decl_struct* firstParam);
