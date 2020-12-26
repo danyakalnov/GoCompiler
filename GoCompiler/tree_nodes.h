@@ -22,6 +22,13 @@ struct expr_struct {
 
 	char* str_value;
 	int int_value;
+
+	/* For arithmetic expressions */
+	struct expr_struct* left;
+	struct expr_struct* right;
+
+	/* Store next expr in list */
+	struct expr_struct* next;
 };
 
 enum stmt_type {
