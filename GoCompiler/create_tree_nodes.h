@@ -36,3 +36,4 @@ struct decl_stmt_struct* create_decl_stmt(struct id_list* ids, struct expr_list*
 struct array_element_list_struct* create_array_element_list(struct array_keyed_element* firstElement);
 struct array_element_list_struct* add_to_array_element_list(struct array_element_list_struct*, struct array_keyed_element* nextElement);
 struct array_lit_struct* create_array_lit_struct(struct array_type_struct* type, struct array_element_list_struct* elements);
+struct expr_struct* create_array_expr(struct array_lit_struct* array_lit);
