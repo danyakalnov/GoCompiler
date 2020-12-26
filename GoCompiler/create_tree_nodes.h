@@ -33,3 +33,6 @@ struct id_list* add_to_id_list(struct id_list* list, struct id_struct* id);
 struct expr_list_struct* create_expr_list(struct expr_struct* firstExpr);
 struct expr_list_struct* add_to_expr_list(struct expr_list_struct* list, struct expr_struct* expr);
 struct decl_stmt_struct* create_decl_stmt(struct id_list* ids, struct expr_list* values, char* type);
+struct array_element_list_struct* create_array_element_list(struct array_keyed_element* firstElement);
+struct array_element_list_struct* add_to_array_element_list(struct array_element_list_struct*, struct array_keyed_element* nextElement);
+struct array_lit_struct* create_array_lit_struct(struct array_type_struct* type, struct array_element_list_struct* elements);
