@@ -121,4 +121,7 @@ struct top_level_decl_struct* create_func_decl(struct func_signature_struct* sig
     func_decl->block = block;
 
     struct top_level_decl_struct* result = (struct top_level_decl_struct*)malloc(sizeof(struct top_level_decl_struct));
+    result->func_decl = func_decl;
+
+    return result;
 }
