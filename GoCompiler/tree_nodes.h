@@ -74,18 +74,20 @@ struct stmt_list_struct {
 };
 
 struct if_stmt_struct {
-	struct stmt_struct* pre_condition_stmt;
-	struct expr_struct* condition;
-	struct stmt_struct* if_block;
-
-	struct if_stmt_list_struct* else_if_stmts;
-
+	struct if_stmt_part_struct* if_stmt_part;
+	struct else_if_stmt_list_struct* else_if_stmts;
 	struct stmt_struct* else_block;
 };
 
-struct if_stmt_list_struct {
-	struct if_stmt_struct* first;
-	struct if_stmt_struct* last;
+struct if_stmt_part_struct {
+	struct stmt_struct* pre_condition_stmt;
+	struct expr_struct* condition;
+	struct stmt_struct* if_block;
+};
+
+struct else_if_stmt_list_struct {
+	struct if_stmt_part_struct* first;
+	struct if_stmt_part_struct* last;
 };
 
 struct assignment_stmt_struct {
