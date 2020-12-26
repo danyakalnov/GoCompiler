@@ -20,6 +20,8 @@ struct program_struct * root;
     int Int_val;
     char* Id;
     char* String;
+
+    struct basic_lit_struct basic_lit_value;
 }
 
 %token LESS
@@ -58,6 +60,8 @@ struct program_struct * root;
 %token <Id> ID
 %token <Int_val> INT 
 %token <String> STRING
+
+%type<> basic_lit
 
 %start program
 
@@ -112,7 +116,7 @@ basic_lit: INT { $$ = create_int_expr($1); }
 | FALSE_KEYWORD
 ;
 
-operand: identifier
+operand: ID
 | '(' expr ')'
 | array_lit
 | basic_lit
@@ -128,7 +132,7 @@ unary_expr: primary_expr
 ;
 
 expr: unary_expr
-| expression binary_op expression
+| expr binary_op expr
 ;
 
 binary_op: '+'
@@ -185,7 +189,7 @@ var_spec_list: /* empty */
 | var_spec_list_not_empty
 
 var_decl: VAR_KEYWORD var_spec_terminated
-| VAR KEYWORD var_spec_list ';'
+| VAR_KEYWORD var_spec_list ';'
 ;
 
 declaration: const_decl 
@@ -203,7 +207,7 @@ assign_op: '='
 | DIVISION_ASSIGN
 ;
 
-assignment: identifier_list assing_op expr_list
+assignment: identifier_list assign_op expr_list
 ;
 
 short_var_decl: identifier_list SHORT_EQUALS expr_list
