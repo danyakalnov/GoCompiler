@@ -177,21 +177,19 @@ const_decl: CONST_KEYWORD const_spec_terminated
 | CONST_KEYWORD '(' const_spec_list ')'
 ;
 
-var_spec: identifier_list type 
-| identifier_list type '=' expr_list
-| identifier_list '=' expr_list
+var_spec: identifier_list type ';'
+| identifier_list type '=' expr_list ';'
+| identifier_list '=' expr_list ';'
 ;
 
-var_spec_terminated: var_spec ';'
-
-var_spec_list_not_empty: var_spec_terminated
-| var_spec_list_not_empty var_spec_terminated
+var_spec_list_not_empty: var_spec
+| var_spec_list_not_empty var_spec
 ;
 
 var_spec_list: /* empty */
 | var_spec_list_not_empty
 
-var_decl: VAR_KEYWORD var_spec_terminated
+var_decl: VAR_KEYWORD var_spec
 | VAR_KEYWORD var_spec_list ';'
 ;
 
