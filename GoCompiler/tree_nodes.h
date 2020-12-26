@@ -192,5 +192,5 @@ struct array_lit_struct {
 struct program_struct {
 	char* package_name;
 	struct import_decl_list_struct* imports;
-	struct top_level_decl_list_struct declarations;
+	struct top_level_decl_list_struct* declarations;
 };
