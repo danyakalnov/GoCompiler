@@ -39,3 +39,4 @@ struct array_lit_struct* create_array_lit(struct array_type_struct* type, struct
 struct top_level_decl_struct* create_top_level_decl(struct decl_stmt_struct* decl_stmt, struct func_decl_struct* func_decl);
 struct top_level_decl_list_struct* create_top_level_decl_list(struct top_level_decl_list first_top_level_decl);
 struct top_level_decl_list_struct* add_to_top_level_decl_list(struct top_level_decl_list_struct* list, struct top_level_decl_list_struct* next_top_level_decl);
+struct expr_struct* create_array_expr(struct array_lit_struct* array_lit);
