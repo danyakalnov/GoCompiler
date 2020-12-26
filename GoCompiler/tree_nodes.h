@@ -116,6 +116,26 @@ struct package_decl_struct {
 	char* package_name;
 };
 
+struct import_spec_struct {
+	char* string;
+	char* id;
+};
+
+struct import_spec_list_struct {
+	struct import_spec_struct* first;
+	struct import_spec_struct* last;
+};
+
+struct import_decl_struct {
+	struct import_spec_struct* import_spec;
+	struct import_spec_list_struct* import_spec_list;
+};
+
+struct import_decl_list_struct {
+	struct import_decl_struct* first;
+	struct import_decl_struct* last;
+};
+
 struct param_decl_struct {
 	struct id_list* ids;
 	char* type;
