@@ -62,15 +62,19 @@ struct stmt_struct {
 	enum stmt_type type;
 
 	struct stmt_block_struct* block_field;
-	struct expr_struct* expr_field;
 	struct if_stmt_struct* if_stmt_field;
 	struct for_stmt_struct* for_stmt_field;
-	struct assignment_stmt_struct* assignment_field;
 	struct return_stmt_struct* return_stmt_field;
 	struct decl_stmt_struct* decl_stmt_field;
-	struct decl_stmt_struct* short_var_decl_field; // TODO: указывать 0 в поле type структуры decl_stmt_struct при заполнении
+	struct simple_stmt_struct* simple_stmt_field;
 
 	struct stmt_struct* next;
+};
+
+struct simple_stmt_struct {
+	struct expr_struct* expr_field;
+	struct assignment_stmt_struct* assignment_field;
+	struct decl_stmt_struct* short_var_decl_field; // TODO: указывать 0 в поле type структуры decl_stmt_struct при заполнении
 };
 
 struct expr_list_struct {
