@@ -141,6 +141,11 @@ struct top_level_decl_struct {
 	struct func_decl_struct* func_decl;
 };
 
+struct top_level_decl_list_struct {
+	struct top_level_decl_struct* first;
+	struct top_level_decl_struct* last;
+};
+
 struct param_decl_struct {
 	struct id_list* ids;
 	char* type;
