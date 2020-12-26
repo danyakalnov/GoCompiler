@@ -89,6 +89,7 @@ struct else_if_stmt_list_struct* create_else_if_stmt_list(struct if_stmt_part_st
 
     return result;
 }
+
 struct else_if_stmt_list_struct* add_to_else_if_stmt_list(struct else_if_stmt_list_struct* list, struct if_stmt_part_struct* el) {
     list->last->next = el;
     list->last = el;
@@ -96,3 +97,20 @@ struct else_if_stmt_list_struct* add_to_else_if_stmt_list(struct else_if_stmt_li
 
     return list;
 }
+
+struct stmt_list_struct* create_stmt_list(struct stmt_struct* first_stmt) {
+    struct stmt_list_struct* result = (struct stmt_list_struct*)malloc(sizeof(struct stmt_list_struct));
+    result->first = first_stmt;
+    result->last = first_stmt;
+    first_stmt->next = 0;
+    return result;
+}
+
+struct stmt_list_struct* add_to_stmt_list(struct stmt_list_struct* list, struct stmt_struct* stmt) {
+    list->last->next = stmt;
+    list->last = stmt;
+    stmt->next = 0;
+
+    return list;
+}
+
