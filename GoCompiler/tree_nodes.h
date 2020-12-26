@@ -69,6 +69,8 @@ struct stmt_struct {
 	struct return_stmt_struct* return_stmt_field;
 	struct decl_stmt_struct* decl_stmt_field;
 	struct decl_stmt_struct* short_var_decl_field; // TODO: указывать 0 в поле type структуры decl_stmt_struct при заполнении
+
+	struct stmt_struct* next;
 };
 
 struct expr_list_struct {
@@ -91,6 +93,8 @@ struct if_stmt_part_struct {
 	struct stmt_struct* pre_condition_stmt;
 	struct expr_struct* condition;
 	struct stmt_struct* if_block;
+
+	struct if_stmt_part_struct* next;
 };
 
 struct else_if_stmt_list_struct {
@@ -109,6 +113,7 @@ struct return_stmt_struct {
 
 struct id_struct {
 	char* name;
+	struct id_struct* next;
 };
 
 struct id_list {
@@ -149,6 +154,8 @@ struct import_decl_list_struct {
 struct top_level_decl_struct {
 	struct decl_stmt_struct* decl;
 	struct func_decl_struct* func_decl;
+
+	struct top_level_decl_struct* next;
 };
 
 struct top_level_decl_list_struct {
@@ -159,6 +166,8 @@ struct top_level_decl_list_struct {
 struct param_decl_struct {
 	struct id_list* ids;
 	char* type;
+
+	struct param_decl_struct* next;
 };
 
 struct param_list_struct {
@@ -191,6 +200,8 @@ struct array_keyed_element {
 	struct expr_struct* expr;
 	int key;
 	struct array_element_list_struct* array_value;
+
+	struct array_keyed_element* next;
 };
 
 struct array_lit_struct {
