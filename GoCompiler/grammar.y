@@ -123,18 +123,22 @@ basic_lit: INT
 | FALSE_KEYWORD
 ;
 
-operand: ID
+array_indexing: | ID '[' expr ']'
+| /* TODO: What can be indexed? */
+;
+
+function_call: ID arguments
+| function_call arguments
+| array_indexing arguments
+;
+
+unary_expr: ID
 | '(' expr ')'
 | array_lit
 | basic_lit
-;
-
-primary_expr: operand 
 | type '(' expr ')'
-| primary_expr '[' expr ']'
-| primary_expr arguments
-
-unary_expr: primary_expr 
+| array_indexing
+| function_call
 | '-' unary_expr %prec UMINUS
 ;
 
