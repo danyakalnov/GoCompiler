@@ -49,3 +49,5 @@ struct import_decl_struct* create_import_decl_for_spec(struct import_spec_struct
 struct import_decl_struct* create_import_decl_for_spec_list(struct import_spec_list_struct* list);
 struct import_decl_list_struct* create_import_decl_list(struct import_decl_struct* first_import_decl);
 struct import_decl_list_struct* add_to_import_decl_list(struct import_decl_list_struct* list, struct import_decl_struct* next_element);
+struct program_struct* create_program(struct package_decl_struct* package, struct top_level_decl_list* decls);
+struct program_struct* create_program_with_imports(struct package_decl_struct* package, struct import_decl_list_struct* imports, struct top_level_decl_list* decls);
