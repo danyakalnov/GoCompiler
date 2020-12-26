@@ -61,7 +61,7 @@ struct for_stmt_struct {
 struct stmt_struct {
 	enum stmt_type type;
 
-	struct stmt_list_struct* block;
+	struct stmt_block_struct* block_field;
 	struct expr_struct* expr_field;
 	struct if_stmt_struct* if_stmt_field;
 	struct for_stmt_struct* for_stmt_field;
@@ -215,4 +215,13 @@ struct program_struct {
 	char* package_name;
 	struct import_decl_list_struct* imports;
 	struct top_level_decl_list_struct* declarations;
+};
+
+struct basic_lit_struct {
+	char* string_value;
+	int int_value;
+};
+
+struct stmt_block_struct {
+	struct stmt_list_struct* list;
 };
