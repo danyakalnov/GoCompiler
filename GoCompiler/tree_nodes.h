@@ -150,5 +150,6 @@ struct array_value_struct {
 
 struct array_lit_struct {
 	struct array_type_struct* type;
-
+	struct array_value_struct* array_value;
 };
+
