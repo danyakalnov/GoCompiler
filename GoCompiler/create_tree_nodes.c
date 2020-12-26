@@ -23,3 +23,30 @@ struct expr_struct* create_operation_expr(enum expr_type type, struct expr_struc
 
     return result;
 }
+
+struct for_stmt_struct* create_empty_for_stmt(struct stmt_struct* block) {
+    struct for_stmt_struct* result = (struct for_stmt_struct*)malloc(sizeof(struct for_stmt_struct));
+    result->block = block;
+
+    return result;
+}
+
+struct for_stmt_struct* create_for_with_condition(struct expr_struct* condition, struct stmt_struct* block) {
+    struct for_stmt_struct* result = (struct for_stmt_struct*)malloc(sizeof(struct for_stmt_struct));
+    result->for_condition = condition;
+    result->block = block;
+
+    return result;
+}
+
+struct for_stmt_struct* create_for_clause_stmt(
+    struct stmt_struct* init_stmt, struct stmt_struct* post_stmt, struct expr_struct* condition, struct stmt_struct* block
+) {
+    struct for_stmt_struct* result = (struct for_stmt_struct*)malloc(sizeof(struct for_stmt_struct));
+    result->for_clause_init_stmt = init_stmt;
+    result->for_clause_post_stmt = post_stmt;
+    result->for_condition = condition;
+    result->block = block;
+
+    return result;
+}
