@@ -241,21 +241,18 @@ stmt_list: /* empty */
 block: '{' stmt_list '}'
 ;
 
-for_clause: simple_stmt ';' expr ';' simple_stmt
+empty_for: FOR_KEYWORD block { $$ = create_empty_for_stmt($2); }
 ;
 
-empty_for: FOR_KEYWORD block
+for_with_condition: FOR_KEYWORD expr block { $$ = create_for_with_condition($2, $3); }
 ;
 
-for_with_condition: FOR_KEYWORD expr block
+for_with_clause: FOR_KEYWORD simple_stmt ';' expr ';' simple_stmt block { $$ = create_for_clause_stmt($2, $6, $4, $7); }
 ;
 
-for_with_clause: FOR_KEYWORD for_clause block
-;
-
-for_stmt: empty_for
-    | for_with_condition
-    | for_with_clause
+for_stmt: empty_for { $$ = $1; }
+    | for_with_condition { $$ = $1; }
+    | for_with_clause { $$ = $1; }
 ;
 
 if_stmt_with_stmt: IF_KEYWORD simple_stmt ';' expr block
