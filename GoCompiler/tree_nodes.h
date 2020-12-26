@@ -149,15 +149,11 @@ struct array_element_list_struct {
 struct array_keyed_element {
 	struct expr_struct* expr;
 	int key;
-	struct array_value_struct* array_value;
-};
-
-struct array_value_struct {
-	struct array_element_list_struct* el_list;
+	struct array_element_list_struct* array_value;
 };
 
 struct array_lit_struct {
 	struct array_type_struct* type;
-	struct array_value_struct* array_value;
+	struct array_element_list_struct* array_value;
 };
 
