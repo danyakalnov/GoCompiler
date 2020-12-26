@@ -24,14 +24,14 @@ struct expr_struct* create_operation_expr(enum expr_type type, struct expr_struc
     return result;
 }
 
-struct for_stmt_struct* create_empty_for_stmt(struct stmt_struct* block) {
+struct stmt_struct* create_empty_for_stmt(struct stmt_struct* block) {
     struct for_stmt_struct* result = (struct for_stmt_struct*)malloc(sizeof(struct for_stmt_struct));
     result->block = block;
 
     return result;
 }
 
-struct for_stmt_struct* create_for_with_condition(struct expr_struct* condition, struct stmt_struct* block) {
+struct stmt_struct* create_for_with_condition(struct expr_struct* condition, struct stmt_struct* block) {
     struct for_stmt_struct* result = (struct for_stmt_struct*)malloc(sizeof(struct for_stmt_struct));
     result->for_condition = condition;
     result->block = block;
@@ -39,7 +39,7 @@ struct for_stmt_struct* create_for_with_condition(struct expr_struct* condition,
     return result;
 }
 
-struct for_stmt_struct* create_for_clause_stmt(
+struct stmt_struct* create_for_clause_stmt(
     struct stmt_struct* init_stmt, struct stmt_struct* post_stmt, struct expr_struct* condition, struct stmt_struct* block
 ) {
     struct for_stmt_struct* result = (struct for_stmt_struct*)malloc(sizeof(struct for_stmt_struct));
@@ -49,4 +49,50 @@ struct for_stmt_struct* create_for_clause_stmt(
     result->block = block;
 
     return result;
+}
+
+struct stmt_struct* create_if_stmt(
+    struct if_stmt_part_struct* if_stmt_part,
+    struct else_if_stmt_list_struct* else_if_stmts,
+    struct stmt_struct* else_block
+) {
+    struct if_stmt_struct* if_stmt = (struct if_stmt_struct*)malloc(sizeof(struct if_stmt_struct));
+
+    if_stmt->if_stmt_part = if_stmt_part;
+    if_stmt->else_if_stmts = else_if_stmts;
+    if_stmt->else_block = else_block;
+
+    struct stmt_struct* result = (struct stmt_struct*)malloc(sizeof(struct stmt_struct));
+    result->type = if_stmt;
+    result->if_stmt_field = if_stmt;
+
+    return result;
+}
+struct if_stmt_part_struct* create_if_stmt_part(
+    struct stmt_struct* pre_condition_stmt,
+    struct expr_struct* condition,
+    struct stmt_struct* block
+) {
+    struct if_stmt_part_struct* result = (struct if_stmt_part_struct*)malloc(sizeof(struct if_stmt_part_struct));
+    result->condition = condition;
+    result->if_block = block;
+    result->pre_condition_stmt = pre_condition_stmt;
+
+    return result;
+}
+
+struct else_if_stmt_list_struct* create_else_if_stmt_list(struct if_stmt_part_struct* el) {
+    struct else_if_stmt_list_struct* result = (struct else_if_stmt_list_struct*)malloc(sizeof(struct else_if_stmt_list_struct));
+    result->first = el;
+    result->last = el;
+    el->next = 0;
+
+    return result;
+}
+struct else_if_stmt_list_struct* add_to_else_if_stmt_list(struct else_if_stmt_list_struct* list, struct if_stmt_part_struct* el) {
+    list->last->next = el;
+    list->last = el;
+    el->next = 0;
+
+    return list;
 }
