@@ -113,7 +113,7 @@ basic_lit: INT
 
 operand: identifier
 | '(' expr ')'
-| array_literal
+| array_lit
 | basic_lit
 ;
 
