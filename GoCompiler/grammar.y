@@ -239,10 +239,8 @@ stmt: simple_stmt
 | block
 ;
 
-stmt_terminated: stmt ';'
-
-stmt_list_not_empty: stmt_terminated 
-| stmt_list_not_empty stmt_terminated
+stmt_list_not_empty: stmt
+| stmt_list_not_empty stmt
 ;
 
 stmt_list: /* empty */
