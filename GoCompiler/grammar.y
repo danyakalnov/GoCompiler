@@ -123,7 +123,7 @@ basic_lit: INT
 | FALSE_KEYWORD
 ;
 
-array_indexing: | ID '[' expr ']'
+array_indexing: ID '[' expr ']'
 | array_indexing '[' expr ']'
 | function_call '[' expr ']'
 ;
@@ -144,16 +144,16 @@ unary_expr: ID
 ;
 
 expr: unary_expr
-| expr '-' expr { $$ = create_operation_expr(minus, $1, $3); }
-| expr '+' expr { $$ = create_operation_expr(plus, $1, $3 ); }
-| expr '*' expr { $$ = create_operation_expr(mul, $1, $3); }
-| expr '/' expr { $$ = create_operation_expr(divide, $1, $3); }
-| expr '<' expr { $$ = create_operation_expr(less, $1, $3); }
-| expr '>' expr { $$ = create_operation_expr(greater, $1, $3); }
-| expr GREATER_OR_EQUAL expr { $$ = create_operation_expr(greater_or_equal, $1, $3); }
-| expr LESS_OR_EQUAL expr { $$ = create_operation_expr(less_or_equal, $1, $3); }
-| expr EQUAL expr { $$ = create_operation_expr(equal, $1, $3); }
-| expr NOT_EQUAL expr { $$ = create_operation_expr(not_equal, $1, $3); }
+| expr '-' expr
+| expr '+' expr
+| expr '*' expr
+| expr '/' expr
+| expr '<' expr
+| expr '>' expr
+| expr GREATER_OR_EQUAL expr
+| expr LESS_OR_EQUAL expr
+| expr EQUAL expr
+| expr NOT_EQUAL expr
 ;
 
 expr_list: /* empty */
@@ -164,22 +164,19 @@ expr_list_not_empty: expr
 | expr_list_not_empty ',' expr
 ;
 
-const_spec: identifier_list '=' expr_list
-| identifier_list type '=' expr_list
+const_spec: identifier_list '=' expr_list ';'
+| identifier_list type '=' expr_list ';'
 ;
 
-const_spec_terminated: const_spec ';'
-;
-
-const_spec_list_not_empty: const_spec_terminated
-| const_spec_list_not_empty const_spec_terminated
+const_spec_list_not_empty: const_spec
+| const_spec_list_not_empty const_spec
 ;
 
 const_spec_list: /* empty */
 | const_spec_list_not_empty
 ;
 
-const_decl: CONST_KEYWORD const_spec_terminated
+const_decl: CONST_KEYWORD const_spec
 | CONST_KEYWORD '(' const_spec_list ')'
 ;
 
@@ -220,18 +217,21 @@ assignment: identifier_list assign_op expr_list
 short_var_decl: identifier_list SHORT_EQUALS expr_list
 ;
 
-simple_stmt: /* empty_stmt */
-| expr
+simple_stmt_not_empty: expr
 | inc_dec_stmt
 | assignment
 | short_var_decl
+;
+
+simple_stmt: /* empty */
+| simple_stmt_not_empty
 ;
 
 return_stmt: RETURN_KEYWORD
 | RETURN_KEYWORD expr_list ';'
 ;
 
-stmt: simple_stmt
+stmt: simple_stmt_not_empty
 | declaration
 | return_stmt
 | if_stmt
@@ -263,9 +263,9 @@ for_stmt_post_stmt: /* empty */
 | assignment
 ;
 
-for_stmt: FOR_KEYWORD block { $$ = create_empty_for_stmt($2); }
-    | FOR_KEYWORD expr block { $$ = create_for_with_condition($2, $3); }
-    | FOR_KEYWORD for_stmt_init_stmt ';' expr ';' for_stmt_post_stmt block { $$ = create_for_clause_stmt($2, $6, $4, $7); }
+for_stmt: FOR_KEYWORD block 
+    | FOR_KEYWORD expr block
+    | FOR_KEYWORD for_stmt_init_stmt ';' expr ';' for_stmt_post_stmt block 
 ;
 
 if_stmt_start: IF_KEYWORD simple_stmt ';' expr block
