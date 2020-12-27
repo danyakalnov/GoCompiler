@@ -104,14 +104,11 @@ import_spec: '.' STRING ';'
 package_clause: PACKAGE_KEYWORD ID ';'
 ;
 
-array_type: '[' expr ']' type
-;
-
 type: INT_KEYWORD
 | BOOL_KEYWORD
 | BYTE_KEYWORD
 | STRING_KEYWORD
-| array_type
+| '[' expr ']' type
 | func_type
 ;
 
@@ -121,7 +118,7 @@ identifier_list: ID
 
 expr: ID
 | '(' expr ')'
-| array_type '{' array_element_list '}'
+| '[' expr ']' type '{' array_element_list '}'
 | INT
 | STRING
 | TRUE_KEYWORD 
