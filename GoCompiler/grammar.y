@@ -25,6 +25,7 @@ struct program_struct * root;
     struct expr_struct* expr_value;
     struct for_stmt_struct* for_stmt_value;
     struct stmt_block_struct* block_value;
+    struct expr_list_struct expr_list_value;
 }
 
 %token LESS
@@ -64,17 +65,18 @@ struct program_struct * root;
 %token <Int_val> INT 
 %token <String> STRING
 
-%type<basic_lit_value> basic_lit
 %type<expr_value> expr
 %type<for_stmt_value> for_stmt
 %type<block_value> block
+%type<expr_list_value> expr_list
 
 %start program
 
 %left '<' '>' EQUAL NOT_EQUAL LESS_OR_EQUAL GREATER_OR_EQUAL
 %left '+' '-'
 %left '*' '/'
-%left UMINUS
+%right UMINUS
+%left '[' ']'
 %nonassoc '(' ')'
 
 %%
@@ -117,33 +119,15 @@ identifier_list: ID
 | identifier_list ',' ID
 ;
 
-basic_lit: INT
+expr: ID
+| '(' expr ')'
+| array_type '{' array_element_list '}'
+| INT
 | STRING
 | TRUE_KEYWORD 
 | FALSE_KEYWORD
-;
-
-array_indexing: ID '[' expr ']'
-| array_indexing '[' expr ']'
-| function_call '[' expr ']'
-;
-
-function_call: ID arguments
-| function_call arguments
-| array_indexing arguments
-;
-
-unary_expr: ID
-| '(' expr ')'
-| array_lit
-| basic_lit
 | type '(' expr ')'
-| array_indexing
-| function_call
-| '-' unary_expr %prec UMINUS
-;
-
-expr: unary_expr
+| '-' expr %prec UMINUS
 | expr '-' expr
 | expr '+' expr
 | expr '*' expr
@@ -154,6 +138,8 @@ expr: unary_expr
 | expr LESS_OR_EQUAL expr
 | expr EQUAL expr
 | expr NOT_EQUAL expr
+| expr '[' expr ']'
+| ID '(' expr_list ')'
 ;
 
 expr_list: /* empty */
@@ -227,8 +213,7 @@ simple_stmt: /* empty */
 | simple_stmt_not_empty
 ;
 
-return_stmt: RETURN_KEYWORD ';'
-| RETURN_KEYWORD expr_list ';'
+return_stmt: RETURN_KEYWORD expr_list ';'
 ;
 
 stmt: simple_stmt_not_empty
@@ -251,14 +236,14 @@ block: '{' stmt_list '}'
 ;
 
 for_stmt_init_stmt: /* empty */
-| function_call
+| expr
 | inc_dec_stmt
 | assignment
 | short_var_decl
 ;
 
 for_stmt_post_stmt: /* empty */
-| function_call
+| expr
 | inc_dec_stmt
 | assignment
 ;
@@ -300,12 +285,12 @@ params: '(' param_list ')'
     | '(' param_list ',' ')' 
 ;
 
-func_result: params
-    | type
+func_signature: params func_return
 ;
 
-func_signature: params 
-    | params func_result
+func_return: /* empty */
+| params
+| type
 ;
 
 func_type: FUNC_KEYWORD func_signature;
@@ -326,29 +311,19 @@ top_level_decl_list: /* empty */
 | top_level_decl_list_not_empty
 ;
 
-arguments: '(' expr_list ')'
+array_element_list_not_empty: array_keyed_element
+| array_element_list_not_empty ',' array_keyed_element
 ;
 
-array_lit: array_type array_value
+array_element_list: /* empty */
+| array_element_list_not_empty
 ;
 
-array_value: '{' /* empty */ '}'
-| '{' array_element_list '}'
-;
-
-array_element_list: array_keyed_element
-| array_element_list ',' array_keyed_element
-;
-
-array_keyed_element: element
-| array_key ':' element
+array_keyed_element: expr
+| array_key ':' expr
 ;
 
 array_key: INT;
-
-element: expr 
-| array_value
-;
 
 %%
 
