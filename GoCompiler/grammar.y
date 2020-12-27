@@ -124,7 +124,8 @@ basic_lit: INT
 ;
 
 array_indexing: | ID '[' expr ']'
-| /* TODO: What can be indexed? */
+| array_indexing '[' expr ']'
+| function_call '[' expr ']'
 ;
 
 function_call: ID arguments
