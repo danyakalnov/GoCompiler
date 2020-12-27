@@ -196,7 +196,7 @@ var_spec_list: /* empty */
 | var_spec_list_not_empty
 
 var_decl: VAR_KEYWORD var_spec
-| VAR_KEYWORD var_spec_list ';'
+| VAR_KEYWORD '(' var_spec_list ')'
 ;
 
 declaration: const_decl 
