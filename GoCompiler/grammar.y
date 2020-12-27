@@ -211,10 +211,10 @@ assign_op: '='
 | DIVISION_ASSIGN
 ;
 
-assignment: identifier_list assign_op expr_list
+assignment: identifier_list assign_op expr_list_not_empty
 ;
 
-short_var_decl: identifier_list SHORT_EQUALS expr_list
+short_var_decl: identifier_list SHORT_EQUALS expr_list_not_empty
 ;
 
 simple_stmt_not_empty: expr
@@ -227,7 +227,7 @@ simple_stmt: /* empty */
 | simple_stmt_not_empty
 ;
 
-return_stmt: RETURN_KEYWORD
+return_stmt: RETURN_KEYWORD ';'
 | RETURN_KEYWORD expr_list ';'
 ;
 
@@ -296,7 +296,7 @@ param_list: param_decl
 ;
 
 params: '(' param_list ')'
-    | '(' /* Empty */ ')'
+    | '(' ')'
     | '(' param_list ',' ')' 
 ;
 
