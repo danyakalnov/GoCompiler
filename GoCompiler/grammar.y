@@ -250,9 +250,22 @@ stmt_list: /* empty */
 block: '{' stmt_list '}'
 ;
 
+for_stmt_init_stmt: /* empty */
+| function_call
+| inc_dec_stmt
+| assignment
+| short_var_decl
+;
+
+for_stmt_post_stmt: /* empty */
+| function_call
+| inc_dec_stmt
+| assignment
+;
+
 for_stmt: FOR_KEYWORD block { $$ = create_empty_for_stmt($2); }
     | FOR_KEYWORD expr block { $$ = create_for_with_condition($2, $3); }
-    | FOR_KEYWORD simple_stmt ';' expr ';' simple_stmt block { $$ = create_for_clause_stmt($2, $6, $4, $7); }
+    | FOR_KEYWORD for_stmt_init_stmt ';' expr ';' for_stmt_post_stmt block { $$ = create_for_clause_stmt($2, $6, $4, $7); }
 ;
 
 if_stmt_start: IF_KEYWORD simple_stmt ';' expr block
