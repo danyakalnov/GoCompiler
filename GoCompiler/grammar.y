@@ -75,7 +75,7 @@ struct program_struct * root;
 %left '+' '-'
 %left '*' '/'
 %left UMINUS
-%nonassoc ')'
+%nonassoc '(' ')'
 
 %%
 
@@ -326,8 +326,8 @@ top_level_decl_list: /* empty */
 | top_level_decl_list_not_empty
 ;
 
-arguments: '(' /* empty */ ')'
-| '(' expr_list ')'
+arguments: '(' expr_list ')'
+;
 
 array_lit: array_type array_value
 ;
