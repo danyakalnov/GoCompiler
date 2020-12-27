@@ -255,18 +255,23 @@ for_stmt: FOR_KEYWORD block { $$ = create_empty_for_stmt($2); }
     | FOR_KEYWORD simple_stmt ';' expr ';' simple_stmt block { $$ = create_for_clause_stmt($2, $6, $4, $7); }
 ;
 
-if_stmt_with_stmt: IF_KEYWORD simple_stmt ';' expr block
-| if_stmt_with_stmt ELSE_KEYWORD if_stmt_with_stmt
-| if_stmt_with_stmt ELSE_KEYWORD block
+if_stmt_start: IF_KEYWORD simple_stmt ';' expr block
+| IF_KEYWORD expr block
 ;
 
-simple_if_stmt: IF_KEYWORD expr block
-| simple_if_stmt ELSE_KEYWORD simple_if_stmt
-| simple_if_stmt ELSE_KEYWORD block
+if_stmt: if_stmt_start
+| if_stmt_start else_if_stmt_list ELSE_KEYWORD block
 ;
 
-if_stmt: if_stmt_with_stmt
-| simple_if_stmt
+else_if_stmt: ELSE_KEYWORD if_stmt_start
+;
+
+else_if_stmt_list_not_empty: else_if_stmt
+| else_if_stmt_list_not_empty else_if_stmt
+;
+
+else_if_stmt_list: /* empty */
+| else_if_stmt_list_not_empty
 ;
 
 param_decl: identifier_list type
