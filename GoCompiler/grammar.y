@@ -228,7 +228,7 @@ simple_stmt: /* empty_stmt */
 ;
 
 return_stmt: RETURN_KEYWORD
-| RETURN_KEYWORD expr_list
+| RETURN_KEYWORD expr_list ';'
 ;
 
 stmt: simple_stmt
