@@ -31,6 +31,9 @@ struct expr_struct {
 
 	/* Store next expr in list */
 	struct expr_struct* next;
+
+	/* Array fields */
+	struct array_lit_struct* arr;
 };
 
 enum stmt_type {
