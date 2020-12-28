@@ -322,3 +322,19 @@ struct import_spec_struct* create_import_spec_with_alias(char* alias, char* path
     return result;
 }
 
+struct import_spec_list_struct* create_import_spec_list(struct import_spec_struct* first_import_spec) {
+    struct import_spec_list_struct* list = (struct import_spec_list_struct*)malloc(sizeof(struct import_spec_list_struct));
+    list->first = first_import_spec;
+    list->last = first_import_spec;
+    first_import_spec->next = 0;
+
+    return list;
+}
+
+struct import_spec_list_struct* add_to_import_spec_list(struct import_spec_list_struct* list, struct import_spec_struct* next_element) {
+    list->last->next = next_element;
+    list->last = next_element;
+    next_element->next = 0;
+
+    return list;
+}
