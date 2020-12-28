@@ -307,3 +307,10 @@ struct expr_struct* create_array_expr(struct array_lit_struct* array_lit) {
     return result;
 }
 
+struct package_decl_struct* create_package_decl(char* package_name) {
+    struct package_decl_struct* result = (struct package_decl_struct*)malloc(sizeof(struct package_decl_struct));
+    result->package_name = package_name;
+
+    return result;
+}
+
