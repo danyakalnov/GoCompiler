@@ -24,6 +24,7 @@ struct stmt_list_struct* create_stmt_list(struct stmt_struct* first_stmt);
 struct stmt_list_struct* add_to_stmt_list(struct stmt_list_struct* list, struct stmt_struct* stmt);
 struct top_level_decl_struct* create_func_decl(struct func_signature_struct* signature, struct stmt_struct* block);
 struct func_signature_struct* create_func_signature(char* name, struct param_list_struct* params, struct param_list_struct* return_values);
+struct param_decl_struct* create_param(char* param_type, struct id_list* ids);
 struct param_list_struct* create_param_list(struct param_decl_struct* first_param);
 struct param_list_struct* add_to_param_list(struct param_list_struct* list, struct param_decl_struct* param);
 struct return_stmt_struct* create_return_stmt(struct expr_struct* return_value);
