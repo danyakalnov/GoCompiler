@@ -109,7 +109,12 @@ type: INT_KEYWORD
 | BYTE_KEYWORD
 | STRING_KEYWORD
 | '[' expr ']' type
-| func_type
+| FUNC_KEYWORD '(' param_list ')' func_return
+| FUNC_KEYWORD '(' ')' func_return
+| FUNC_KEYWORD '(' param_list ',' ')' func_return
+| FUNC_KEYWORD '(' param_list ')'
+| FUNC_KEYWORD '(' ')'
+| FUNC_KEYWORD '(' param_list ',' ')'
 ;
 
 identifier_list: ID 
@@ -282,18 +287,14 @@ params: '(' param_list ')'
     | '(' param_list ',' ')' 
 ;
 
-func_signature: params func_return
-;
-
-func_return: /* empty */
-| params
+func_return: params
 | type
 ;
 
-func_type: FUNC_KEYWORD func_signature;
-
-func_decl: FUNC_KEYWORD ID func_signature
-    | FUNC_KEYWORD ID func_signature block
+func_decl: FUNC_KEYWORD ID params func_return
+| FUNC_KEYWORD ID params func_return block
+| FUNC_KEYWORD ID params 
+| FUNC_KEYWORD ID params block
 ;
 
 top_level_decl: declaration
