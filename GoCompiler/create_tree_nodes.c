@@ -15,6 +15,13 @@ struct expr_struct* create_string_expr(char* value) {
     return result;
 }
 
+struct expr_struct* create_boolean_expr(int value) {
+    struct expr_struct* result = (struct expr_struct*)malloc(sizeof(struct expr_struct));
+    result->type = boolean;
+    result->int_value = value;
+    return result;
+}
+
 struct expr_struct* create_operation_expr(enum expr_type type, struct expr_struct* left, struct expr_struct* right) {
     struct expr_struct* result = (struct expr_struct*)malloc(sizeof(struct expr_struct));
     result->type = type;
