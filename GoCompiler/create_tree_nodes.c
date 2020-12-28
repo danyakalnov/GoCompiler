@@ -63,7 +63,7 @@ struct stmt_struct* create_if_stmt(
     if_stmt->else_block = else_block;
 
     struct stmt_struct* result = (struct stmt_struct*)malloc(sizeof(struct stmt_struct));
-    result->type = if_stmt;
+    result->type = if_stmt_t;
     result->if_stmt_field = if_stmt;
 
     return result;
