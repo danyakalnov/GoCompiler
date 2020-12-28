@@ -89,19 +89,19 @@ import_decl: IMPORT_KEYWORD import_spec { $$ = create_import_decl_for_spec($2); 
 | IMPORT_KEYWORD '(' import_spec_list ')' ';' { $$ = create_import_decl_for_spec_list($3); }
 ;
 
-import_decl_list: import_decl
-| import_decl_list import_decl
+import_decl_list: import_decl { $$ = create_import_decl_list($1); puts("Import declaration list from one declaration"); }
+| import_decl_list import_decl { $$ = add_to_import_decl_list($1, $2); puts("Add next declaration to list"); }
 ;
 
-import_spec_list: import_spec
-| import_spec_list import_spec
+import_spec_list: import_spec { $$ = create_import_spec_list($1); puts("Import spec list from one import spec"); }
+| import_spec_list import_spec { $$ = add_to_import_spec_list($1, $2); puts("Add next import spec to list"); }
 ;
 
-import_spec: '.' STRING ';'
-| ID STRING ';'
+import_spec: '.' STRING ';' { $$ = create_import_spec($2); }
+| ID STRING ';' { $$ = create_import_spec_with_alias($1, $2); }
 ;
 
-package_clause: PACKAGE_KEYWORD ID ';'
+package_clause: PACKAGE_KEYWORD ID ';' { $$ = create_package_decl($2); }
 ;
 
 type: INT_KEYWORD
