@@ -121,8 +121,8 @@ identifier_list: ID
 | identifier_list ',' ID
 ;
 
-expr: ID
-| '(' expr ')'
+expr: ID { $$ = create_id_expr($1); }
+| '(' expr ')' { $$ = $2; }
 | '[' expr ']' type '{' array_element_list '}' { $$ = create_array_lit($4, $2, $6); }
 | INT { $$ = create_int_expr($1); }
 | STRING { $$ = create_string_expr($1); }
