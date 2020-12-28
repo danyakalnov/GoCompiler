@@ -200,3 +200,21 @@ struct stmt_struct* create_return_stmt(struct expr_list_struct* return_value) {
 
     return stmt;
 }
+
+struct expr_list_struct* create_expr_list(struct expr_struct* first_expr) {
+    struct expr_list_struct* expr_list = (struct expr_list_struct*)malloc(sizeof(struct expr_list_struct));
+
+    expr_list->first = first_expr;
+    expr_list->last = first_expr;
+    first_expr->next = 0;
+
+    return expr_list;
+}
+
+struct expr_list_struct* add_to_expr_list(struct expr_list_struct* list, struct expr_struct* expr) {
+    list->last->next = expr;
+    list->last = expr;
+    expr->next = 0;
+
+    return list;
+}
