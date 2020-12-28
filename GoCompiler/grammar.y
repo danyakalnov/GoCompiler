@@ -144,12 +144,12 @@ expr: ID { $$ = create_id_expr($1); }
 | ID '(' expr_list ')'
 ;
 
-expr_list: /* empty */
-| expr_list_not_empty
+expr_list: /* empty */ { $$ = 0; puts("Empty expression list"); }
+| expr_list_not_empty { $$ = $1; }
 ;
 
-expr_list_not_empty: expr
-| expr_list_not_empty ',' expr
+expr_list_not_empty: expr { $$ = create_expr_list($1); puts("Expression list from one expression"); }
+| expr_list_not_empty ',' expr { $$ = add_to_expr_list($1, $3); puts("Add next expression to the list"); }
 ;
 
 const_spec: identifier_list '=' expr_list ';'
