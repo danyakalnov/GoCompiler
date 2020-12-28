@@ -32,15 +32,15 @@ struct expr_struct {
 };
 
 enum stmt_type {
-	expr_stmt,
-	for_loop,
-	if_stmt,
-	assignment,
-	short_var_decl,
-	var_decl,
-	const_decl,
-	block,
-	return_stmt
+	expr_stmt_t,
+	for_loop_t,
+	if_stmt_t,
+	assignment_t,
+	short_var_decl_t,
+	var_decl_t,
+	const_decl_t,
+	block_t,
+	return_stmt_t
 };
 
 enum for_type {
