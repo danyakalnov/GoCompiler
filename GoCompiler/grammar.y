@@ -81,12 +81,12 @@ struct program_struct * root;
 
 %%
 
-program: package_clause ';' top_level_decl_list
-| package_clause ';' import_decl_list top_level_decl_list
+program: package_clause ';' top_level_decl_list { $$ = create_program($1, $3); }
+| package_clause ';' import_decl_list top_level_decl_list { $$ = create_program_with_imports($1, $3, $4); }
 ;
 
-import_decl: IMPORT_KEYWORD import_spec
-| IMPORT_KEYWORD '(' import_spec_list ')' ';'
+import_decl: IMPORT_KEYWORD import_spec { $$ = create_import_decl_for_spec($2); }
+| IMPORT_KEYWORD '(' import_spec_list ')' ';' { $$ = create_import_decl_for_spec_list($3); }
 ;
 
 import_decl_list: import_decl
