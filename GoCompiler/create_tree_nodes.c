@@ -299,3 +299,11 @@ struct top_level_decl_list_struct* add_to_top_level_decl_list(struct top_level_d
     return list;
 }
 
+struct expr_struct* create_array_expr(struct array_lit_struct* array_lit) {
+    struct expr_struct* result = (struct expr_struct*)malloc(sizeof(struct expr_struct));
+    result->type = array_lit;
+    result->arr = array_lit;
+
+    return result;
+}
+
