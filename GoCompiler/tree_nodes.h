@@ -112,7 +112,7 @@ struct assignment_stmt_struct {
 };
 
 struct return_stmt_struct {
-	struct expr_struct* return_value;
+	struct expr_list_struct* return_values;
 };
 
 struct id_struct {
