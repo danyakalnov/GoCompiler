@@ -35,7 +35,7 @@ struct expr_list_struct* create_expr_list(struct expr_struct* first_expr);
 struct expr_list_struct* add_to_expr_list(struct expr_list_struct* list, struct expr_struct* expr);
 struct decl_stmt_struct* create_decl_stmt(struct id_list* ids, struct expr_list* values, char* type);
 struct array_element_list_struct* create_array_element_list(struct array_keyed_element* first_element);
-struct array_element_list_struct* add_to_array_element_list(struct array_element_list_struct*, struct array_keyed_element* next_element);
+struct array_element_list_struct* add_to_array_element_list(struct array_element_list_struct* list, struct array_keyed_element* next_element);
 struct array_lit_struct* create_array_lit(char* type, struct expr_struct* length, struct array_element_list_struct* elements);
 struct top_level_decl_struct* create_top_level_decl(struct decl_stmt_struct* decl_stmt);
 struct top_level_decl_struct* create_top_level_func(struct func_decl_struct* func_decl);
