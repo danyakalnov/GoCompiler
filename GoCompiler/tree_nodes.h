@@ -149,6 +149,8 @@ struct package_decl_struct {
 struct import_spec_struct {
 	char* import_path;
 	char* import_alias;
+
+	struct import_spec_struct* next;
 };
 
 struct import_spec_list_struct {
