@@ -16,7 +16,8 @@ enum expr_type {
 	call,
 	array_indexing,
 	array_lit,
-	id
+	id,
+	member_access,
 };
 
 struct expr_struct {
