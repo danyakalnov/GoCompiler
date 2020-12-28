@@ -352,3 +352,20 @@ struct import_decl_struct* create_import_decl_for_spec_list(struct import_spec_l
 
     return result;
 }
+
+struct import_decl_list_struct* create_import_decl_list(struct import_decl_struct* first_import_decl) {
+    struct import_decl_list_struct* list = (struct import_decl_list_struct*)malloc(sizeof(struct import_decl_list_struct));
+    list->first = first_import_decl;
+    list->last = first_import_decl;
+    first_import_decl->next = 0;
+
+    return list;
+}
+
+struct import_decl_list_struct* add_to_import_decl_list(struct import_decl_list_struct* list, struct import_decl_struct* next_element) {
+    list->last->next = next_element;
+    list->last = next_element;
+    next_element->next = 0;
+
+    return 0;
+}
