@@ -338,3 +338,17 @@ struct import_spec_list_struct* add_to_import_spec_list(struct import_spec_list_
 
     return list;
 }
+
+struct import_decl_struct* create_import_decl_for_spec(struct import_spec_struct* import_spec) {
+    struct import_decl_struct* result = (struct import_decl_struct*)malloc(sizeof(struct import_decl_struct));
+    result->import_spec = import_spec;
+
+    return result;
+}
+
+struct import_decl_struct* create_import_decl_for_spec_list(struct import_spec_list_struct* list) {
+    struct import_decl_struct* result = (struct import_decl_struct*)malloc(sizeof(struct import_decl_struct));
+    result->import_spec_list = list;
+
+    return result;
+}
