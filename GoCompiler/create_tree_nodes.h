@@ -40,7 +40,7 @@ struct array_element_list_struct* create_array_element_list(struct array_keyed_e
 struct array_element_list_struct* add_to_array_element_list(struct array_element_list_struct* list, struct array_keyed_element* next_element);
 struct array_lit_struct* create_array_lit(char* type, struct expr_struct* length, struct array_element_list_struct* elements);
 struct top_level_decl_struct* create_top_level_func(struct func_decl_struct* func_decl);
-struct top_level_decl_list_struct* create_top_level_decl_list(struct top_level_decl_list first_top_level_decl);
+struct top_level_decl_list_struct* create_top_level_decl_list(struct top_level_decl_list* first_top_level_decl);
 struct top_level_decl_list_struct* add_to_top_level_decl_list(struct top_level_decl_list_struct* list, struct top_level_decl_list_struct* next_top_level_decl);
 struct expr_struct* create_array_expr(struct array_lit_struct* array_lit);
 struct package_decl_struct* create_package_decl(char* package_name);
