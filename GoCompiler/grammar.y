@@ -117,8 +117,8 @@ type: INT_KEYWORD
 | FUNC_KEYWORD '(' param_list ',' ')'
 ;
 
-identifier_list: ID 
-| identifier_list ',' ID
+identifier_list: ID { $$ = create_id_list($1); puts("ID list from one element"); }
+| identifier_list ',' ID { $$ = add_to_id_list($1, $3); puts("Add next element to ID list"); }
 ;
 
 expr: ID { $$ = create_id_expr($1); }
