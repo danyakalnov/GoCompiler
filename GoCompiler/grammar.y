@@ -205,13 +205,13 @@ assignment: identifier_list assign_op expr_list_not_empty
 short_var_decl: identifier_list SHORT_EQUALS expr_list_not_empty
 ;
 
-simple_stmt_not_empty: expr
-| inc_dec_stmt
-| assignment
-| short_var_decl
+simple_stmt_not_empty: expr ';'
+| inc_dec_stmt ';'
+| assignment ';'
+| short_var_decl ';'
 ;
 
-simple_stmt: /* empty */
+simple_stmt: ';'
 | simple_stmt_not_empty
 ;
 
@@ -255,7 +255,7 @@ for_stmt: FOR_KEYWORD block
     | FOR_KEYWORD for_stmt_init_stmt ';' expr ';' for_stmt_post_stmt block 
 ;
 
-if_stmt_start: IF_KEYWORD simple_stmt ';' expr block
+if_stmt_start: IF_KEYWORD simple_stmt expr block
 | IF_KEYWORD expr block
 ;
 
