@@ -124,22 +124,22 @@ identifier_list: ID
 expr: ID
 | '(' expr ')'
 | '[' expr ']' type '{' array_element_list '}'
-| INT
-| STRING
-| TRUE_KEYWORD 
-| FALSE_KEYWORD
-| type '(' expr ')'
-| '-' expr %prec UMINUS
-| expr '-' expr
-| expr '+' expr
-| expr '*' expr
-| expr '/' expr
-| expr '<' expr
-| expr '>' expr
-| expr GREATER_OR_EQUAL expr
-| expr LESS_OR_EQUAL expr
-| expr EQUAL expr
-| expr NOT_EQUAL expr
+| INT { $$ = create_int_expr($1); }
+| STRING { $$ = create_string_expr($1); }
+| TRUE_KEYWORD { $$ = create_boolean_expr(1); }
+| FALSE_KEYWORD { $$ = create_boolean_expr(0); }
+| type '(' expr ')' 
+| '-' expr %prec UMINUS { $$ = create_operation_expr(unary_minus, $2, 0); } 
+| expr '-' expr { $$ = create_operation_expr(minus, $1, $3); }
+| expr '+' expr { $$ = create_operation_expr(plus, $1, $3); }
+| expr '*' expr { $$ = create_operation_expr(mul, $1, $3); }
+| expr '/' expr { $$ = create_operation_expr(divide, $1, $3); }
+| expr '<' expr { $$ = create_operation_expr(less, $1, $3); }
+| expr '>' expr { $$ = create_operation_expr(greater, $1, $3); }
+| expr GREATER_OR_EQUAL expr { $$ = create_operation_expr(greater_or_equal, $1, $3); }
+| expr LESS_OR_EQUAL expr { $$ = (less_or_equal, $1, $3); }
+| expr EQUAL expr { $$ = create_operation_expr(equal, $1, $3); }
+| expr NOT_EQUAL expr { $$ = create_operation_expr(not_equal, $1, $3); }
 | expr '[' expr ']'
 | ID '(' expr_list ')'
 ;
