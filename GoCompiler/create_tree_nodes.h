@@ -45,6 +45,7 @@ struct top_level_decl_list_struct* add_to_top_level_decl_list(struct top_level_d
 struct expr_struct* create_array_expr(struct array_lit_struct* array_lit);
 struct package_decl_struct* create_package_decl(char* package_name);
 struct import_spec_struct* create_import_spec_with_alias(char* alias, char* path);
+struct import_spec_struct* create_import_spec(char* path);
 struct import_spec_list_struct* create_import_spec_list(struct import_spec_struct* first_import_spec);
 struct import_spec_list_struct* add_to_import_spec_list(struct import_spec_list_struct* list, struct import_spec_struct* next_element);
 struct import_decl_struct* create_import_decl_for_spec(struct import_spec_struct* import_spec);
