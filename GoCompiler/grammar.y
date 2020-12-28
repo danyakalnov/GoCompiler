@@ -260,18 +260,15 @@ if_stmt_start: IF_KEYWORD simple_stmt expr block
 ;
 
 if_stmt: if_stmt_start
+| if_stmt_start ELSE_KEYWORD block
 | if_stmt_start else_if_stmt_list ELSE_KEYWORD block
 ;
 
 else_if_stmt: ELSE_KEYWORD if_stmt_start
 ;
 
-else_if_stmt_list_not_empty: else_if_stmt
-| else_if_stmt_list_not_empty else_if_stmt
-;
-
-else_if_stmt_list: /* empty */
-| else_if_stmt_list_not_empty
+else_if_stmt_list: else_if_stmt
+| else_if_stmt_list else_if_stmt
 ;
 
 param_decl: identifier_list type
