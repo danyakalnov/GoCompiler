@@ -44,6 +44,11 @@ enum stmt_type {
 	return_stmt_t
 };
 
+enum decl_type {
+	var_decl_t,
+	const_decl_t
+};
+
 enum for_type {
 	empty_for,
 	for_with_condition,
@@ -113,7 +118,7 @@ struct assignment_stmt_struct {
 };
 
 struct return_stmt_struct {
-	struct expr_struct* return_value;
+	struct expr_list_struct* return_values;
 };
 
 struct id_struct {
@@ -127,6 +132,7 @@ struct id_list {
 };
 
 struct decl_stmt_struct {
+	enum decl_type declaration_type;
 	struct id_list* ids;
 	struct expr_list* values;
 	char* type;

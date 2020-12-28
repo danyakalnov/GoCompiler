@@ -159,3 +159,110 @@ struct top_level_decl_struct* create_func_decl(struct func_signature_struct* sig
 
     return result;
 }
+
+struct func_signature_struct* create_func_signature(char* name, struct param_list_struct* params, struct param_list_struct* return_values) {
+    struct func_signature_struct* func_signature = (struct func_signature_struct*)malloc(sizeof(struct func_signature_struct));
+
+    func_signature->func_name = name;
+    func_signature->params = params;
+    func_signature->return_values = return_values;
+
+    return func_signature;
+}
+
+struct param_decl_struct* create_param(char* param_type, struct id_list* ids) {
+    struct param_decl_struct* param = (struct param_decl_struct*)malloc(sizeof(struct param_decl_struct));
+
+    param->ids = ids;
+    param->type = param_type;
+
+    return param;
+}
+
+struct param_list_struct* create_param_list(struct param_decl_struct* first_param) {
+    struct param_list_struct* param_list = (struct param_list_struct*)malloc(sizeof(struct param_list_struct));
+
+    param_list->first = first_param;
+    param_list->last = first_param;
+    
+    first_param->next = 0;
+
+    return param_list;
+}
+
+struct param_list_struct* add_to_param_list(struct param_list_struct* list, struct param_decl_struct* param) {
+    list->last->next = param;
+    list->last = param;
+    list->last->next = 0;
+
+    return list;
+}
+
+struct id_struct* create_id(char* name) {
+    struct id_struct* id = (struct id_struct*)malloc(sizeof(struct id_struct));
+    id->name = name;
+
+    return id;
+}
+
+struct id_list* create_id_list(struct id_struct* first_id) {
+    struct id_list* id_list = (struct id_list*)malloc(sizeof(struct id_list));
+
+    id_list->first = first_id;
+    id_list->last = first_id;
+    id_list->last = 0;
+
+    return id_list;
+}
+
+struct id_list* add_to_id_list(struct id_list* list, struct id_struct* id) {
+    list->last->next = id;
+    list->last = id;
+    id->next = 0;
+
+    return list;
+}
+
+struct stmt_struct* create_return_stmt(struct expr_list_struct* return_value) {
+    struct return_stmt_struct* return_stmt = (struct return_stmt_struct*)malloc(sizeof(struct return_stmt_struct));
+
+    return_stmt->return_values = return_value;
+
+    struct stmt_struct* stmt = (struct stmt_struct*)malloc(sizeof(struct stmt_struct));
+    stmt->return_stmt_field = return_stmt;
+    stmt->type = return_stmt_t;
+
+    return stmt;
+}
+
+struct expr_list_struct* create_expr_list(struct expr_struct* first_expr) {
+    struct expr_list_struct* expr_list = (struct expr_list_struct*)malloc(sizeof(struct expr_list_struct));
+
+    expr_list->first = first_expr;
+    expr_list->last = first_expr;
+    first_expr->next = 0;
+
+    return expr_list;
+}
+
+struct expr_list_struct* add_to_expr_list(struct expr_list_struct* list, struct expr_struct* expr) {
+    list->last->next = expr;
+    list->last = expr;
+    expr->next = 0;
+
+    return list;
+}
+
+struct top_level_decl_struct* create_decl_stmt(struct id_list* ids, struct expr_list* values, char* type, enum decl_type declaration_type) {
+    struct decl_stmt_struct* decl = (struct decl_stmt_struct*)malloc(sizeof(struct decl_stmt_struct));
+
+    decl->ids = ids;
+    decl->type = type;
+    decl->values = values;
+    decl->declaration_type = declaration_type;
+
+    struct top_level_decl_struct* top_level_decl = (struct top_level_decl_struct*)malloc(sizeof(struct top_level_decl_struct));
+    top_level_decl->decl = decl;
+
+    return top_level_decl;
+}
