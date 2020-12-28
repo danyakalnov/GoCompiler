@@ -152,8 +152,8 @@ expr_list_not_empty: expr { $$ = create_expr_list($1); puts("Expression list fro
 | expr_list_not_empty ',' expr { $$ = add_to_expr_list($1, $3); puts("Add next expression to the list"); }
 ;
 
-const_spec: identifier_list '=' expr_list ';'
-| identifier_list type '=' expr_list ';'
+const_spec: identifier_list '=' expr_list ';' { $$ = create_decl_stmt($1, $3, 0, const_decl_t); }
+| identifier_list type '=' expr_list ';' { $$ = create_decl_stmt($1, $4, $2, const_decl_t); }
 ;
 
 const_spec_list_not_empty: const_spec
