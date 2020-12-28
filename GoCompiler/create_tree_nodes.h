@@ -27,7 +27,7 @@ struct func_signature_struct* create_func_signature(char* name, struct param_lis
 struct param_decl_struct* create_param(char* param_type, struct id_list* ids);
 struct param_list_struct* create_param_list(struct param_decl_struct* first_param);
 struct param_list_struct* add_to_param_list(struct param_list_struct* list, struct param_decl_struct* param);
-struct return_stmt_struct* create_return_stmt(struct expr_struct* return_value);
+struct stmt_struct* create_return_stmt(struct expr_list_struct* return_value);
 struct id_struct* create_id(char* name);
 struct id_list* create_id_list(struct id_struct* first_id);
 struct id_list* add_to_id_list(struct id_list* list, struct id_struct* id);

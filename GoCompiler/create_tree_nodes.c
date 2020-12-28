@@ -188,3 +188,15 @@ struct id_list* add_to_id_list(struct id_list* list, struct id_struct* id) {
 
     return list;
 }
+
+struct stmt_struct* create_return_stmt(struct expr_list_struct* return_value) {
+    struct return_stmt_struct* return_stmt = (struct return_stmt_struct*)malloc(sizeof(struct return_stmt_struct));
+
+    return_stmt->return_values = return_value;
+
+    struct stmt_struct* stmt = (struct stmt_struct*)malloc(sizeof(struct stmt_struct));
+    stmt->return_stmt_field = return_stmt;
+    stmt->type = return_stmt_t;
+
+    return stmt;
+}
