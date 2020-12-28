@@ -15,7 +15,8 @@ enum expr_type {
 	not_equal,
 	call,
 	array_indexing,
-	array_lit
+	array_lit,
+	id
 };
 
 struct expr_struct {
