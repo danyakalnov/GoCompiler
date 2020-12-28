@@ -123,7 +123,7 @@ identifier_list: ID
 
 expr: ID
 | '(' expr ')'
-| '[' expr ']' type '{' array_element_list '}'
+| '[' expr ']' type '{' array_element_list '}' { $$ = create_array_lit($4, $2, $6); }
 | INT { $$ = create_int_expr($1); }
 | STRING { $$ = create_string_expr($1); }
 | TRUE_KEYWORD { $$ = create_boolean_expr(1); }
@@ -306,12 +306,12 @@ top_level_decl_list: /* empty */
 | top_level_decl_list_not_empty
 ;
 
-array_element_list_not_empty: array_keyed_element
-| array_element_list_not_empty ',' array_keyed_element
+array_element_list_not_empty: array_keyed_element { $$ = create_array_element_list($1); puts("Array element list from one element"); }
+| array_element_list_not_empty ',' array_keyed_element { $$ = add_to_array_element_list($1, $2); puts("Add next element to array element list"); }
 ;
 
-array_element_list: /* empty */
-| array_element_list_not_empty
+array_element_list: /* empty */ { $$ = 0; puts("Empty array element list"); }
+| array_element_list_not_empty { $$ = $1; puts("Array element list"); }
 ;
 
 array_keyed_element: expr
