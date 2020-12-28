@@ -31,6 +31,15 @@ struct expr_struct* create_operation_expr(enum expr_type type, struct expr_struc
     return result;
 }
 
+struct array_lit_struct* create_array_lit(char* type, struct expr_struct* length, struct array_element_list_struct* elements) {
+    struct array_lit_struct* result = (struct array_lit_struct*)malloc(sizeof(struct array_lit_struct));
+    result->type->type = type;
+    result->type->length = length;
+    result->array_value = elements;
+
+    return result;
+}
+
 struct stmt_struct* create_empty_for_stmt(struct stmt_struct* block) {
     struct for_stmt_struct* result = (struct for_stmt_struct*)malloc(sizeof(struct for_stmt_struct));
     result->block = block;
