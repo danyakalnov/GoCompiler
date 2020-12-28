@@ -274,3 +274,28 @@ struct top_level_decl_struct* create_decl_stmt(struct id_list* ids, struct expr_
 
     return top_level_decl;
 }
+
+struct top_level_decl_struct* create_top_level_func(struct func_decl_struct* func_decl) {
+    struct top_level_decl_struct* result = (struct top_level_decl_struct*)malloc(sizeof(struct top_level_decl_struct));
+    result->func_decl = func_decl;
+    
+    return result;
+}
+
+struct top_level_decl_list_struct* create_top_level_decl_list(struct top_level_decl_struct* first_top_level_decl) {
+    struct top_level_decl_list_struct* list = (struct top_level_decl_list_struct*)malloc(sizeof(struct top_level_decl_list_struct));
+    list->first = first_top_level_decl;
+    list->last = first_top_level_decl;
+    first_top_level_decl->next = 0;
+
+    return list;
+}
+
+struct top_level_decl_list_struct* add_to_top_level_decl_list(struct top_level_decl_list_struct* list, struct top_level_decl_struct* next_top_level_decl) {
+    list->last->next = next_top_level_decl;
+    list->last = next_top_level_decl;
+    next_top_level_decl->next = 0;
+
+    return list;
+}
+
