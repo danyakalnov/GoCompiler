@@ -1,6 +1,7 @@
 enum expr_type {
 	integer,
 	str,
+	boolean,
 	unary_minus,
 	plus,
 	minus,
@@ -21,7 +22,7 @@ struct expr_struct {
 	enum expr_type type;
 
 	char* str_value;
-	int int_value;
+	int int_value; /* For integer and boolean values */
 
 	/* For arithmetic expressions */
 	struct expr_struct* left;
