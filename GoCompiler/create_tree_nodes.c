@@ -470,3 +470,16 @@ struct type_struct* create_array_type(struct expr_struct* length, struct type_st
     
     return type_struct;
 }
+
+struct stmt_struct* create_assignment(struct expr_list_struct* left, struct expr_list_struct* right) {
+    struct assignment_stmt_struct* assignment_stmt = (struct assignment_stmt_struct*)malloc(sizeof(struct assignment_stmt_struct));
+    assignment_stmt->left = left;
+    assignment_stmt->right = right;
+
+    struct stmt_struct* assignment = (struct stmt_struct*)malloc(sizeof(struct stmt_struct));
+
+    assignment->type = assignment_t;
+    assignment->assignment_field = assignment_stmt;
+
+    return assignment;
+}

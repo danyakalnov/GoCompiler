@@ -24,6 +24,7 @@ struct else_if_stmt_list_struct* create_else_if_stmt_list(struct if_stmt_part_st
 struct else_if_stmt_list_struct* add_to_else_if_stmt_list(struct else_if_stmt_list_struct* list, struct if_stmt_part_struct* el);
 struct stmt_list_struct* create_stmt_list(struct stmt_struct* first_stmt);
 struct stmt_list_struct* add_to_stmt_list(struct stmt_list_struct* list, struct stmt_struct* stmt);
+struct stmt_struct* create_assignment(struct expr_list_struct* left, struct expr_list_struct* right);
 struct top_level_decl_struct* create_func_decl(struct func_signature_struct* signature, struct stmt_struct* block);
 struct func_signature_struct* create_func_signature(char* name, struct param_list_struct* params, struct param_list_struct* return_values);
 struct param_decl_struct* create_param(struct type_struct* param_type, struct id_list* ids);
