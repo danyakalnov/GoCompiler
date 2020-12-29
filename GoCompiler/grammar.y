@@ -211,7 +211,7 @@ simple_stmt: ';' { $$ = 0; }
 | simple_stmt_not_empty { $$ = $1; }
 ;
 
-return_stmt: RETURN_KEYWORD expr_list ';'
+return_stmt: RETURN_KEYWORD expr_list ';' { $$ = create_return_stmt($2); }
 ;
 
 stmt: simple_stmt_not_empty
