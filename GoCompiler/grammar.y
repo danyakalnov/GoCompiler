@@ -222,12 +222,12 @@ stmt: simple_stmt_not_empty { $$ = $1; }
 | block { $$ = $1; }
 ;
 
-stmt_list_not_empty: stmt
-| stmt_list_not_empty stmt
+stmt_list_not_empty: stmt { $$ = create_stmt_list($1); }
+| stmt_list_not_empty stmt { $$ = add_to_stmt_list($1, $2); }
 ;
 
-stmt_list: /* empty */
-| stmt_list_not_empty
+stmt_list: /* empty */ { $$ = 0; }
+| stmt_list_not_empty { $$ = $1; }
 ;
 
 block: '{' stmt_list '}' { $$ = create_block($2); }
