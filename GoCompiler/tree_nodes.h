@@ -166,6 +166,7 @@ struct decl_spec_list_struct {
 struct decl_stmt_struct {
 	enum decl_type declaration_type;
 	struct decl_spec_list_struct* spec_list;
+	struct decl_spec_struct* spec;
 };
 
 struct package_decl_struct {

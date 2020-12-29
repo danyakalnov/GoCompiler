@@ -302,7 +302,19 @@ struct decl_spec_list_struct* add_to_decl_spec_list(struct decl_spec_list_struct
     return list;
 }
 
-struct top_level_decl_struct* create_decl_stmt(struct decl_spec_list_struct* decl_spec_list, enum decl_type declaration_type) {
+struct top_level_decl_struct* create_decl_stmt_from_spec(struct decl_spec_struct* spec, enum decl_type declaration_type) {
+    struct decl_stmt_struct* decl = (struct decl_stmt_struct*)malloc(sizeof(struct decl_stmt_struct));
+
+    decl->spec = spec;
+    decl->declaration_type = declaration_type;
+
+    struct top_level_decl_struct* top_level_decl = (struct top_level_decl_struct*)malloc(sizeof(struct top_level_decl_struct));
+    top_level_decl->decl = decl;
+
+    return top_level_decl;
+}
+
+struct top_level_decl_struct* create_decl_stmt_from_list(struct decl_spec_list_struct* decl_spec_list, enum decl_type declaration_type) {
     struct decl_stmt_struct* decl = (struct decl_stmt_struct*)malloc(sizeof(struct decl_stmt_struct));
 
     decl->spec_list = decl_spec_list;

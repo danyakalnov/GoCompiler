@@ -152,20 +152,20 @@ expr_list_not_empty: expr { $$ = create_expr_list($1); puts("Expression list fro
 | expr_list_not_empty ',' expr { $$ = add_to_expr_list($1, $3); puts("Add next expression to the list"); }
 ;
 
-const_spec: identifier_list '=' expr_list ';' { $$ = create_decl_stmt($1, $3, 0, const_decl_t); }
-| identifier_list type '=' expr_list ';' { $$ = create_decl_stmt($1, $4, $2, const_decl_t); }
+const_spec: identifier_list '=' expr_list ';' { $$ = create_decl_spec($1, $3, 0); }
+| identifier_list type '=' expr_list ';' { $$ = create_decl_spec($1, $4, $2); }
 ;
 
-const_spec_list_not_empty: const_spec
-| const_spec_list_not_empty const_spec
+const_spec_list_not_empty: const_spec { $$ = create_decl_spec_list($1); }
+| const_spec_list_not_empty const_spec { $$ = add_to_decl_spec_list($1, $2); }
 ;
 
-const_spec_list: /* empty */
-| const_spec_list_not_empty
+const_spec_list: /* empty */ { $$ = 0; }
+| const_spec_list_not_empty { $$ = $1; }
 ;
 
-const_decl: CONST_KEYWORD const_spec
-| CONST_KEYWORD '(' const_spec_list ')'
+const_decl: CONST_KEYWORD const_spec { $$ = create_decl_stmt_from_spec($2, const_decl_t); }
+| CONST_KEYWORD '(' const_spec_list ')' { $$ = create_decl_stmt_from_list($3, const_decl_t); }
 ;
 
 var_spec: identifier_list type ';' { $$ = create_decl_spec($1, 0, $2); }
@@ -173,15 +173,15 @@ var_spec: identifier_list type ';' { $$ = create_decl_spec($1, 0, $2); }
 | identifier_list '=' expr_list ';' { $$ = create_decl_spec($1, $3, 0); }
 ;
 
-var_spec_list_not_empty: var_spec
-| var_spec_list_not_empty var_spec
+var_spec_list_not_empty: var_spec { $$ = create_decl_spec_list($1); }
+| var_spec_list_not_empty var_spec { $$ = add_to_decl_spec_list($1, $2); }
 ;
 
-var_spec_list: /* empty */
-| var_spec_list_not_empty
+var_spec_list: /* empty */ { $$ = 0; }
+| var_spec_list_not_empty { $$ = $1; }
 
-var_decl: VAR_KEYWORD var_spec
-| VAR_KEYWORD '(' var_spec_list ')'
+var_decl: VAR_KEYWORD var_spec { $$ = create_decl_stmt_from_spec($2, var_decl_t); }
+| VAR_KEYWORD '(' var_spec_list ')' { $$ = create_decl_stmt_from_list($3, var_decl_t); }
 ;
 
 declaration: const_decl 
