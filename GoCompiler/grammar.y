@@ -195,7 +195,7 @@ assign_op: '='
 | DIVISION_ASSIGN
 ;
 
-assignment: expr_list_not_empty assign_op expr_list_not_empty
+assignment: expr_list_not_empty assign_op expr_list_not_empty { $$ = create_assignment($1, $3); }
 ;
 
 short_var_decl: identifier_list SHORT_EQUALS expr_list_not_empty
