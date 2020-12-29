@@ -145,7 +145,7 @@ struct id_struct {
 	struct id_struct* next;
 };
 
-struct id_list {
+struct id_list_struct {
 	struct id_struct* first;
 	struct id_struct* last;
 };
