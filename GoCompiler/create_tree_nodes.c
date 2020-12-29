@@ -441,11 +441,10 @@ struct program_struct* create_program_with_imports(struct package_decl_struct* p
     program->imports = imports;
 }
 
-struct type_struct* create_basic_type(char* basic_type, enum type_type type) {
+struct type_struct* create_basic_type(enum type_type type) {
     struct type_struct* type_struct = (struct type_struct*)malloc(sizeof(struct type_struct));
 
     type_struct->type = type;
-    type_struct->basic_type = basic_type;
 
     return type_struct;
 }
