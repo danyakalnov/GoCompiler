@@ -492,3 +492,15 @@ struct stmt_struct* create_expr_stmt(struct expr_struct* expression) {
 
     return expr;
 }
+
+struct stmt_struct* create_block(struct stmt_list_struct* statements) {
+    struct stmt_block_struct* block = (struct stmt_block_struct*)malloc(sizeof(struct stmt_block_struct));
+    block->list = statements;
+
+    struct stmt_struct* block_stmt = (struct stmt_struct*)malloc(sizeof(struct stmt_struct));
+
+    block_stmt->type = block_t;
+    block_stmt->block_field = block;
+
+    return block_stmt;
+}
