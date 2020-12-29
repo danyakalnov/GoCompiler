@@ -104,17 +104,17 @@ import_spec: '.' STRING ';' { $$ = create_import_spec($2); }
 package_clause: PACKAGE_KEYWORD ID ';' { $$ = create_package_decl($2); }
 ;
 
-type: INT_KEYWORD
-| BOOL_KEYWORD
-| BYTE_KEYWORD
-| STRING_KEYWORD
-| '[' expr ']' type
-| FUNC_KEYWORD '(' param_list ')' func_return
-| FUNC_KEYWORD '(' ')' func_return
-| FUNC_KEYWORD '(' param_list ',' ')' func_return
-| FUNC_KEYWORD '(' param_list ')'
-| FUNC_KEYWORD '(' ')'
-| FUNC_KEYWORD '(' param_list ',' ')'
+type: INT_KEYWORD { $$ = create_basic_type(int_t); }
+| BOOL_KEYWORD { $$ = create_basic_type(bool_t); }
+| BYTE_KEYWORD { $$ = create_basic_type(byte_t); }
+| STRING_KEYWORD { $$ = create_basic_type(string_t); }
+| '[' expr ']' type { $$ = create_array_type($2, $4); }
+| FUNC_KEYWORD '(' param_list ')' func_return { $$ = create_function_type(create_func_signature(0, $3, $5)); }
+| FUNC_KEYWORD '(' ')' func_return { $$ = create_function_type(create_func_signature(0, 0, $5)); }
+| FUNC_KEYWORD '(' param_list ',' ')' func_return { $$ = create_function_type(create_func_signature(0, $3, $5)); }
+| FUNC_KEYWORD '(' param_list ')' { $$ = create_function_type(create_func_signature(0, $3, 0)); }
+| FUNC_KEYWORD '(' ')' { $$ = create_function_type(create_func_signature(0, 0, 0)); }
+| FUNC_KEYWORD '(' param_list ',' ')' { $$ = create_function_type(create_func_signature(0, $3, 0)); }
 ;
 
 identifier_list: ID { $$ = create_id_list($1); puts("ID list from one element"); }
