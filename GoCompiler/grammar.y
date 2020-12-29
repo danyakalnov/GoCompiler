@@ -288,10 +288,10 @@ func_return: params
 | type
 ;
 
-func_decl: FUNC_KEYWORD ID params func_return
-| FUNC_KEYWORD ID params func_return block
-| FUNC_KEYWORD ID params 
-| FUNC_KEYWORD ID params block
+func_decl: FUNC_KEYWORD ID params func_return { $$ = create_func_decl(create_func_signature($2, $3, $4), 0); }
+| FUNC_KEYWORD ID params func_return block { $$ = create_func_decl(create_func_signature($2, $3, $4), $5); }
+| FUNC_KEYWORD ID params { $$ = create_func_decl(create_func_signature($2, $3, 0), 0); }
+| FUNC_KEYWORD ID params block { $$ = create_func_decl(create_func_signature($2, $3, 0), $4); }
 ;
 
 top_level_decl: declaration { $$ = create_top_level_decl($1); }
