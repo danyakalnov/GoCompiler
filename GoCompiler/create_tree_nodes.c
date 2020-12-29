@@ -275,7 +275,7 @@ struct expr_list_struct* add_to_expr_list(struct expr_list_struct* list, struct 
     return list;
 }
 
-struct top_level_decl_struct* create_decl_stmt(struct id_list* ids, struct expr_list* values, char* type, enum decl_type declaration_type) {
+struct top_level_decl_struct* create_decl_stmt(struct id_list* ids, struct expr_list_struct* values, char* type, enum decl_type declaration_type) {
     struct decl_stmt_struct* decl = (struct decl_stmt_struct*)malloc(sizeof(struct decl_stmt_struct));
 
     decl->ids = ids;
