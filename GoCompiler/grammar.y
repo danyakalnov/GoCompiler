@@ -50,16 +50,16 @@ struct program_struct * root;
 %token ELSE_KEYWORD
 %token FOR_KEYWORD
 %token FUNC_KEYWORD
-%token RETURN_KEYWORD;
-%token VAR_KEYWORD;
-%token BOOL_KEYWORD;
-%token INT_KEYWORD;
-%token BYTE_KEYWORD;
-%token STRING_KEYWORD;
-%token TRUE_KEYWORD;
-%token FALSE_KEYWORD;
-%token NIL_KEYWORD;
-%token PACKAGE_KEYWORD;
+%token RETURN_KEYWORD
+%token VAR_KEYWORD
+%token BOOL_KEYWORD
+%token INT_KEYWORD
+%token BYTE_KEYWORD
+%token STRING_KEYWORD
+%token TRUE_KEYWORD
+%token FALSE_KEYWORD
+%token NIL_KEYWORD
+%token PACKAGE_KEYWORD
 %token IMPORT_KEYWORD
 %token <Id> ID
 %token <Int_val> INT 
