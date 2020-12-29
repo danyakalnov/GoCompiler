@@ -212,16 +212,16 @@ struct array_type_struct {
 };
 
 struct array_element_list_struct {
-	struct array_keyed_element* first;
-	struct array_keyed_element* last;
+	struct array_keyed_element_struct* first;
+	struct array_keyed_element_struct* last;
 };
 
-struct array_keyed_element {
+struct array_keyed_element_struct {
 	struct expr_struct* expr;
 	int key;
 	struct array_element_list_struct* array_value;
 
-	struct array_keyed_element* next;
+	struct array_keyed_element_struct* next;
 };
 
 struct array_lit_struct {
