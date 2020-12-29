@@ -284,7 +284,7 @@ params: '(' param_list ')'
     | '(' param_list ',' ')' 
 ;
 
-func_return: params
+func_return: params 
 | type
 ;
 

@@ -195,6 +195,11 @@ struct param_list_struct {
 	struct param_decl_struct* last;
 };
 
+struct func_return_struct {
+	struct param_list_struct* return_values;
+	/* TODO: type */
+};
+
 struct func_signature_struct {
 	char* func_name;
 	struct param_list_struct* params;
