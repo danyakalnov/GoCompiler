@@ -294,8 +294,8 @@ func_decl: FUNC_KEYWORD ID params func_return
 | FUNC_KEYWORD ID params block
 ;
 
-top_level_decl: declaration {  }
-| func_decl
+top_level_decl: declaration { $$ = create_top_level_decl($1); }
+| func_decl { $$ = create_top_level_func($1); }
 ;
 
 top_level_decl_list_not_empty: top_level_decl ';' { $$ = create_top_level_decl_list($1); }
