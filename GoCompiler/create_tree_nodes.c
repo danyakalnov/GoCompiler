@@ -483,3 +483,12 @@ struct stmt_struct* create_assignment(struct expr_list_struct* left, struct expr
 
     return assignment;
 }
+
+struct stmt_struct* create_expr_stmt(struct expr_struct* expression) {
+    struct stmt_struct* expr = (struct stmt_struct*)malloc(sizeof(struct stmt_struct));
+
+    expr->type = expr_stmt_t;
+    expr->expr_field = expression;
+
+    return expr;
+}
