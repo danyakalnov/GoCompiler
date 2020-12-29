@@ -182,12 +182,12 @@ struct top_level_decl_struct* create_func_decl(struct func_signature_struct* sig
     return result;
 }
 
-struct func_signature_struct* create_func_signature(char* name, struct param_list_struct* params, struct param_list_struct* return_values) {
+struct func_signature_struct* create_func_signature(char* name, struct param_list_struct* params, struct func_return_struct* return_value) {
     struct func_signature_struct* func_signature = (struct func_signature_struct*)malloc(sizeof(struct func_signature_struct));
 
     func_signature->func_name = name;
     func_signature->params = params;
-    func_signature->return_values = return_values;
+    func_signature->return_value = return_value;
 
     return func_signature;
 }
