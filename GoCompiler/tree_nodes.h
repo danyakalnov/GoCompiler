@@ -1,3 +1,17 @@
+enum type_type {
+	func,
+	basic,
+	arr,
+};
+
+struct type_struct {
+	enum type_type type;
+
+	struct func_signature_struct* func_type;
+	char* basic_type;
+	struct array_lit_struct* array_type;
+};
+
 enum expr_type {
 	integer,
 	str,
@@ -197,6 +211,7 @@ struct param_list_struct {
 
 struct func_return_struct {
 	struct param_list_struct* return_values;
+
 	/* TODO: type */
 };
 
