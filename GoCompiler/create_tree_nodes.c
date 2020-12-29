@@ -187,7 +187,7 @@ struct func_signature_struct* create_func_signature(char* name, struct param_lis
 
     func_signature->func_name = name;
     func_signature->params = params;
-    func_signature->return_values = return_values;
+    func_signature->return_value = return_values;
 
     return func_signature;
 }
