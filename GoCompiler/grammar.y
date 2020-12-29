@@ -184,8 +184,8 @@ var_decl: VAR_KEYWORD var_spec { $$ = create_decl_stmt_from_spec($2, var_decl_t)
 | VAR_KEYWORD '(' var_spec_list ')' { $$ = create_decl_stmt_from_list($3, var_decl_t); }
 ;
 
-inc_dec_stmt: expr INCREMENT
-| expr DECREMENT
+inc_dec_stmt: expr INCREMENT { $$ = create_inc_dec_stmt($1, inc_t); }
+| expr DECREMENT { $$ = create_inc_dec_stmt($1, dec_t); }
 ;
 
 assign_op: '='

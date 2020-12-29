@@ -257,6 +257,12 @@ struct stmt_struct* create_return_stmt(struct expr_list_struct* return_value) {
     return stmt;
 }
 
+struct stmt_struct* create_inc_dec_stmt(struct expr_struct* expr, enum stmt_type type) {
+    struct stmt_struct* result = (struct stmt_struct*)malloc(sizeof(struct stmt_struct));
+    result->expr_field = expr;
+    result->type = type;
+}
+
 struct expr_list_struct* create_expr_list(struct expr_struct* first_expr) {
     struct expr_list_struct* expr_list = (struct expr_list_struct*)malloc(sizeof(struct expr_list_struct));
 
