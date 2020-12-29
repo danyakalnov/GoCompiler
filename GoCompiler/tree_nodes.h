@@ -154,7 +154,7 @@ struct decl_stmt_struct {
 	enum decl_type declaration_type;
 	struct id_list* ids;
 	struct expr_list* values;
-	char* type;
+	struct type_struct* type;
 };
 
 struct package_decl_struct {
@@ -199,7 +199,7 @@ struct top_level_decl_list_struct {
 
 struct param_decl_struct {
 	struct id_list* ids;
-	char* type;
+	struct type_struct* type;
 
 	struct param_decl_struct* next;
 };
@@ -227,7 +227,7 @@ struct func_decl_struct {
 };
 
 struct array_type_struct {
-	char* type;
+	struct type_struct* type;
 	struct expr_struct* length;
 };
 
