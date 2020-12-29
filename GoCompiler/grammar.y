@@ -315,7 +315,7 @@ array_keyed_element: expr { $$ = create_array_element($1); }
 | array_key ':' expr { $$ = create_array_keyed_element($1, $3); }
 ;
 
-array_key: INT; 
+array_key: INT; { $$ = create_int_expr($1); }
 
 %%
 
