@@ -38,14 +38,14 @@ struct expr_list_struct* add_to_expr_list(struct expr_list_struct* list, struct 
 struct decl_spec_struct* create_decl_spec(struct id_list* ids, struct expr_list_struct* values, struct type_struct* type);
 struct decl_spec_list_struct* create_decl_spec_list(struct decl_spec_struct* first_spec);
 struct decl_spec_list_struct* add_to_decl_spec_list(struct decl_spec_list_struct* list, struct decl_spec_struct* next);
-struct top_level_decl_struct* create_decl_stmt(struct id_list* ids, struct expr_list* values, char* type, enum decl_type declaration_type);
+struct top_level_decl_struct* create_decl_stmt_from_spec(struct decl_spec_struct* spec, enum decl_type declaration_type);
+struct top_level_decl_struct* create_decl_stmt_from_list(struct decl_spec_list_struct* decl_spec_list, enum decl_type declaration_type);
 struct array_keyed_element_struct* create_array_keyed_element(int key, struct expr_struct* expr);
 struct array_keyed_element_struct* create_array_element(struct expr_struct* expr);
 struct array_element_list_struct* create_array_element_list(struct array_keyed_element_struct* first_element);
 struct array_element_list_struct* add_to_array_element_list(struct array_element_list_struct* list, struct array_keyed_element_struct* next_element);
 struct array_lit_struct* create_array_lit(char* type, struct expr_struct* length, struct array_element_list_struct* elements);
 struct top_level_decl_struct* create_top_level_func(struct func_decl_struct* func_decl);
-struct top_level_decl_struct* create_top_level_decl(struct decl_stmt_struct* decl);
 struct top_level_decl_list_struct* create_top_level_decl_list(struct top_level_decl_struct* first_top_level_decl);
 struct top_level_decl_list_struct* add_to_top_level_decl_list(struct top_level_decl_list_struct* list, struct top_level_decl_struct* next_top_level_decl);
 struct expr_struct* create_array_expr(struct array_lit_struct* array_lit);
