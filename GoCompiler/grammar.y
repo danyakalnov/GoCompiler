@@ -198,17 +198,17 @@ assign_op: '='
 assignment: expr_list_not_empty assign_op expr_list_not_empty { $$ = create_assignment($1, $3); }
 ;
 
-short_var_decl: identifier_list SHORT_EQUALS expr_list_not_empty
+short_var_decl: identifier_list SHORT_EQUALS expr_list_not_empty { $$ = create_decl_stmt_from_spec(create_decl_spec($1, $3, 0), var_decl_t); }
 ;
 
-simple_stmt_not_empty: expr ';'
+simple_stmt_not_empty: expr ';' { $$ = create_expr_stmt($1); }
 | inc_dec_stmt ';'
-| assignment ';'
-| short_var_decl ';'
+| assignment ';' { $$ = $1; }
+| short_var_decl ';' { $$ = $1; }
 ;
 
-simple_stmt: ';'
-| simple_stmt_not_empty
+simple_stmt: ';' { $$ = 0; }
+| simple_stmt_not_empty { $$ = $1; }
 ;
 
 return_stmt: RETURN_KEYWORD expr_list ';'
