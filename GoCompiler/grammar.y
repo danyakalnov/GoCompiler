@@ -21,11 +21,22 @@ struct program_struct * root;
     char* Id;
     char* String;
 
-    struct basic_lit_struct* basic_lit_value;
     struct expr_struct* expr_value;
     struct for_stmt_struct* for_stmt_value;
     struct stmt_block_struct* block_value;
-    struct expr_list_struct expr_list_value;
+    struct expr_list_struct* expr_list_value;
+    struct program_struct* program_value;
+    struct import_decl_struct* import_decl_value;
+    struct import_decl_list_struct* import_decl_list_value;
+    struct import_spec_list_struct* import_spec_list_value;
+    struct import_spec_struct* import_spec_value;
+    struct package_decl_struct* package_decl_value;
+    struct type_struct* type_value;
+    struct id_list_struct* id_list_value;
+    struct decl_spec_struct* decl_spec_value;
+    struct decl_spec_list_struct* decl_spec_list_value;
+    struct decl_stmt_struct* decl_stmt_value;
+    struct stmt_struct* stmt_value;
 }
 
 %token LESS
@@ -69,6 +80,51 @@ struct program_struct * root;
 %type<for_stmt_value> for_stmt
 %type<block_value> block
 %type<expr_list_value> expr_list
+%type<program_value> program
+%type<import_decl_value> import_decl
+%type<import_decl_list_value> import_decl_list
+%type<import_spec_list_value> import_spec_list
+%type<import_spec_value> import_spec
+%type<package_decl_value> package_clause
+%type<type_value> type
+%type<id_list_value> identifier_list
+%type<expr_list_value> expr_list_not_empty
+%type<decl_spec_value> const_spec
+%type<decl_spec_list_value> const_spec_list_not_empty
+%type<decl_spec_list_value> const_spec_list
+%type<decl_stmt_value> const_decl
+%type<decl_spec_value> var_spec
+%type<decl_spec_list_value> var_spec_list_not_empty
+%type<decl_spec_list_value> var_spec_list
+%type<decl_stmt_value> var_decl
+%type<stmt_value> inc_dec_stmt
+%type<> assign_op
+%type<> assignment
+%type<> short_var_decl
+%type<> simple_stmt_not_empty
+%type<> simple_stmt
+%type<> return_stmt
+%type<> stmt
+%type<> stmt_list_not_empty
+%type<> stmt_list
+%type<> for_stmt_init_stmt
+%type<> for_stmt_post_stmt
+%type<> if_stmt_start
+%type<> if_stmt
+%type<> else_if_stmt
+%type<> else_if_stmt_list
+%type<> param_decl
+%type<> param_list
+%type<> params
+%type<> func_return
+%type<> func_decl
+%type<> top_level_decl
+%type<> top_level_decl_list_not_empty
+%type<> top_level_decl_list
+%type<> array_element_list_not_empty
+%type<> array_element_list
+%type<> array_keyed_element
+%type<> array_key
 
 %start program
 
