@@ -202,7 +202,7 @@ short_var_decl: identifier_list SHORT_EQUALS expr_list_not_empty { $$ = create_d
 ;
 
 simple_stmt_not_empty: expr ';' { $$ = create_expr_stmt($1); }
-| inc_dec_stmt ';'
+| inc_dec_stmt ';' { $$ = $1; }
 | assignment ';' { $$ = $1; }
 | short_var_decl ';' { $$ = $1; }
 ;
