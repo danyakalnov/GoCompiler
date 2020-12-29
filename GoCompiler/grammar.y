@@ -37,6 +37,16 @@ struct program_struct * root;
     struct decl_spec_list_struct* decl_spec_list_value;
     struct decl_stmt_struct* decl_stmt_value;
     struct stmt_struct* stmt_value;
+    struct top_level_decl_struct* top_level_decl_value;
+    struct stmt_list_struct* stmt_list_value;
+    struct if_stmt_part_struct* if_stmt_part_value;
+    struct else_if_stmt_list_struct* else_if_stmt_list_value;
+    struct param_decl_struct* param_decl_value;
+    struct param_list_struct* param_list_value;
+    struct func_return_struct* func_return_value;
+    struct top_level_decl_list_struct* top_level_decl_list_value;
+    struct array_keyed_element_struct* array_keyed_element_value;
+    struct array_element_list_struct* array_element_list_value;
 }
 
 %token LESS
@@ -99,32 +109,32 @@ struct program_struct * root;
 %type<decl_stmt_value> var_decl
 %type<stmt_value> inc_dec_stmt
 %type<> assign_op
-%type<> assignment
-%type<> short_var_decl
-%type<> simple_stmt_not_empty
-%type<> simple_stmt
-%type<> return_stmt
-%type<> stmt
-%type<> stmt_list_not_empty
-%type<> stmt_list
-%type<> for_stmt_init_stmt
-%type<> for_stmt_post_stmt
-%type<> if_stmt_start
-%type<> if_stmt
-%type<> else_if_stmt
-%type<> else_if_stmt_list
-%type<> param_decl
-%type<> param_list
-%type<> params
-%type<> func_return
-%type<> func_decl
-%type<> top_level_decl
-%type<> top_level_decl_list_not_empty
-%type<> top_level_decl_list
-%type<> array_element_list_not_empty
-%type<> array_element_list
-%type<> array_keyed_element
-%type<> array_key
+%type<stmt_value> assignment
+%type<top_level_decl_value> short_var_decl
+%type<stmt_value> simple_stmt_not_empty
+%type<stmt_value> simple_stmt
+%type<stmt_value> return_stmt
+%type<stmt_value> stmt
+%type<stmt_list_value> stmt_list_not_empty
+%type<stmt_list_value> stmt_list
+%type<stmt_value> for_stmt_init_stmt
+%type<stmt_value> for_stmt_post_stmt
+%type<if_stmt_part_value> if_stmt_start
+%type<stmt_value> if_stmt
+%type<if_stmt_part_value> else_if_stmt
+%type<else_if_stmt_list_value> else_if_stmt_list
+%type<param_decl_value> param_decl
+%type<param_list_value> param_list
+%type<param_list_value> params
+%type<func_return_value> func_return
+%type<top_level_decl_value> func_decl
+%type<top_level_decl_value> top_level_decl
+%type<top_level_decl_list_value> top_level_decl_list_not_empty
+%type<top_level_decl_list_value> top_level_decl_list
+%type<array_element_list_value> array_element_list_not_empty
+%type<array_element_list_value> array_element_list
+%type<array_keyed_element_value> array_keyed_element
+%type<Int_val> array_key
 
 %start program
 
