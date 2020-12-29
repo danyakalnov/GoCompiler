@@ -1,7 +1,7 @@
 enum type_type {
-	func,
-	basic,
-	arr,
+	func_t,
+	basic_t,
+	arr_t,
 };
 
 struct type_struct {
