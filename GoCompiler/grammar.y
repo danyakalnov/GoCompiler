@@ -280,8 +280,8 @@ params: '(' param_list ')' { $$ = $2; }
     | '(' param_list ',' ')' { $$ = $2; }
 ;
 
-func_return: params
-| type
+func_return: params { $$ = create_values_func_return($1); }
+| type { $$ = create_type_func_return($1); }
 ;
 
 func_decl: FUNC_KEYWORD ID params func_return { $$ = create_func_decl(create_func_signature($2, $3, $4), 0); }
