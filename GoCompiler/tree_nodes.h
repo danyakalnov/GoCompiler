@@ -1,6 +1,9 @@
 enum type_type {
 	func_t,
-	basic_t,
+	int_t,
+	bool_t,
+	string_t,
+	byte_t,
 	arr_t,
 };
 
