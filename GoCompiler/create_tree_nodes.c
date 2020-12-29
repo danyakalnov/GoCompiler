@@ -333,13 +333,6 @@ struct top_level_decl_struct* create_top_level_func(struct func_decl_struct* fun
     return result;
 }
 
-struct top_level_decl_struct* create_top_level_decl(struct decl_stmt_struct* decl) {
-    struct top_level_decl_struct* result = (struct top_level_decl_struct*)malloc(sizeof(struct top_level_decl_struct));
-    result->decl = decl;
-
-    return result;
-}
-
 struct top_level_decl_list_struct* create_top_level_decl_list(struct top_level_decl_struct* first_top_level_decl) {
     struct top_level_decl_list_struct* list = (struct top_level_decl_list_struct*)malloc(sizeof(struct top_level_decl_list_struct));
     list->first = first_top_level_decl;
