@@ -9,7 +9,7 @@ struct type_struct {
 
 	struct func_signature_struct* func_type;
 	char* basic_type;
-	struct array_lit_struct* array_type;
+	struct array_type_struct* array_type;
 };
 
 enum expr_type {
