@@ -219,7 +219,6 @@ struct array_element_list_struct {
 struct array_keyed_element_struct {
 	struct expr_struct* expr;
 	int key;
-	struct array_element_list_struct* array_value;
 
 	struct array_keyed_element_struct* next;
 };
