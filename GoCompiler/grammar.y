@@ -184,10 +184,6 @@ var_decl: VAR_KEYWORD var_spec { $$ = create_decl_stmt_from_spec($2, var_decl_t)
 | VAR_KEYWORD '(' var_spec_list ')' { $$ = create_decl_stmt_from_list($3, var_decl_t); }
 ;
 
-declaration: const_decl 
-| var_decl
-;
-
 inc_dec_stmt: expr INCREMENT
 | expr DECREMENT
 ;
@@ -294,7 +290,8 @@ func_decl: FUNC_KEYWORD ID params func_return { $$ = create_func_decl(create_fun
 | FUNC_KEYWORD ID params block { $$ = create_func_decl(create_func_signature($2, $3, 0), $4); }
 ;
 
-top_level_decl: declaration { $$ = create_top_level_decl($1); }
+top_level_decl: const_decl { $$ = $1; }
+| var_decl { $$ = $1; }
 | func_decl { $$ = create_top_level_func($1); }
 ;
 
