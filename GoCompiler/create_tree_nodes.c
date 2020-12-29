@@ -275,6 +275,33 @@ struct expr_list_struct* add_to_expr_list(struct expr_list_struct* list, struct 
     return list;
 }
 
+struct decl_spec_struct* create_decl_spec(struct id_list* ids, struct expr_list_struct* values, struct type_struct* type) {
+    struct decl_spec_struct* decl_spec = (struct decl_spec_struct*)malloc(sizeof(struct decl_spec_struct));
+
+    decl_spec->ids = ids;
+    decl_spec->values = values;
+    decl_spec->type = type;
+
+    return decl_spec;
+}
+
+struct decl_spec_list_struct* create_decl_spec_list(struct decl_spec_struct* first_spec) {
+    struct decl_spec_list_struct* list = (struct decl_spec_list_struct*)malloc(sizeof(struct decl_spec_list_struct));
+
+    list->first = first_spec;
+    list->last = first_spec;
+
+    return list;
+}
+
+struct decl_spec_list_struct* add_to_decl_spec_list(struct decl_spec_list_struct* list, struct decl_spec_struct* next) {
+    list->last->next = next;
+    list->last = next;
+    next->next = 0;
+
+    return list;
+}
+
 struct top_level_decl_struct* create_decl_stmt(struct id_list* ids, struct expr_list_struct* values, char* type, enum decl_type declaration_type) {
     struct decl_stmt_struct* decl = (struct decl_stmt_struct*)malloc(sizeof(struct decl_stmt_struct));
 
