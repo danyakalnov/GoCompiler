@@ -11,7 +11,6 @@ struct type_struct {
 	enum type_type type;
 
 	struct func_signature_struct* func_type;
-	char* basic_type;
 	struct array_type_struct* array_type;
 };
 
