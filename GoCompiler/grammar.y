@@ -214,12 +214,12 @@ simple_stmt: ';' { $$ = 0; }
 return_stmt: RETURN_KEYWORD expr_list ';' { $$ = create_return_stmt($2); }
 ;
 
-stmt: simple_stmt_not_empty
-| declaration
-| return_stmt
-| if_stmt
-| for_stmt
-| block
+stmt: simple_stmt_not_empty { $$ = $1; }
+| declaration { $$ = $1; }
+| return_stmt { $$ = $1; }
+| if_stmt { $$ = $1; }
+| for_stmt { $$ = $1; }
+| block { $$ = $1; }
 ;
 
 stmt_list_not_empty: stmt
@@ -230,7 +230,7 @@ stmt_list: /* empty */
 | stmt_list_not_empty
 ;
 
-block: '{' stmt_list '}'
+block: '{' stmt_list '}' { $$ = create_block($2); }
 ;
 
 for_stmt_init_stmt: /* empty */
