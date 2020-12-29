@@ -168,9 +168,9 @@ const_decl: CONST_KEYWORD const_spec
 | CONST_KEYWORD '(' const_spec_list ')'
 ;
 
-var_spec: identifier_list type ';'
-| identifier_list type '=' expr_list ';'
-| identifier_list '=' expr_list ';'
+var_spec: identifier_list type ';' { $$ = create_decl_spec($1, 0, $2); }
+| identifier_list type '=' expr_list ';' { $$ = create_decl_spec($1, $4, $2); }
+| identifier_list '=' expr_list ';' { $$ = create_decl_spec($1, $3, 0); }
 ;
 
 var_spec_list_not_empty: var_spec
