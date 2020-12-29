@@ -128,7 +128,6 @@ expr: ID { $$ = create_id_expr($1); }
 | STRING { $$ = create_string_expr($1); }
 | TRUE_KEYWORD { $$ = create_boolean_expr(1); }
 | FALSE_KEYWORD { $$ = create_boolean_expr(0); }
-| type '(' expr ')' 
 | '-' expr %prec UMINUS { $$ = create_operation_expr(unary_minus, $2, 0); } 
 | expr '-' expr { $$ = create_operation_expr(minus, $1, $3); }
 | expr '+' expr { $$ = create_operation_expr(plus, $1, $3); }
