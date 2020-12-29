@@ -67,3 +67,5 @@ struct type_struct* create_basic_type(enum type_type type);
 struct type_struct* create_function_type(struct func_signature_struct* func_signature);
 struct type_struct* create_array_type(struct expr_struct* length, struct type_struct* element_type);
 struct stmt_struct* create_inc_dec_stmt(struct expr_struct* expr, enum stmt_type type);
+struct func_return_struct* create_type_func_return(struct type_struct* type);
+struct func_return_struct* create_values_func_return(struct param_list_struct* return_values);

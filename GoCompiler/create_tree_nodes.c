@@ -510,3 +510,19 @@ struct stmt_struct* create_block(struct stmt_list_struct* statements) {
 
     return block_stmt;
 }
+
+struct func_return_struct* create_type_func_return(struct type_struct* type) {
+    struct func_return_struct* func_return = (struct func_return_struct*)malloc(sizeof(struct func_return_struct));
+
+    func_return->return_type = type;
+
+    return func_return;
+}
+
+struct func_return_struct* create_values_func_return(struct param_list_struct* return_values) {
+    struct func_return_struct* func_return = (struct func_return_struct*)malloc(sizeof(struct func_return_struct));
+
+    func_return->return_values = return_values;
+
+    return func_return;
+}
