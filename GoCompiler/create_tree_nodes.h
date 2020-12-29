@@ -62,4 +62,4 @@ struct program_struct* create_program(struct package_decl_struct* package, struc
 struct program_struct* create_program_with_imports(struct package_decl_struct* package, struct import_decl_list_struct* imports, struct top_level_decl_list* decls);
 struct type_struct* create_basic_type(char* basic_type);
 struct type_struct* create_function_type(struct func_signature_struct* func_signature);
-struct type_struct* create_array_type(struct array_type_struct* array_type);
+struct type_struct* create_array_type(struct expr_struct* length, struct type_struct* element_type);

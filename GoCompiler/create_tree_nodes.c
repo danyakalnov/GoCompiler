@@ -459,9 +459,13 @@ struct type_struct* create_function_type(struct func_signature_struct* func_sign
     return type_struct;
 }
 
-struct type_struct* create_array_type(struct array_type_struct* array_type) {
-    struct type_struct* type_struct = (struct type_struct*)malloc(sizeof(struct type_struct));
+struct type_struct* create_array_type(struct expr_struct* length, struct type_struct* element_type) {
+    struct array_type_struct* array_type = (struct array_type_struct*)malloc(sizeof(struct array_type_struct));
 
+    array_type->type = element_type;
+    array_type->length = length;
+
+    struct type_struct* type_struct = (struct type_struct*)malloc(sizeof(struct type_struct));
     type_struct->type = arr_t;
     type_struct->array_type = array_type;
     
