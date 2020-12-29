@@ -130,8 +130,8 @@ struct else_if_stmt_list_struct {
 };
 
 struct assignment_stmt_struct {
-	struct expr_struct* left;
-	struct expr_struct* right;
+	struct expr_list_struct* left;
+	struct expr_list_struct* right;
 };
 
 struct return_stmt_struct {
