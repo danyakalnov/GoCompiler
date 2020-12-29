@@ -150,11 +150,22 @@ struct id_list {
 	struct id_struct* last;
 };
 
-struct decl_stmt_struct {
-	enum decl_type declaration_type;
+struct decl_spec_struct {
 	struct id_list* ids;
 	struct expr_list* values;
 	struct type_struct* type;
+
+	struct decl_spec_struct* next;
+};
+
+struct decl_spec_list_struct {
+	struct decl_spec_struct* first;
+	struct decl_spec_struct* last;
+};
+
+struct decl_stmt_struct {
+	enum decl_type declaration_type;
+	struct decl_spec_list_struct* spec_list;
 };
 
 struct package_decl_struct {
