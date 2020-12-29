@@ -40,7 +40,7 @@ struct expr_struct* create_operation_expr(enum expr_type type, struct expr_struc
 }
 
 
-struct array_element_list_struct* create_array_element_list(struct array_keyed_element* first_element) {
+struct array_element_list_struct* create_array_element_list(struct array_keyed_element_struct* first_element) {
     struct array_element_list_struct* result = (struct array_element_list_struct*)malloc(sizeof(struct array_element_list_struct));
     result->first = first_element;
     result->last = first_element;
@@ -49,7 +49,7 @@ struct array_element_list_struct* create_array_element_list(struct array_keyed_e
     return result;
 }
 
-struct array_element_list_struct* add_to_array_element_list(struct array_element_list_struct* list, struct array_keyed_element* next_element) {
+struct array_element_list_struct* add_to_array_element_list(struct array_element_list_struct* list, struct array_keyed_element_struct* next_element) {
     list->last->next = next_element;
     list->last = next_element;
     next_element->next = 0;
