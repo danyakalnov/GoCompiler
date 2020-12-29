@@ -184,7 +184,6 @@ expr: ID { $$ = create_id_expr($1); }
 | STRING { $$ = create_string_expr($1); }
 | TRUE_KEYWORD { $$ = create_boolean_expr(1); }
 | FALSE_KEYWORD { $$ = create_boolean_expr(0); }
-| type '(' expr ')' 
 | '-' expr %prec UMINUS { $$ = create_operation_expr(unary_minus, $2, 0); } 
 | expr '-' expr { $$ = create_operation_expr(minus, $1, $3); }
 | expr '+' expr { $$ = create_operation_expr(plus, $1, $3); }
@@ -197,7 +196,7 @@ expr: ID { $$ = create_id_expr($1); }
 | expr EQUAL expr { $$ = create_operation_expr(equal, $1, $3); }
 | expr NOT_EQUAL expr { $$ = create_operation_expr(not_equal, $1, $3); }
 | expr '[' expr ']' { $$ = create_operation_expr(member_access, $1, $3); }
-| ID '(' expr_list ')'
+| ID '(' expr_list ')' { $$ = create_function_call($1, $3); }
 ;
 
 expr_list: /* empty */ { $$ = 0; puts("Empty expression list"); }
@@ -307,20 +306,20 @@ for_stmt: FOR_KEYWORD block { $$ = create_empty_for_stmt($2); }
     | FOR_KEYWORD for_stmt_init_stmt ';' expr ';' for_stmt_post_stmt block { $$ = create_for_clause_stmt($2, $6, $4, $7); }
 ;
 
-if_stmt_start: IF_KEYWORD simple_stmt expr block
-| IF_KEYWORD expr block
+if_stmt_start: IF_KEYWORD simple_stmt expr block { $$ = create_if_stmt_part($2, $3, $4); }
+| IF_KEYWORD expr block { $$ = create_if_stmt_part(0, $2, $3); }
 ;
 
-if_stmt: if_stmt_start
-| if_stmt_start ELSE_KEYWORD block
-| if_stmt_start else_if_stmt_list ELSE_KEYWORD block
+if_stmt: if_stmt_start { $$ = create_if_stmt($1, 0, 0); }
+| if_stmt_start ELSE_KEYWORD block { $$ = create_if_stmt($1, 0, $3); }
+| if_stmt_start else_if_stmt_list ELSE_KEYWORD block { $$ = create_if_stmt($1, $2, $4); }
 ;
 
-else_if_stmt: ELSE_KEYWORD if_stmt_start
+else_if_stmt: ELSE_KEYWORD if_stmt_start { $$ = $2; }
 ;
 
-else_if_stmt_list: else_if_stmt
-| else_if_stmt_list else_if_stmt
+else_if_stmt_list: else_if_stmt { $$ = create_else_if_stmt_list($1); }
+| else_if_stmt_list else_if_stmt { $$ = add_to_else_if_stmt_list($1, $2); }
 ;
 
 param_decl: identifier_list type { $$ = create_param($2, $1); }

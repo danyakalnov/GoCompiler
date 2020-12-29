@@ -51,6 +51,9 @@ struct expr_struct {
 
 	/* Array fields */
 	struct array_lit_struct* arr;
+
+	/* For function call */
+	struct expr_list_struct* args;
 };
 
 enum stmt_type {
