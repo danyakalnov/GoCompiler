@@ -39,6 +39,20 @@ struct expr_struct* create_operation_expr(enum expr_type type, struct expr_struc
     return result;
 }
 
+struct array_keyed_element_struct* create_array_keyed_element(int key, struct expr_struct* expr) {
+    struct array_keyed_element_struct* result = (struct array_keyed_element_struct*)malloc(sizeof(struct array_keyed_element_struct));
+    result->key = key;
+    result->expr = expr;
+    
+    return result;
+}
+
+struct array_keyed_element_struct* create_array_element(struct expr_struct* expr) {
+    struct array_keyed_element_struct* result = (struct array_keyed_element_struct*)malloc(sizeof(struct array_keyed_element_struct));
+    result->expr = expr;
+
+    return result;
+}
 
 struct array_element_list_struct* create_array_element_list(struct array_keyed_element_struct* first_element) {
     struct array_element_list_struct* result = (struct array_element_list_struct*)malloc(sizeof(struct array_element_list_struct));
