@@ -236,7 +236,7 @@ struct func_return_struct {
 struct func_signature_struct {
 	char* func_name;
 	struct param_list_struct* params;
-	struct param_list_struct* return_values;
+	struct func_return_struct* return_value;
 };
 
 struct func_decl_struct {
