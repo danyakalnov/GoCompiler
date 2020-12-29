@@ -192,7 +192,7 @@ struct func_signature_struct* create_func_signature(char* name, struct param_lis
     return func_signature;
 }
 
-struct param_decl_struct* create_param(struct type_struct* param_type, struct id_list* ids) {
+struct param_decl_struct* create_param(struct type_struct* param_type, struct id_list_struct* ids) {
     struct param_decl_struct* param = (struct param_decl_struct*)malloc(sizeof(struct param_decl_struct));
 
     param->ids = ids;
@@ -227,8 +227,8 @@ struct id_struct* create_id(char* name) {
     return id;
 }
 
-struct id_list* create_id_list(struct id_struct* first_id) {
-    struct id_list* id_list = (struct id_list*)malloc(sizeof(struct id_list));
+struct id_list_struct* create_id_list(struct id_struct* first_id) {
+    struct id_list_struct* id_list = (struct id_list_struct*)malloc(sizeof(struct id_list_struct));
 
     id_list->first = first_id;
     id_list->last = first_id;
@@ -237,7 +237,7 @@ struct id_list* create_id_list(struct id_struct* first_id) {
     return id_list;
 }
 
-struct id_list* add_to_id_list(struct id_list* list, struct id_struct* id) {
+struct id_list_struct* add_to_id_list(struct id_list_struct* list, struct id_struct* id) {
     list->last->next = id;
     list->last = id;
     id->next = 0;
@@ -281,7 +281,7 @@ struct expr_list_struct* add_to_expr_list(struct expr_list_struct* list, struct 
     return list;
 }
 
-struct decl_spec_struct* create_decl_spec(struct id_list* ids, struct expr_list_struct* values, struct type_struct* type) {
+struct decl_spec_struct* create_decl_spec(struct id_list_struct* ids, struct expr_list_struct* values, struct type_struct* type) {
     struct decl_spec_struct* decl_spec = (struct decl_spec_struct*)malloc(sizeof(struct decl_spec_struct));
 
     decl_spec->ids = ids;
