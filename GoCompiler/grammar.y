@@ -234,21 +234,21 @@ block: '{' stmt_list '}' { $$ = create_block($2); }
 ;
 
 for_stmt_init_stmt: /* empty */
-| expr
-| inc_dec_stmt
-| assignment
-| short_var_decl
+| expr { $$ = create_expr_stmt($1); }
+| inc_dec_stmt { $$ = $1; }
+| assignment { $$ = $1; }
+| short_var_decl { $$ = $1; }
 ;
 
 for_stmt_post_stmt: /* empty */
-| expr
-| inc_dec_stmt
-| assignment
+| expr { $$ = create_expr_stmt($1); }
+| inc_dec_stmt { $$ = $1; }
+| assignment { $$ = $1; }
 ;
 
-for_stmt: FOR_KEYWORD block 
-    | FOR_KEYWORD expr block
-    | FOR_KEYWORD for_stmt_init_stmt ';' expr ';' for_stmt_post_stmt block 
+for_stmt: FOR_KEYWORD block { $$ = create_empty_for_stmt($2); }
+    | FOR_KEYWORD expr block { $$ = create_for_with_condition($2, $3); }
+    | FOR_KEYWORD for_stmt_init_stmt ';' expr ';' for_stmt_post_stmt block { $$ = create_for_clause_stmt($2, $6, $4, $7); }
 ;
 
 if_stmt_start: IF_KEYWORD simple_stmt expr block
