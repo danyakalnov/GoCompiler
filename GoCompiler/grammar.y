@@ -251,20 +251,20 @@ for_stmt: FOR_KEYWORD block { $$ = create_empty_for_stmt($2); }
     | FOR_KEYWORD for_stmt_init_stmt ';' expr ';' for_stmt_post_stmt block { $$ = create_for_clause_stmt($2, $6, $4, $7); }
 ;
 
-if_stmt_start: IF_KEYWORD simple_stmt expr block
-| IF_KEYWORD expr block
+if_stmt_start: IF_KEYWORD simple_stmt expr block { $$ = create_if_stmt_part($2, $3, $4); }
+| IF_KEYWORD expr block { $$ = create_if_stmt_part(0, $2, $3); }
 ;
 
-if_stmt: if_stmt_start
-| if_stmt_start ELSE_KEYWORD block
-| if_stmt_start else_if_stmt_list ELSE_KEYWORD block
+if_stmt: if_stmt_start { $$ = create_if_stmt($1, 0, 0); }
+| if_stmt_start ELSE_KEYWORD block { $$ = create_if_stmt($1, 0, $3); }
+| if_stmt_start else_if_stmt_list ELSE_KEYWORD block { $$ = create_if_stmt($1, $2, $4); }
 ;
 
-else_if_stmt: ELSE_KEYWORD if_stmt_start
+else_if_stmt: ELSE_KEYWORD if_stmt_start { $$ = $2; }
 ;
 
-else_if_stmt_list: else_if_stmt
-| else_if_stmt_list else_if_stmt
+else_if_stmt_list: else_if_stmt { $$ = create_else_if_stmt_list($1); }
+| else_if_stmt_list else_if_stmt { $$ = add_to_else_if_stmt_list($1, $2); }
 ;
 
 param_decl: identifier_list type { $$ = create_param($2, $1); }
