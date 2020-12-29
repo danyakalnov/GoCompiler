@@ -267,20 +267,20 @@ else_if_stmt_list: else_if_stmt
 | else_if_stmt_list else_if_stmt
 ;
 
-param_decl: identifier_list type
-    | type
+param_decl: identifier_list type { $$ = create_param($2, $1); }
+    | type { $$ = create_param($1, 0); }
 ;
 
-param_list: param_decl
-    | param_list ',' param_decl
+param_list: param_decl { $$ = create_param_list($1); }
+    | param_list ',' param_decl { $$ = add_to_param_list($1, $3); }
 ;
 
-params: '(' param_list ')'
-    | '(' ')'
-    | '(' param_list ',' ')' 
+params: '(' param_list ')' { $$ = $2; }
+    | '(' ')' { $$ = 0; }
+    | '(' param_list ',' ')' { $$ = $2; }
 ;
 
-func_return: params 
+func_return: params
 | type
 ;
 
@@ -315,7 +315,7 @@ array_keyed_element: expr { $$ = create_array_element($1); }
 | array_key ':' expr { $$ = create_array_keyed_element($1, $3); }
 ;
 
-array_key: INT; 
+array_key: INT; { $$ = create_int_expr($1); }
 
 %%
 

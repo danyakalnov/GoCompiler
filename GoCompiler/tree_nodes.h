@@ -221,8 +221,16 @@ struct param_list_struct {
 	struct param_decl_struct* last;
 };
 
+enum func_return_type {
+	func_return_params_t,
+	func_return_type_t
+};
+
 struct func_return_struct {
+	enum func_return_type type;
+
 	struct param_list_struct* return_values;
+	struct type_struct* return_type;
 
 	/* TODO: type */
 };
@@ -230,7 +238,7 @@ struct func_return_struct {
 struct func_signature_struct {
 	char* func_name;
 	struct param_list_struct* params;
-	struct param_list_struct* return_values;
+	struct func_return_struct* return_value;
 };
 
 struct func_decl_struct {
