@@ -195,7 +195,7 @@ assign_op: '='
 | DIVISION_ASSIGN
 ;
 
-assignment: identifier_list assign_op expr_list_not_empty
+assignment: expr_list_not_empty assign_op expr_list_not_empty
 ;
 
 short_var_decl: identifier_list SHORT_EQUALS expr_list_not_empty
