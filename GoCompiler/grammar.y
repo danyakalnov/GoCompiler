@@ -294,16 +294,16 @@ func_decl: FUNC_KEYWORD ID params func_return
 | FUNC_KEYWORD ID params block
 ;
 
-top_level_decl: declaration
+top_level_decl: declaration {  }
 | func_decl
 ;
 
-top_level_decl_list_not_empty: top_level_decl ';'
-| top_level_decl_list_not_empty top_level_decl ';' 
+top_level_decl_list_not_empty: top_level_decl ';' { $$ = create_top_level_decl_list($1); }
+| top_level_decl_list_not_empty top_level_decl ';' { $$ = add_to_top_level_decl_list($1, $2); }
 ;
 
-top_level_decl_list: /* empty */
-| top_level_decl_list_not_empty
+top_level_decl_list: /* empty */ { $$ = 0; puts("Empty top level declarations list"); }
+| top_level_decl_list_not_empty { $$ = $1; }
 ;
 
 array_element_list_not_empty: array_keyed_element { $$ = create_array_element_list($1); puts("Array element list from one element"); }
@@ -314,11 +314,11 @@ array_element_list: /* empty */ { $$ = 0; puts("Empty array element list"); }
 | array_element_list_not_empty { $$ = $1; puts("Array element list"); }
 ;
 
-array_keyed_element: expr
-| array_key ':' expr
+array_keyed_element: expr { $$ = create_array_element($1); }
+| array_key ':' expr { $$ = create_array_keyed_element($1, $3); }
 ;
 
-array_key: INT;
+array_key: INT; 
 
 %%
 
