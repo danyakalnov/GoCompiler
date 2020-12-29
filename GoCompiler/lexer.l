@@ -284,7 +284,7 @@ chan {
 }
 
 const {
-	printf("Found 'const' keyword\n");
+	return CONST_KEYWORD;
 }
 
 continue {
@@ -300,7 +300,7 @@ defer {
 }
 
 else {
-	printf("Found 'else' keyword\n");
+	return ELSE_KEYWORD;
 }
 
 fallthrough {
@@ -308,11 +308,11 @@ fallthrough {
 }
 
 for {
-	printf("Found 'for' keyword\n");
+	return FOR_KEYWORD;
 }
 
 func {
-	printf("Found 'func' keyword\n");
+	return FUNC_KEYWORD;
 }
 
 go {
@@ -324,11 +324,23 @@ goto {
 }
 
 if {
-	printf("Found 'if' keyword\n");
+	return IF_KEYWORD;
 }
 
 import {
-	printf("Found 'import' keyword\n");
+	return IMPORT_KEYWORD;
+}
+
+int {
+	return INT_KEYWORD;
+}
+
+byte {
+	return BYTE_KEYWORD;
+}
+
+string {
+	return STRING_KEYWORD;
 }
 
 interface {
@@ -340,7 +352,7 @@ map {
 }
 
 package {
-	printf("Found 'package' keyword\n");
+	return PACKAGE_KEYWORD;
 }
 
 range {
@@ -348,7 +360,7 @@ range {
 }
 
 return {
-	printf("Found 'return' keyword\n");
+	return RETURN_KEYWORD;
 }
 
 select {
@@ -368,7 +380,19 @@ type {
 }
 
 var {
-	printf("Found 'var' keyword\n");
+	return VAR_KEYWORD;
+}
+
+bool {
+	return BOOL_KEYWORD;
+}
+
+true {
+	return TRUE_KEYWORD;
+}
+
+false {
+	return FALSE_KEYWORD;
 }
 
 {LETTER}({LETTER}|0-9)* {
