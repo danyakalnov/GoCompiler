@@ -62,7 +62,9 @@ enum stmt_type {
 	var_decl_t,
 	const_decl_t,
 	block_t,
-	return_stmt_t
+	return_stmt_t,
+	inc_t,
+	dec_t
 };
 
 enum decl_type {

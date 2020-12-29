@@ -66,3 +66,4 @@ struct program_struct* create_program_with_imports(struct package_decl_struct* p
 struct type_struct* create_basic_type(enum type_type type);
 struct type_struct* create_function_type(struct func_signature_struct* func_signature);
 struct type_struct* create_array_type(struct expr_struct* length, struct type_struct* element_type);
+struct stmt_struct* create_inc_dec_stmt(struct expr_struct* expr, enum stmt_type type);
