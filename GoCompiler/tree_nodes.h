@@ -1,3 +1,17 @@
+enum type_type {
+	func,
+	basic,
+	arr,
+};
+
+struct type_struct {
+	enum type_type type;
+
+	struct func_signature_struct* func_type;
+	char* basic_type;
+	struct array_lit_struct* array_type;
+};
+
 enum expr_type {
 	integer,
 	str,
@@ -140,7 +154,7 @@ struct decl_stmt_struct {
 	enum decl_type declaration_type;
 	struct id_list* ids;
 	struct expr_list* values;
-	char* type;
+	struct type_struct* type;
 };
 
 struct package_decl_struct {
@@ -185,7 +199,7 @@ struct top_level_decl_list_struct {
 
 struct param_decl_struct {
 	struct id_list* ids;
-	char* type;
+	struct type_struct* type;
 
 	struct param_decl_struct* next;
 };
@@ -197,6 +211,7 @@ struct param_list_struct {
 
 struct func_return_struct {
 	struct param_list_struct* return_values;
+
 	/* TODO: type */
 };
 
@@ -212,7 +227,7 @@ struct func_decl_struct {
 };
 
 struct array_type_struct {
-	char* type;
+	struct type_struct* type;
 	struct expr_struct* length;
 };
 
