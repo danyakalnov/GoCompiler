@@ -1,7 +1,17 @@
 #include "print_tree.h"
 
 void print_program(struct program_struct* program, FILE* output_file) {
-	
+	fprintf(output_file, "digraph G{\n");
+	fprintf(output_file, "Id%p [label=\"program\"]\n", program);
+	if (program->imports != 0) {
+		print_imports(program->imports, output_file);
+	}
+	if (program->declarations != 0) {
+		print_top_level_decls(program->declarations, output_file);
+	}
+	if (program->package != 0) {
+		print_package(program->package, output_file);
+	}
 }
 
 void print_imports(struct import_decl_list_struct* imports, FILE* output_file) {
@@ -11,6 +21,11 @@ void print_imports(struct import_decl_list_struct* imports, FILE* output_file) {
 void print_import(struct import_decl_struct* import_decl, FILE* output_file) {
 	
 }
+
+void print_package(struct package_decl_struct*, FILE* output_file) {
+	
+}
+
 void print_top_level_decls(struct top_level_decl_list_struct*, FILE* output_file) {
 	
 }
