@@ -75,8 +75,8 @@ enum stmt_type {
 };
 
 enum decl_type {
-	var_decl_t,
-	const_decl_t
+	var_t,
+	const_t
 };
 
 enum for_type {
