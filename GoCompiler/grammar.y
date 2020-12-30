@@ -253,14 +253,11 @@ inc_dec_stmt: expr INCREMENT { $$ = create_inc_dec_stmt($1, inc_t); }
 | expr DECREMENT { $$ = create_inc_dec_stmt($1, dec_t); }
 ;
 
-assign_op: '='
-| PLUS_ASSIGN
-| MINUS_ASSIGN
-| MULTIPLY_ASSIGN
-| DIVISION_ASSIGN
-;
-
-assignment: expr_list_not_empty assign_op expr_list_not_empty { $$ = create_assignment($1, $3); }
+assignment: expr_list_not_empty '=' expr_list_not_empty { $$ = create_assignment(assignment_t, $1, $3); }
+| expr_list_not_empty PLUS_ASSIGN expr_list_not_empty { $$ = create_assignment(plus_assignment_t, $1, $3); }
+| expr_list_not_empty MINUS_ASSIGN expr_list_not_empty { $$ = create_assignment(minus_assignment_t, $1, $3); }
+| expr_list_not_empty MULTIPLY_ASSIGN expr_list_not_empty { $$ = create_assignment(mul_assignment_t, $1, $3); }
+| expr_list_not_empty DIVISION_ASSIGN expr_list_not_empty { $$ = create_assignment(div_assignment_t, $1, $3); }
 ;
 
 short_var_decl: identifier_list SHORT_EQUALS expr_list_not_empty { $$ = create_decl_stmt_from_spec(create_decl_spec($1, $3, 0), var_decl_t); }
