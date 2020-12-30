@@ -134,6 +134,7 @@ struct program_struct * root;
 %type<array_element_list_value> array_element_list
 %type<array_keyed_element_value> array_keyed_element
 %type<Int_val> array_key
+%type<stmt_value> declaration;
 
 %start program
 
