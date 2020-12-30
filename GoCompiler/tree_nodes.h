@@ -66,8 +66,8 @@ enum stmt_type {
 	mul_assignment_t,
 	div_assignment_t,
 	short_var_decl_t,
-	var_decl_t,
-	const_decl_t,
+	var_t,
+	const_t,
 	block_t,
 	return_stmt_t,
 	inc_t,
@@ -75,8 +75,8 @@ enum stmt_type {
 };
 
 enum decl_type {
-	var_decl_t,
-	const_decl_t
+	var_t,
+	const_t
 };
 
 enum for_type {

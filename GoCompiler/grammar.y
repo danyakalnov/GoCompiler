@@ -228,8 +228,8 @@ const_spec_list: /* empty */ { $$ = 0; }
 | const_spec_list_not_empty { $$ = $1; }
 ;
 
-const_decl: CONST_KEYWORD const_spec { $$ = create_decl_stmt_from_spec($2, const_decl_t); }
-| CONST_KEYWORD '(' const_spec_list ')' { $$ = create_decl_stmt_from_list($3, const_decl_t); }
+const_decl: CONST_KEYWORD const_spec { $$ = create_decl_stmt_from_spec($2, const_t); }
+| CONST_KEYWORD '(' const_spec_list ')' { $$ = create_decl_stmt_from_list($3, const_t); }
 ;
 
 var_spec: identifier_list type ';' { $$ = create_decl_spec($1, 0, $2); }
@@ -244,8 +244,8 @@ var_spec_list_not_empty: var_spec { $$ = create_decl_spec_list($1); }
 var_spec_list: /* empty */ { $$ = 0; }
 | var_spec_list_not_empty { $$ = $1; }
 
-var_decl: VAR_KEYWORD var_spec { $$ = create_decl_stmt_from_spec($2, var_decl_t); }
-| VAR_KEYWORD '(' var_spec_list ')' { $$ = create_decl_stmt_from_list($3, var_decl_t); }
+var_decl: VAR_KEYWORD var_spec { $$ = create_decl_stmt_from_spec($2, var_t); }
+| VAR_KEYWORD '(' var_spec_list ')' { $$ = create_decl_stmt_from_list($3, var_t); }
 ;
 
 inc_dec_stmt: expr INCREMENT { $$ = create_inc_dec_stmt($1, inc_t); }
@@ -259,7 +259,7 @@ assignment: expr_list_not_empty '=' expr_list_not_empty { $$ = create_assignment
 | expr_list_not_empty DIVISION_ASSIGN expr_list_not_empty { $$ = create_assignment(div_assignment_t, $1, $3); }
 ;
 
-short_var_decl: identifier_list SHORT_EQUALS expr_list_not_empty { $$ = create_decl_stmt_from_spec(create_decl_spec($1, $3, 0), var_decl_t); }
+short_var_decl: identifier_list SHORT_EQUALS expr_list_not_empty { $$ = create_decl_stmt_from_spec(create_decl_spec($1, $3, 0), var_t); }
 ;
 
 simple_stmt_not_empty: expr ';' { $$ = create_expr_stmt($1); }
