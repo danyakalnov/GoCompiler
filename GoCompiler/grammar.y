@@ -88,7 +88,7 @@ struct program_struct * root;
 %token <String> STRING
 
 %type<expr_value> expr
-%type<for_stmt_value> for_stmt
+%type<stmt_value> for_stmt
 %type<block_value> block
 %type<expr_list_value> expr_list
 %type<program_value> program
