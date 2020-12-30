@@ -158,7 +158,7 @@ struct id_list_struct {
 };
 
 struct decl_spec_struct {
-	struct id_list* ids;
+	struct id_struct* id;
 	struct expr_list* values;
 	struct type_struct* type;
 
@@ -217,7 +217,7 @@ struct top_level_decl_list_struct {
 };
 
 struct param_decl_struct {
-	struct id_list* ids;
+	struct id_struct* id;
 	struct type_struct* type;
 
 	struct param_decl_struct* next;
