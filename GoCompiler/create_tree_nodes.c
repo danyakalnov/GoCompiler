@@ -22,10 +22,10 @@ struct expr_struct* create_boolean_expr(int value) {
     return result;
 }
 
-struct expr_struct* create_id_expr(char* id) {
+struct expr_struct* create_id_expr(char* identifier) {
     struct expr_struct* result = (struct expr_struct*)malloc(sizeof(struct expr_struct));
     result->type = id;
-    result->str_value = id;
+    result->str_value = identifier;
 
     return result;
 }
