@@ -148,6 +148,7 @@
     <ClCompile Include="create_tree_nodes.cpp" />
     <ClCompile Include="grammar.tab.cpp" />
     <ClCompile Include="lexer.flex.cpp" />
+    <ClCompile Include="print_tree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Bison Include="grammar.y">
@@ -160,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="create_tree_nodes.h" />
     <ClInclude Include="grammar.tab.h" />
+    <ClInclude Include="print_tree.h" />
     <ClInclude Include="tree_nodes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
