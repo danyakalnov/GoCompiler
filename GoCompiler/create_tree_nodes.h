@@ -39,7 +39,7 @@ struct id_list_struct* create_id_list(struct id_struct* first_id);
 struct id_list_struct* add_to_id_list(struct id_list_struct* list, struct id_struct* id);
 struct expr_list_struct* create_expr_list(struct expr_struct* first_expr);
 struct expr_list_struct* add_to_expr_list(struct expr_list_struct* list, struct expr_struct* expr);
-struct decl_spec_struct* create_decl_spec(struct id_struct* id, struct expr_list_struct* values, struct type_struct* type);
+struct decl_spec_struct* create_decl_spec(struct id_struct* id, struct expr_struct* value, struct type_struct* type);
 struct decl_spec_list_struct* create_decl_spec_list(struct decl_spec_struct* first_spec);
 struct decl_spec_list_struct* add_to_decl_spec_list(struct decl_spec_list_struct* list, struct decl_spec_struct* next);
 struct top_level_decl_struct* create_decl_stmt_from_spec(struct decl_spec_struct* spec, enum decl_type declaration_type);

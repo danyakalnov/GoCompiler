@@ -93,9 +93,13 @@ struct stmt_struct* create_empty_for_stmt(struct stmt_struct* block) {
 }
 
 struct stmt_struct* create_for_with_condition(struct expr_struct* condition, struct stmt_struct* block) {
-    struct for_stmt_struct* result = (struct for_stmt_struct*)malloc(sizeof(struct for_stmt_struct));
-    result->for_condition = condition;
-    result->block = block;
+    struct for_stmt_struct* for_stmt = (struct for_stmt_struct*)malloc(sizeof(struct for_stmt_struct));
+    for_stmt->for_condition = condition;
+    for_stmt->block = block;
+
+    struct stmt_struct* result = (struct stmt_struct*)malloc(sizeof(struct stmt_struct*));
+    result->type = for_loop_t;
+    result->for_stmt_field = for_stmt;
 
     return result;
 }
@@ -103,11 +107,15 @@ struct stmt_struct* create_for_with_condition(struct expr_struct* condition, str
 struct stmt_struct* create_for_clause_stmt(
     struct stmt_struct* init_stmt, struct stmt_struct* post_stmt, struct expr_struct* condition, struct stmt_struct* block
 ) {
-    struct for_stmt_struct* result = (struct for_stmt_struct*)malloc(sizeof(struct for_stmt_struct));
-    result->for_clause_init_stmt = init_stmt;
-    result->for_clause_post_stmt = post_stmt;
-    result->for_condition = condition;
-    result->block = block;
+    struct for_stmt_struct* for_stmt = (struct for_stmt_struct*)malloc(sizeof(struct for_stmt_struct));
+    for_stmt->for_clause_init_stmt = init_stmt;
+    for_stmt->for_clause_post_stmt = post_stmt;
+    for_stmt->for_condition = condition;
+    for_stmt->block = block;
+
+    struct stmt_struct* result = (struct stmt_struct*)malloc(sizeof(struct stmt_struct*));
+    result->type = for_loop_t;
+    result->for_stmt_field = for_stmt;
 
     return result;
 }
@@ -286,11 +294,11 @@ struct expr_list_struct* add_to_expr_list(struct expr_list_struct* list, struct 
     return list;
 }
 
-struct decl_spec_struct* create_decl_spec(struct id_struct* id, struct expr_list_struct* values, struct type_struct* type) {
+struct decl_spec_struct* create_decl_spec(struct id_struct* id, struct expr_struct* value, struct type_struct* type) {
     struct decl_spec_struct* decl_spec = (struct decl_spec_struct*)malloc(sizeof(struct decl_spec_struct));
 
     decl_spec->id = id;
-    decl_spec->values = values;
+    decl_spec->values = value;
     decl_spec->type = type;
 
     return decl_spec;
