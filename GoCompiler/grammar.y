@@ -276,7 +276,8 @@ return_stmt: RETURN_KEYWORD expr_list ';' { $$ = create_return_stmt($2); }
 ;
 
 stmt: simple_stmt_not_empty { $$ = $1; }
-| declaration { $$ = $1; }
+| const_decl { $$ = $1; }
+| var_decl { $$ = $1; }
 | return_stmt { $$ = $1; }
 | if_stmt { $$ = $1; }
 | for_stmt { $$ = $1; }
@@ -376,7 +377,8 @@ array_keyed_element: expr { $$ = create_array_element($1); }
 | array_key ':' expr { $$ = create_array_keyed_element($1, $3); }
 ;
 
-array_key: INT; { $$ = create_int_expr($1); }
+array_key: INT { $$ = create_int_expr($1); }
+;
 
 %%
 
