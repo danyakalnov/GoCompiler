@@ -70,4 +70,4 @@ struct stmt_struct* create_inc_dec_stmt(struct expr_struct* expr, enum stmt_type
 struct func_return_struct* create_type_func_return(struct type_struct* type);
 struct func_return_struct* create_values_func_return(struct param_list_struct* return_values);
 struct stmt_struct* create_short_var_decl(struct id_struct* identifier, struct expr_struct* expression);
-struct top_level_decl_struct* create_top_level_declaration();
+struct top_level_decl_struct* create_top_level_declaration(struct decl_stmt_struct* decl_stmt);
