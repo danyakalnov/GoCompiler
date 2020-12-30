@@ -325,28 +325,28 @@ struct decl_spec_list_struct* add_to_decl_spec_list(struct decl_spec_list_struct
     return list;
 }
 
-struct top_level_decl_struct* create_decl_stmt_from_spec(struct decl_spec_struct* spec, enum decl_type declaration_type) {
+struct stmt_struct* create_decl_stmt_from_spec(struct decl_spec_struct* spec, enum decl_type declaration_type) {
     struct decl_stmt_struct* decl = (struct decl_stmt_struct*)malloc(sizeof(struct decl_stmt_struct));
 
     decl->spec = spec;
     decl->declaration_type = declaration_type;
 
-    struct top_level_decl_struct* top_level_decl = (struct top_level_decl_struct*)malloc(sizeof(struct top_level_decl_struct));
-    top_level_decl->decl = decl;
+    struct stmt_struct* stmt = (struct stmt_struct*)malloc(sizeof(struct stmt_struct));
+    stmt->decl_stmt_field = decl;
 
-    return top_level_decl;
+    return stmt;
 }
 
-struct top_level_decl_struct* create_decl_stmt_from_list(struct decl_spec_list_struct* decl_spec_list, enum decl_type declaration_type) {
+struct stmt_struct* create_decl_stmt_from_list(struct decl_spec_list_struct* decl_spec_list, enum decl_type declaration_type) {
     struct decl_stmt_struct* decl = (struct decl_stmt_struct*)malloc(sizeof(struct decl_stmt_struct));
 
     decl->spec_list = decl_spec_list;
     decl->declaration_type = declaration_type;
 
-    struct top_level_decl_struct* top_level_decl = (struct top_level_decl_struct*)malloc(sizeof(struct top_level_decl_struct));
-    top_level_decl->decl = decl;
+    struct stmt_struct* stmt = (struct stmt_struct*)malloc(sizeof(struct stmt_struct));
+    stmt->decl_stmt_field = decl;
 
-    return top_level_decl;
+    return stmt;
 }
 
 struct top_level_decl_struct* create_top_level_func(struct func_decl_struct* func_decl) {
@@ -552,4 +552,11 @@ struct stmt_struct* create_short_var_decl(struct id_struct* identifier, struct e
     short_var_decl_value->declaration_type = var_t;
 
     return short_var_decl_value;
+}
+
+struct top_level_decl_struct* create_top_level_declaration(struct decl_stmt_struct* decl_stmt) {
+    struct top_level_decl_struct* top_level_decl = (struct top_level_decl_struct*)malloc(sizeof(struct top_level_decl_struct));
+    top_level_decl->decl = decl_stmt;
+
+    return top_level_decl;
 }
