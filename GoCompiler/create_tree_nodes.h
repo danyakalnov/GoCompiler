@@ -35,7 +35,7 @@ struct param_list_struct* create_param_list(struct param_decl_struct* first_para
 struct param_list_struct* add_to_param_list(struct param_list_struct* list, struct param_decl_struct* param);
 struct stmt_struct* create_return_stmt(struct expr_list_struct* return_value);
 struct id_struct* create_id(char* name);
-struct id_list* create_id_list(struct id_struct* first_id);
+struct id_list_struct* create_id_list(struct id_struct* first_id);
 struct id_list_struct* add_to_id_list(struct id_list_struct* list, struct id_struct* id);
 struct expr_list_struct* create_expr_list(struct expr_struct* first_expr);
 struct expr_list_struct* add_to_expr_list(struct expr_list_struct* list, struct expr_struct* expr);
