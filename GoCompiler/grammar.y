@@ -108,7 +108,6 @@ struct program_struct * root;
 %type<decl_spec_list_value> var_spec_list
 %type<decl_stmt_value> var_decl
 %type<stmt_value> inc_dec_stmt
-%type<> assign_op
 %type<stmt_value> assignment
 %type<top_level_decl_value> short_var_decl
 %type<stmt_value> simple_stmt_not_empty
