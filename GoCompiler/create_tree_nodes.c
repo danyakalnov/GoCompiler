@@ -81,8 +81,13 @@ struct array_lit_struct* create_array_lit(struct type_struct* type, struct expr_
 }
 
 struct stmt_struct* create_empty_for_stmt(struct stmt_struct* block) {
-    struct for_stmt_struct* result = (struct for_stmt_struct*)malloc(sizeof(struct for_stmt_struct));
-    result->block = block;
+    struct stmt_struct* result = (struct stmt_struct*)malloc(sizeof(struct stmt_struct*));
+
+    struct for_stmt_struct* for_stmt = (struct for_stmt_struct*)malloc(sizeof(struct for_stmt_struct));
+    for_stmt->block = block;
+
+    result->type = for_loop_t;
+    result->for_stmt_field = for_stmt;
 
     return result;
 }
