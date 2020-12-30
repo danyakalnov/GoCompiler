@@ -8,6 +8,7 @@
 	#include <uchar.h>
 	#include <wchar.h>
 	#include <ctype.h>
+	#include "grammar.tab.h"
 
 	void removeCharFromStr(const char * str, char * dest, char deleted_char) {
 		int j = 0;
@@ -484,19 +485,19 @@ false {
 ">=" { return GREATER_OR_EQUAL; isLastSymbolTerminable = false; }
 
 "..." { printf("Found ellipsis: %s\n", yytext); }
-"," { printf("Found comma: %s\n, yytext"); return yytext[0]; isLastSymbolTerminable = false; }
-"." { printf("Found dot: %s\n, yytext"); return yytext[0]; isLastSymbolTerminable = false; }
-";" { printf("Found semicolon: %s\n, yytext"); return yytext[0]; isLastSymbolTerminable = false; }
-":" { printf("Found colon: %s\n, yytext"); return yytext[0]; isLastSymbolTerminable = false; }
+"," { printf("Found comma: %s\n", yytext); return yytext[0]; isLastSymbolTerminable = false; }
+"." { printf("Found dot: %s\n", yytext); return yytext[0]; isLastSymbolTerminable = false; }
+";" { printf("Found semicolon: %s\n", yytext); return yytext[0]; isLastSymbolTerminable = false; }
+":" { printf("Found colon: %s\n", yytext); return yytext[0]; isLastSymbolTerminable = false; }
 
-\( { printf("Found opening round bracket: %s\n, yytext"); return yytext[0]; isLastSymbolTerminable = false; }
-\) { printf("Found closing round bracket: %s\n, yytext"); return yytext[0]; isLastSymbolTerminable = true; }
+\( { printf("Found opening round bracket: %s\n", yytext); return yytext[0]; isLastSymbolTerminable = false; }
+\) { printf("Found closing round bracket: %s\n", yytext); return yytext[0]; isLastSymbolTerminable = true; }
 
-\{ { printf("Found opening curly brace: %s\n, yytext"); return yytext[0]; isLastSymbolTerminable = false; }
-\} { printf("Found closing curly brace: %s\n, yytext"); return yytext[0]; isLastSymbolTerminable = true; }
+\{ { printf("Found opening curly brace: %s\n", yytext); return yytext[0]; isLastSymbolTerminable = false; }
+\} { printf("Found closing curly brace: %s\n", yytext); return yytext[0]; isLastSymbolTerminable = true; }
 
-\[ { printf("Found opening square bracket: %s\n, yytext"); return yytext[0]; isLastSymbolTerminable = false; }
-\] { printf("Found closing square bracket: %s\n, yytext"); return yytext[0]; isLastSymbolTerminable = true; }
+\[ { printf("Found opening square bracket: %s\n", yytext); return yytext[0]; isLastSymbolTerminable = false; }
+\] { printf("Found closing square bracket: %s\n", yytext); return yytext[0]; isLastSymbolTerminable = true; }
 
 %%
 

@@ -35,7 +35,7 @@ struct param_list_struct* create_param_list(struct param_decl_struct* first_para
 struct param_list_struct* add_to_param_list(struct param_list_struct* list, struct param_decl_struct* param);
 struct stmt_struct* create_return_stmt(struct expr_list_struct* return_value);
 struct id_struct* create_id(char* name);
-struct id_list* create_id_list(struct id_struct* first_id);
+struct id_list_struct* create_id_list(struct id_struct* first_id);
 struct id_list_struct* add_to_id_list(struct id_list_struct* list, struct id_struct* id);
 struct expr_list_struct* create_expr_list(struct expr_struct* first_expr);
 struct expr_list_struct* add_to_expr_list(struct expr_list_struct* list, struct expr_struct* expr);
@@ -52,7 +52,7 @@ struct array_lit_struct* create_array_lit(struct type_struct* type, struct expr_
 struct top_level_decl_struct* create_top_level_func(struct func_decl_struct* func_decl);
 struct top_level_decl_list_struct* create_top_level_decl_list(struct top_level_decl_struct* first_top_level_decl);
 struct top_level_decl_list_struct* add_to_top_level_decl_list(struct top_level_decl_list_struct* list, struct top_level_decl_struct* next_top_level_decl);
-struct expr_struct* create_array_expr(struct array_lit_struct* array_lit);
+struct expr_struct* create_array_expr(struct array_lit_struct* array_literal);
 struct package_decl_struct* create_package_decl(char* package_name);
 struct import_spec_struct* create_import_spec_with_alias(char* alias, char* path);
 struct import_spec_struct* create_import_spec(char* path);
