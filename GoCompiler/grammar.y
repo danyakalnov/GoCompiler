@@ -353,8 +353,8 @@ func_decl: FUNC_KEYWORD ID params func_return { $$ = create_func_decl(create_fun
 | FUNC_KEYWORD ID params block { $$ = create_func_decl(create_func_signature($2, $3, 0), $4); }
 ;
 
-top_level_decl: const_decl { $$ = $1; }
-| var_decl { $$ = $1; }
+top_level_decl: const_decl { $$ = create_top_level_declaration($1->decl_stmt_field); }
+| var_decl { $$ = create_top_level_declaration($1->decl_stmt_field); }
 | func_decl { $$ = create_top_level_func($1); }
 ;
 
