@@ -198,6 +198,8 @@ ESCAPED_CHAR \\[abfnrtv\\'"]
 
 <STRING>\" {
 	printf("Found string literal: %s\n", stringLiteral);
+	yylval.String = stringLiteral;
+	return STRING;
 	BEGIN(INITIAL);
 }
 
@@ -243,6 +245,8 @@ ESCAPED_CHAR \\[abfnrtv\\'"]
 	printf("Found binary number: %d\n", num);
 	tmp[0] = 0;
 	tmp2[0] = 0;
+	yylval.Int_val = num;
+	return INT;
 }
 
 {OCTAL_LITERAL} {
@@ -252,6 +256,8 @@ ESCAPED_CHAR \\[abfnrtv\\'"]
 	printf("Found octal number: %d\n", num);
 	tmp[0] = 0;
 	tmp2[0] = 0;
+	yylval.Int_val = num;
+	return INT;
 }
 
 {HEX_LITERAL} {
@@ -262,6 +268,8 @@ ESCAPED_CHAR \\[abfnrtv\\'"]
 	printf("Found hexadecimal number: %d\n", num);
 	tmp[0] = 0;
 	tmp2[0] = 0;
+	yylval.Int_val = num;
+	return INT;
 }
 
 {DECIMAL_LITERAL} {
@@ -269,6 +277,8 @@ ESCAPED_CHAR \\[abfnrtv\\'"]
 	sscanf(tmp, "%d", &num);
 	printf("Found decimal number: %d\n", num);
 	tmp[0] = 0;
+	yylval.Int_val = num;
+	return INT;
 }
 
 break {
@@ -397,13 +407,16 @@ false {
 
 {LETTER}({LETTER}|0-9)* {
 	printf("Found identifier: %s \n", yytext);
+	yylval.Id = (char*)malloc(strlen(yytext) + 1);
+	strcpy(yylval.Id, yytext);
+	return ID;
 }
 
-"+" { printf("Found arithmetic operator: %s\n", yytext); }
-"-" { printf("Found arithmetic operator: %s\n", yytext); }
-"*" { printf("Found arithmetic operator: %s\n", yytext); }
-"/" { printf("Found arithmetic operator: %s\n", yytext); }
-"%" { printf("Found arithmetic operator: %s\n", yytext); }
+"+" { return yytext[0]; }
+"-" { return yytext[0]; }
+"*" { return yytext[0]; }
+"/" { return yytext[0]; }
+"%" { return yytext[0]; }
 
 "&" { printf("Found bitwise operator: %s\n", yytext); }
 "|" { printf("Found bitwise operator: %s\n", yytext); }
@@ -412,11 +425,11 @@ false {
 ">>" { printf("Found bitwise operator: %s\n", yytext); }
 "&^" { printf("Found bitwise operator: %s\n", yytext); }
 
-"=" { printf("Found assignment operator: %s\n", yytext); }
-"+=" { printf("Found assignment operator: %s\n", yytext); }
-"-=" { printf("Found assignment operator: %s\n", yytext); }
-"*=" { printf("Found assignment operator: %s\n", yytext); }
-"/=" { printf("Found assignment operator: %s\n", yytext); }
+"=" { return yytext[0]; }
+"+=" { return PLUS_ASSIGN; }
+"-=" { return MINUS_ASSIGN; }
+"*=" { return MULTIPLY_ASSIGN; }
+"/=" { return DIVISION_ASSIGN; }
 "%=" { printf("Found assignment operator: %s\n", yytext); }
 "&=" { printf("Found assignment operator: %s\n", yytext); }
 "|=" { printf("Found assignment operator: %s\n", yytext); }
@@ -425,37 +438,37 @@ false {
 ">>=" { printf("Found assignment operator: %s\n", yytext); }
 "&^=" { printf("Found assignment operator: %s\n", yytext); }
 
-":=" { printf("Found declaration and assignment operator: %s\n", yytext); }
+":=" { return SHORT_EQUALS; }
 "<-" { printf("Found channel assignment operator: %s\n", yytext); }
 
-"&&" { printf("Found logical operator: %s\n", yytext); }
-"||" { printf("Found logical operator: %s\n", yytext); }
+"&&" { return AND; }
+"||" { return OR; }
 
 "++" { printf("Found increment operator: %s\n", yytext); }
 "--" { printf("Found decrement operator: %s\n", yytext); }
 
-"==" { printf("Found comparison operator: %s\n", yytext); }
-"<" { printf("Found comparison operator: %s\n", yytext); }
-">" { printf("Found comparison operator: %s\n", yytext); }
-"!" { printf("Found not operator: %s\n", yytext); }
-"!=" { printf("Found comparison operator: %s\n", yytext); }
-"<=" { printf("Found comparison operator: %s\n", yytext); }
-">=" { printf("Found comparison operator: %s\n", yytext); }
+"==" { return EQUAL; }
+"<" { return LESS; }
+">" { return GREATER; }
+"!" { return yytext[0]; }
+"!=" { return NOT_EQUAL; }
+"<=" { return LESS_OR_EQUAL; }
+">=" { return GREATER_OR_EQUAL; }
 
 "..." { printf("Found ellipsis: %s\n", yytext); }
-"," { printf("Found comma: %s\n", yytext); }
-"." { printf("Found dot: %s\n", yytext); }
-";" { printf("Found semicolon: %s\n", yytext); }
-":" { printf("Found colon: %s\n", yytext); }
+"," { return yytext[0]; }
+"." { return yytext[0]; }
+";" { return yytext[0]; }
+":" { return yytext[0]; }
 
-\( { printf("Found opening round bracket: %s\n", yytext); }
-\) { printf("Found closing round bracket: %s\n", yytext); }
+\( { return yytext[0]; }
+\) { return yytext[0]; }
 
-\{ { printf("Found opening curly brace: %s\n", yytext); }
-\} { printf("Found closing curly brace: %s\n", yytext); }
+\{ { return yytext[0]; }
+\} { return yytext[0]; }
 
-\[ { printf("Found opening square bracket: %s\n", yytext); }
-\] { printf("Found closing square bracket: %s\n", yytext); }
+\[ { return yytext[0]; }
+\] { return yytext[0]; }
 
 %%
 
