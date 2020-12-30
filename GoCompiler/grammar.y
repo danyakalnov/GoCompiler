@@ -355,7 +355,7 @@ func_decl: FUNC_KEYWORD ID params func_return { $$ = create_func_decl(create_fun
 
 top_level_decl: const_decl { $$ = create_top_level_declaration($1->decl_stmt_field); }
 | var_decl { $$ = create_top_level_declaration($1->decl_stmt_field); }
-| func_decl { $$ = create_top_level_func($1); }
+| func_decl { $$ = $1; }
 ;
 
 top_level_decl_list_not_empty: top_level_decl ';' { $$ = create_top_level_decl_list($1); }
