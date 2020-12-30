@@ -32,7 +32,7 @@ enum expr_type {
 	call,
 	array_indexing,
 	array_lit,
-	id,
+	id_t,
 	member_access,
 };
 
