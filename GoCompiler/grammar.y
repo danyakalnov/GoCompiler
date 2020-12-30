@@ -1,6 +1,7 @@
 %define parse.error verbose
 
 %{
+
 #include <stdio.h>
 #include <malloc.h>
 #include "create_tree_nodes.h"
@@ -382,12 +383,12 @@ array_key: INT { $$ = create_int_expr($1); }
 
 %%
 
-void main(int argc, char **argv ){
+int main(int argc, char **argv ){
 	yyin = fopen(argv[1], "r" );
 
     FILE * tree = fopen("tree.dot", "w");
 
     yyparse();
-    PrintProgram(root, tree);
-    return;
+    // PrintProgram(root, tree);
+    return 0;
 }
