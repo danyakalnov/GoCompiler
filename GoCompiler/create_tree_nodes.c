@@ -274,6 +274,8 @@ struct stmt_struct* create_inc_dec_stmt(struct expr_struct* expr, enum stmt_type
     struct stmt_struct* result = (struct stmt_struct*)malloc(sizeof(struct stmt_struct));
     result->expr_field = expr;
     result->type = type;
+
+    return result;
 }
 
 struct expr_list_struct* create_expr_list(struct expr_struct* first_expr) {
@@ -451,6 +453,8 @@ struct program_struct* create_program(struct package_decl_struct* package, struc
     struct program_struct* program = (struct program_struct*)malloc(sizeof(struct program_struct));
     program->package_name = package;
     program->declarations = decls;
+
+    return program;
 }
 
 struct program_struct* create_program_with_imports(struct package_decl_struct* package, struct import_decl_list_struct* imports, struct top_level_decl_list_struct* decls) {
@@ -458,6 +462,8 @@ struct program_struct* create_program_with_imports(struct package_decl_struct* p
     program->package_name = package;
     program->declarations = decls;
     program->imports = imports;
+
+    return program;
 }
 
 struct type_struct* create_basic_type(enum type_type type) {
