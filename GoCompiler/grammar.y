@@ -89,7 +89,7 @@ struct program_struct * root;
 
 %type<expr_value> expr
 %type<stmt_value> for_stmt
-%type<block_value> block
+%type<stmt_value> block
 %type<expr_list_value> expr_list
 %type<program_value> program
 %type<import_decl_value> import_decl
