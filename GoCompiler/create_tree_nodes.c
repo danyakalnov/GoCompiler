@@ -557,7 +557,11 @@ struct stmt_struct* create_short_var_decl(struct id_struct* identifier, struct e
     short_var_decl_value->spec = create_decl_spec(identifier, expression, 0);
     short_var_decl_value->declaration_type = var_t;
 
-    return short_var_decl_value;
+    struct stmt_struct* stmt = (struct stmt_struct*)malloc(sizeof(struct stmt_struct*));
+    stmt->decl_stmt_field = short_var_decl_value;
+    stmt->type = short_var_decl_t;
+
+    return stmt;
 }
 
 struct top_level_decl_struct* create_top_level_declaration(struct decl_stmt_struct* decl_stmt) {
