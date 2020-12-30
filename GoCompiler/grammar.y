@@ -110,7 +110,7 @@ struct program_struct * root;
 %type<top_level_decl_value> var_decl
 %type<stmt_value> inc_dec_stmt
 %type<stmt_value> assignment
-%type<top_level_decl_value> short_var_decl
+%type<stmt_value> short_var_decl
 %type<stmt_value> simple_stmt_not_empty
 %type<stmt_value> simple_stmt
 %type<stmt_value> return_stmt
@@ -260,7 +260,7 @@ assignment: expr_list_not_empty '=' expr_list_not_empty { $$ = create_assignment
 | expr_list_not_empty DIVISION_ASSIGN expr_list_not_empty { $$ = create_assignment(div_assignment_t, $1, $3); }
 ;
 
-short_var_decl: ID SHORT_EQUALS expr { $$ = create_decl_stmt_from_spec(create_decl_spec(create_id($1), $3, 0), var_t); }
+short_var_decl: ID SHORT_EQUALS expr { $$ = create_short_var_decl(create_id($1), $3); }
 ;
 
 simple_stmt_not_empty: expr ';' { $$ = create_expr_stmt($1); }

@@ -545,3 +545,11 @@ struct expr_struct* create_function_call(char* callable_id, struct expr_list_str
 
     return func_call;
 }
+
+struct stmt_struct* create_short_var_decl(struct id_struct* identifier, struct expr_struct* expression) {
+    struct decl_stmt_struct* short_var_decl_value = (struct decl_stmt_struct*)malloc(sizeof(struct decl_stmt_struct));
+    short_var_decl_value->spec = create_decl_spec(identifier, expression, 0);
+    short_var_decl_value->declaration_type = var_t;
+
+    return short_var_decl_value;
+}
