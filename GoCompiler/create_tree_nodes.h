@@ -48,11 +48,10 @@ struct array_keyed_element_struct* create_array_keyed_element(int key, struct ex
 struct array_keyed_element_struct* create_array_element(struct expr_struct* expr);
 struct array_element_list_struct* create_array_element_list(struct array_keyed_element_struct* first_element);
 struct array_element_list_struct* add_to_array_element_list(struct array_element_list_struct* list, struct array_keyed_element_struct* next_element);
-struct array_lit_struct* create_array_lit(struct type_struct* type, struct expr_struct* length, struct array_element_list_struct* elements);
+struct expr_struct* create_array_lit(struct type_struct* type, struct expr_struct* length, struct array_element_list_struct* elements);
 struct top_level_decl_struct* create_top_level_func(struct func_decl_struct* func_decl);
 struct top_level_decl_list_struct* create_top_level_decl_list(struct top_level_decl_struct* first_top_level_decl);
 struct top_level_decl_list_struct* add_to_top_level_decl_list(struct top_level_decl_list_struct* list, struct top_level_decl_struct* next_top_level_decl);
-struct expr_struct* create_array_expr(struct array_lit_struct* array_literal);
 struct package_decl_struct* create_package_decl(char* package_name);
 struct import_spec_struct* create_import_spec_with_alias(char* alias, char* path);
 struct import_spec_struct* create_import_spec(char* path);

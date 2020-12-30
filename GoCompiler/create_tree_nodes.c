@@ -72,10 +72,14 @@ struct array_element_list_struct* add_to_array_element_list(struct array_element
 }
 
 struct array_lit_struct* create_array_lit(struct type_struct* type, struct expr_struct* length, struct array_element_list_struct* elements) {
-    struct array_lit_struct* result = (struct array_lit_struct*)malloc(sizeof(struct array_lit_struct));
-    result->type->type = type;
-    result->type->length = length;
-    result->array_value = elements;
+    struct array_lit_struct* array_expr = (struct array_lit_struct*)malloc(sizeof(struct array_lit_struct));
+    array_expr->type->type = type;
+    array_expr->type->length = length;
+    array_expr->array_value = elements;
+
+    struct expr_struct* result = (struct expr_struct*)malloc(sizeof(struct expr_struct));
+    result->type = array_lit;
+    result->arr = array_expr;
 
     return result;
 }
@@ -274,8 +278,6 @@ struct stmt_struct* create_inc_dec_stmt(struct expr_struct* expr, enum stmt_type
     struct stmt_struct* result = (struct stmt_struct*)malloc(sizeof(struct stmt_struct));
     result->expr_field = expr;
     result->type = type;
-
-    return result;
 }
 
 struct expr_list_struct* create_expr_list(struct expr_struct* first_expr) {
@@ -371,14 +373,6 @@ struct top_level_decl_list_struct* add_to_top_level_decl_list(struct top_level_d
     return list;
 }
 
-struct expr_struct* create_array_expr(struct array_lit_struct* array_literal) {
-    struct expr_struct* result = (struct expr_struct*)malloc(sizeof(struct expr_struct));
-    result->type = array_lit;
-    result->arr = array_literal;
-
-    return result;
-}
-
 struct package_decl_struct* create_package_decl(char* package_name) {
     struct package_decl_struct* result = (struct package_decl_struct*)malloc(sizeof(struct package_decl_struct));
     result->package_name = package_name;
@@ -451,19 +445,15 @@ struct import_decl_list_struct* add_to_import_decl_list(struct import_decl_list_
 
 struct program_struct* create_program(struct package_decl_struct* package, struct top_level_decl_list_struct* decls) {
     struct program_struct* program = (struct program_struct*)malloc(sizeof(struct program_struct));
-    program->package = package;
+    program->package_name = package;
     program->declarations = decls;
-
-    return program;
 }
 
 struct program_struct* create_program_with_imports(struct package_decl_struct* package, struct import_decl_list_struct* imports, struct top_level_decl_list_struct* decls) {
     struct program_struct* program = (struct program_struct*)malloc(sizeof(struct program_struct));
-    program->package = package;
+    program->package_name = package;
     program->declarations = decls;
     program->imports = imports;
-
-    return program;
 }
 
 struct type_struct* create_basic_type(enum type_type type) {
