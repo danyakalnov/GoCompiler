@@ -103,11 +103,11 @@ struct program_struct * root;
 %type<decl_spec_value> const_spec
 %type<decl_spec_list_value> const_spec_list_not_empty
 %type<decl_spec_list_value> const_spec_list
-%type<decl_stmt_value> const_decl
+%type<top_level_decl_value> const_decl
 %type<decl_spec_value> var_spec
 %type<decl_spec_list_value> var_spec_list_not_empty
 %type<decl_spec_list_value> var_spec_list
-%type<decl_stmt_value> var_decl
+%type<top_level_decl_value> var_decl
 %type<stmt_value> inc_dec_stmt
 %type<stmt_value> assignment
 %type<top_level_decl_value> short_var_decl
