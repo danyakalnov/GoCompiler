@@ -42,8 +42,8 @@ struct expr_list_struct* add_to_expr_list(struct expr_list_struct* list, struct 
 struct decl_spec_struct* create_decl_spec(struct id_struct* id, struct expr_struct* value, struct type_struct* type);
 struct decl_spec_list_struct* create_decl_spec_list(struct decl_spec_struct* first_spec);
 struct decl_spec_list_struct* add_to_decl_spec_list(struct decl_spec_list_struct* list, struct decl_spec_struct* next);
-struct top_level_decl_struct* create_decl_stmt_from_spec(struct decl_spec_struct* spec, enum decl_type declaration_type);
-struct top_level_decl_struct* create_decl_stmt_from_list(struct decl_spec_list_struct* decl_spec_list, enum decl_type declaration_type);
+struct stmt_struct* create_decl_stmt_from_spec(struct decl_spec_struct* spec, enum decl_type declaration_type);
+struct stmt_struct* create_decl_stmt_from_list(struct decl_spec_list_struct* decl_spec_list, enum decl_type declaration_type);
 struct array_keyed_element_struct* create_array_keyed_element(int key, struct expr_struct* expr);
 struct array_keyed_element_struct* create_array_element(struct expr_struct* expr);
 struct array_element_list_struct* create_array_element_list(struct array_keyed_element_struct* first_element);
