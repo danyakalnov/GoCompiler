@@ -27,7 +27,13 @@ void print_declaration_spec(struct decl_spec_struct*, FILE* output_file) {
 }
 
 void print_stmt(struct stmt_struct* stmt, FILE* output_file) {
-
+	switch (stmt->type) {
+		case for_loop_t:
+			print_for(stmt->for_stmt_field, output_file);
+			fprintf(output_file, "Id%p->Id%p\n", stmt, stmt->for_stmt_field);
+			break;
+	}
+	
 }
 
 void print_expr(struct expr_struct* expr, FILE* outuput_file) {
