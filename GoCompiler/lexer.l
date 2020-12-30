@@ -111,8 +111,14 @@ ESCAPED_CHAR \\[abfnrtv\\'"]
 
 	int runeCodePoint;
 
-	int lastSymbol;
+	bool isLastSymbolTerminable;
 %}
+
+\\n {
+	if (isLastSymbolTerminable) {
+		return ';';
+	}
+}
 
 "/*" {
 	commentText[0] = 0;
@@ -199,6 +205,7 @@ ESCAPED_CHAR \\[abfnrtv\\'"]
 <STRING>\" {
 	printf("Found string literal: %s\n", stringLiteral);
 	yylval.String = stringLiteral;
+	isLastSymbolTerminable = true;
 	return STRING;
 	BEGIN(INITIAL);
 }
@@ -246,6 +253,7 @@ ESCAPED_CHAR \\[abfnrtv\\'"]
 	tmp[0] = 0;
 	tmp2[0] = 0;
 	yylval.Int_val = num;
+	isLastSymbolTerminable = true;
 	return INT;
 }
 
@@ -257,6 +265,7 @@ ESCAPED_CHAR \\[abfnrtv\\'"]
 	tmp[0] = 0;
 	tmp2[0] = 0;
 	yylval.Int_val = num;
+	isLastSymbolTerminable = true;
 	return INT;
 }
 
@@ -269,6 +278,7 @@ ESCAPED_CHAR \\[abfnrtv\\'"]
 	tmp[0] = 0;
 	tmp2[0] = 0;
 	yylval.Int_val = num;
+	isLastSymbolTerminable = true;
 	return INT;
 }
 
@@ -278,6 +288,7 @@ ESCAPED_CHAR \\[abfnrtv\\'"]
 	printf("Found decimal number: %d\n", num);
 	tmp[0] = 0;
 	yylval.Int_val = num;
+	isLastSymbolTerminable = true;
 	return INT;
 }
 
@@ -294,6 +305,7 @@ chan {
 }
 
 const {
+	isLastSymbolTerminable = false;
 	return CONST_KEYWORD;
 }
 
@@ -310,6 +322,7 @@ defer {
 }
 
 else {
+	isLastSymbolTerminable = false;
 	return ELSE_KEYWORD;
 }
 
@@ -318,10 +331,12 @@ fallthrough {
 }
 
 for {
+	isLastSymbolTerminable = false;
 	return FOR_KEYWORD;
 }
 
 func {
+	isLastSymbolTerminable = false;
 	return FUNC_KEYWORD;
 }
 
@@ -334,22 +349,27 @@ goto {
 }
 
 if {
+	isLastSymbolTerminable = false;
 	return IF_KEYWORD;
 }
 
 import {
+	isLastSymbolTerminable = false;
 	return IMPORT_KEYWORD;
 }
 
 int {
+	isLastSymbolTerminable = false;
 	return INT_KEYWORD;
 }
 
 byte {
+	isLastSymbolTerminable = false;
 	return BYTE_KEYWORD;
 }
 
 string {
+	isLastSymbolTerminable = false;
 	return STRING_KEYWORD;
 }
 
@@ -362,6 +382,7 @@ map {
 }
 
 package {
+	isLastSymbolTerminable = false;
 	return PACKAGE_KEYWORD;
 }
 
@@ -370,6 +391,8 @@ range {
 }
 
 return {
+	printf("Found 'return' keyword\n");
+	isLastSymbolTerminable = true;
 	return RETURN_KEYWORD;
 }
 
@@ -390,18 +413,22 @@ type {
 }
 
 var {
+	isLastSymbolTerminable = false;
 	return VAR_KEYWORD;
 }
 
 bool {
+	isLastSymbolTerminable = false;
 	return BOOL_KEYWORD;
 }
 
 true {
+	isLastSymbolTerminable = false;
 	return TRUE_KEYWORD;
 }
 
 false {
+	isLastSymbolTerminable = false;
 	return FALSE_KEYWORD;
 }
 
@@ -409,14 +436,15 @@ false {
 	printf("Found identifier: %s \n", yytext);
 	yylval.Id = (char*)malloc(strlen(yytext) + 1);
 	strcpy(yylval.Id, yytext);
+	isLastSymbolTerminable = true;
 	return ID;
 }
 
-"+" { return yytext[0]; }
-"-" { return yytext[0]; }
-"*" { return yytext[0]; }
-"/" { return yytext[0]; }
-"%" { return yytext[0]; }
+"+" { return yytext[0]; isLastSymbolTerminable = false; }
+"-" { return yytext[0]; isLastSymbolTerminable = false; }
+"*" { return yytext[0]; isLastSymbolTerminable = false; }
+"/" { return yytext[0]; isLastSymbolTerminable = false; }
+"%" { return yytext[0]; isLastSymbolTerminable = false; }
 
 "&" { printf("Found bitwise operator: %s\n", yytext); }
 "|" { printf("Found bitwise operator: %s\n", yytext); }
@@ -425,11 +453,11 @@ false {
 ">>" { printf("Found bitwise operator: %s\n", yytext); }
 "&^" { printf("Found bitwise operator: %s\n", yytext); }
 
-"=" { return yytext[0]; }
-"+=" { return PLUS_ASSIGN; }
-"-=" { return MINUS_ASSIGN; }
-"*=" { return MULTIPLY_ASSIGN; }
-"/=" { return DIVISION_ASSIGN; }
+"=" { return yytext[0]; isLastSymbolTerminable = false; }
+"+=" { return PLUS_ASSIGN; isLastSymbolTerminable = false; }
+"-=" { return MINUS_ASSIGN; isLastSymbolTerminable = false; }
+"*=" { return MULTIPLY_ASSIGN; isLastSymbolTerminable = false; }
+"/=" { return DIVISION_ASSIGN; isLastSymbolTerminable = false; }
 "%=" { printf("Found assignment operator: %s\n", yytext); }
 "&=" { printf("Found assignment operator: %s\n", yytext); }
 "|=" { printf("Found assignment operator: %s\n", yytext); }
@@ -438,37 +466,37 @@ false {
 ">>=" { printf("Found assignment operator: %s\n", yytext); }
 "&^=" { printf("Found assignment operator: %s\n", yytext); }
 
-":=" { return SHORT_EQUALS; }
+":=" { return SHORT_EQUALS; isLastSymbolTerminable = false; }
 "<-" { printf("Found channel assignment operator: %s\n", yytext); }
 
-"&&" { return AND; }
-"||" { return OR; }
+"&&" { return AND; isLastSymbolTerminable = false; }
+"||" { return OR; isLastSymbolTerminable = false; }
 
-"++" { printf("Found increment operator: %s\n", yytext); }
-"--" { printf("Found decrement operator: %s\n", yytext); }
+"++" { printf("Found increment operator: %s\n", yytext); isLastSymbolTerminable = true; }
+"--" { printf("Found decrement operator: %s\n", yytext); isLastSymbolTerminable = true; }
 
-"==" { return EQUAL; }
-"<" { return LESS; }
-">" { return GREATER; }
-"!" { return yytext[0]; }
-"!=" { return NOT_EQUAL; }
-"<=" { return LESS_OR_EQUAL; }
-">=" { return GREATER_OR_EQUAL; }
+"==" { return EQUAL; isLastSymbolTerminable = false; }
+"<" { return LESS; isLastSymbolTerminable = false; }
+">" { return GREATER; isLastSymbolTerminable = false; }
+"!" { return yytext[0]; isLastSymbolTerminable = false; }
+"!=" { return NOT_EQUAL; isLastSymbolTerminable = false; }
+"<=" { return LESS_OR_EQUAL; isLastSymbolTerminable = false; }
+">=" { return GREATER_OR_EQUAL; isLastSymbolTerminable = false; }
 
 "..." { printf("Found ellipsis: %s\n", yytext); }
-"," { return yytext[0]; }
-"." { return yytext[0]; }
-";" { return yytext[0]; }
-":" { return yytext[0]; }
+"," { printf("Found comma: %s\n, yytext"); return yytext[0]; isLastSymbolTerminable = false; }
+"." { printf("Found dot: %s\n, yytext"); return yytext[0]; isLastSymbolTerminable = false; }
+";" { printf("Found semicolon: %s\n, yytext"); return yytext[0]; isLastSymbolTerminable = false; }
+":" { printf("Found colon: %s\n, yytext"); return yytext[0]; isLastSymbolTerminable = false; }
 
-\( { return yytext[0]; }
-\) { return yytext[0]; }
+\( { printf("Found opening round bracket: %s\n, yytext"); return yytext[0]; isLastSymbolTerminable = false; }
+\) { printf("Found closing round bracket: %s\n, yytext"); return yytext[0]; isLastSymbolTerminable = true; }
 
-\{ { return yytext[0]; }
-\} { return yytext[0]; }
+\{ { printf("Found opening curly brace: %s\n, yytext"); return yytext[0]; isLastSymbolTerminable = false; }
+\} { printf("Found closing curly brace: %s\n, yytext"); return yytext[0]; isLastSymbolTerminable = true; }
 
-\[ { return yytext[0]; }
-\] { return yytext[0]; }
+\[ { printf("Found opening square bracket: %s\n, yytext"); return yytext[0]; isLastSymbolTerminable = false; }
+\] { printf("Found closing square bracket: %s\n, yytext"); return yytext[0]; isLastSymbolTerminable = true; }
 
 %%
 
