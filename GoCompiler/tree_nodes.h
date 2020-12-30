@@ -159,7 +159,7 @@ struct id_list_struct {
 
 struct decl_spec_struct {
 	struct id_struct* id;
-	struct expr_list* values;
+	struct expr_struct* values;
 	struct type_struct* type;
 
 	struct decl_spec_struct* next;

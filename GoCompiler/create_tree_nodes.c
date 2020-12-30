@@ -294,11 +294,11 @@ struct expr_list_struct* add_to_expr_list(struct expr_list_struct* list, struct 
     return list;
 }
 
-struct decl_spec_struct* create_decl_spec(struct id_struct* id, struct expr_list_struct* values, struct type_struct* type) {
+struct decl_spec_struct* create_decl_spec(struct id_struct* id, struct expr_struct* value, struct type_struct* type) {
     struct decl_spec_struct* decl_spec = (struct decl_spec_struct*)malloc(sizeof(struct decl_spec_struct));
 
     decl_spec->id = id;
-    decl_spec->values = values;
+    decl_spec->values = value;
     decl_spec->type = type;
 
     return decl_spec;
