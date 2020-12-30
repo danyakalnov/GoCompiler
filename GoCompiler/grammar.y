@@ -330,7 +330,7 @@ else_if_stmt_list: else_if_stmt { $$ = create_else_if_stmt_list($1); }
 | else_if_stmt_list else_if_stmt { $$ = add_to_else_if_stmt_list($1, $2); }
 ;
 
-param_decl: ID type { $$ = create_param($2, $1); }
+param_decl: ID type { $$ = create_param($2, create_id($1)); }
     | type { $$ = create_param($1, 0); }
 ;
 
