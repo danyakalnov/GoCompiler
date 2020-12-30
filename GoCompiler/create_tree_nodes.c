@@ -71,7 +71,7 @@ struct array_element_list_struct* add_to_array_element_list(struct array_element
     return list;
 }
 
-struct array_lit_struct* create_array_lit(struct type_struct* type, struct expr_struct* length, struct array_element_list_struct* elements) {
+struct expr_struct* create_array_lit(struct type_struct* type, struct expr_struct* length, struct array_element_list_struct* elements) {
     struct array_lit_struct* array_expr = (struct array_lit_struct*)malloc(sizeof(struct array_lit_struct));
     array_expr->type->type = type;
     array_expr->type->length = length;
