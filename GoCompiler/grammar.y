@@ -216,8 +216,8 @@ expr_list_not_empty: expr { $$ = create_expr_list($1); puts("Expression list fro
 | expr_list_not_empty ',' expr { $$ = add_to_expr_list($1, $3); puts("Add next expression to the list"); }
 ;
 
-const_spec: identifier_list '=' expr_list ';' { $$ = create_decl_spec($1, $3, 0); }
-| identifier_list type '=' expr_list ';' { $$ = create_decl_spec($1, $4, $2); }
+const_spec: ID '=' expr ';' { $$ = create_decl_spec($1, $3, 0); }
+| ID type '=' expr ';' { $$ = create_decl_spec($1, $4, $2); }
 ;
 
 const_spec_list_not_empty: const_spec { $$ = create_decl_spec_list($1); }
@@ -232,9 +232,9 @@ const_decl: CONST_KEYWORD const_spec { $$ = create_decl_stmt_from_spec($2, const
 | CONST_KEYWORD '(' const_spec_list ')' { $$ = create_decl_stmt_from_list($3, const_t); }
 ;
 
-var_spec: identifier_list type ';' { $$ = create_decl_spec($1, 0, $2); }
-| identifier_list type '=' expr_list ';' { $$ = create_decl_spec($1, $4, $2); }
-| identifier_list '=' expr_list ';' { $$ = create_decl_spec($1, $3, 0); }
+var_spec: ID type ';' { $$ = create_decl_spec($1, 0, $2); }
+| ID type '=' expr ';' { $$ = create_decl_spec($1, $4, $2); }
+| ID '=' expr ';' { $$ = create_decl_spec($1, $3, 0); }
 ;
 
 var_spec_list_not_empty: var_spec { $$ = create_decl_spec_list($1); }
@@ -259,7 +259,7 @@ assignment: expr_list_not_empty '=' expr_list_not_empty { $$ = create_assignment
 | expr_list_not_empty DIVISION_ASSIGN expr_list_not_empty { $$ = create_assignment(div_assignment_t, $1, $3); }
 ;
 
-short_var_decl: identifier_list SHORT_EQUALS expr_list_not_empty { $$ = create_decl_stmt_from_spec(create_decl_spec($1, $3, 0), var_t); }
+short_var_decl: ID SHORT_EQUALS expr { $$ = create_decl_stmt_from_spec(create_decl_spec($1, $3, 0), var_t); }
 ;
 
 simple_stmt_not_empty: expr ';' { $$ = create_expr_stmt($1); }
@@ -329,7 +329,7 @@ else_if_stmt_list: else_if_stmt { $$ = create_else_if_stmt_list($1); }
 | else_if_stmt_list else_if_stmt { $$ = add_to_else_if_stmt_list($1, $2); }
 ;
 
-param_decl: identifier_list type { $$ = create_param($2, $1); }
+param_decl: ID type { $$ = create_param($2, $1); }
     | type { $$ = create_param($1, 0); }
 ;
 

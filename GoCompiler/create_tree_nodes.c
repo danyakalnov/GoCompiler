@@ -24,7 +24,7 @@ struct expr_struct* create_boolean_expr(int value) {
 
 struct expr_struct* create_id_expr(char* identifier) {
     struct expr_struct* result = (struct expr_struct*)malloc(sizeof(struct expr_struct));
-    result->type = id;
+    result->type = id_t;
     result->str_value = identifier;
 
     return result;
@@ -197,10 +197,10 @@ struct func_signature_struct* create_func_signature(char* name, struct param_lis
     return func_signature;
 }
 
-struct param_decl_struct* create_param(struct type_struct* param_type, struct id_list_struct* ids) {
+struct param_decl_struct* create_param(struct type_struct* param_type, struct id_struct* id) {
     struct param_decl_struct* param = (struct param_decl_struct*)malloc(sizeof(struct param_decl_struct));
 
-    param->ids = ids;
+    param->id = id;
     param->type = param_type;
 
     return param;
@@ -286,10 +286,10 @@ struct expr_list_struct* add_to_expr_list(struct expr_list_struct* list, struct 
     return list;
 }
 
-struct decl_spec_struct* create_decl_spec(struct id_list_struct* ids, struct expr_list_struct* values, struct type_struct* type) {
+struct decl_spec_struct* create_decl_spec(struct id_struct* id, struct expr_list_struct* values, struct type_struct* type) {
     struct decl_spec_struct* decl_spec = (struct decl_spec_struct*)malloc(sizeof(struct decl_spec_struct));
 
-    decl_spec->ids = ids;
+    decl_spec->id = id;
     decl_spec->values = values;
     decl_spec->type = type;
 
