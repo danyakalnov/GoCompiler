@@ -366,7 +366,7 @@ top_level_decl_list: /* empty */ { $$ = 0; puts("Empty top level declarations li
 ;
 
 array_element_list_not_empty: array_keyed_element { $$ = create_array_element_list($1); puts("Array element list from one element"); }
-| array_element_list_not_empty ',' array_keyed_element { $$ = add_to_array_element_list($1, $2); puts("Add next element to array element list"); }
+| array_element_list_not_empty ',' array_keyed_element { $$ = add_to_array_element_list($1, $3); puts("Add next element to array element list"); }
 ;
 
 array_element_list: /* empty */ { $$ = 0; puts("Empty array element list"); }
