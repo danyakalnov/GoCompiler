@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="create_tree_nodes.c" />
+    <ClCompile Include="grammar.tab.cpp" />
     <ClCompile Include="lexer.flex.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="create_tree_nodes.h" />
+    <ClInclude Include="grammar.tab.h" />
     <ClInclude Include="tree_nodes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
