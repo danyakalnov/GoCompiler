@@ -134,7 +134,6 @@ struct program_struct * root;
 %type<array_element_list_value> array_element_list
 %type<array_keyed_element_value> array_keyed_element
 %type<Int_val> array_key
-%type<stmt_value> declaration;
 
 %start program
 
@@ -277,7 +276,8 @@ return_stmt: RETURN_KEYWORD expr_list ';' { $$ = create_return_stmt($2); }
 ;
 
 stmt: simple_stmt_not_empty { $$ = $1; }
-| declaration { $$ = $1; }
+| const_decl { $$ = $1; }
+| var_decl { $$ = $1; }
 | return_stmt { $$ = $1; }
 | if_stmt { $$ = $1; }
 | for_stmt { $$ = $1; }
