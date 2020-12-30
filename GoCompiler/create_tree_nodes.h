@@ -30,7 +30,7 @@ struct stmt_struct* create_expr_stmt(struct expr_struct* expression);
 struct stmt_struct* create_block(struct stmt_list_struct* statements);
 struct top_level_decl_struct* create_func_decl(struct func_signature_struct* signature, struct stmt_struct* block);
 struct func_signature_struct* create_func_signature(char* name, struct param_list_struct* params, struct func_return_struct* return_value);
-struct param_decl_struct* create_param(struct type_struct* param_type, struct id_list_struct* ids);
+struct param_decl_struct* create_param(struct type_struct* param_type, struct id_struct* id);
 struct param_list_struct* create_param_list(struct param_decl_struct* first_param);
 struct param_list_struct* add_to_param_list(struct param_list_struct* list, struct param_decl_struct* param);
 struct stmt_struct* create_return_stmt(struct expr_list_struct* return_value);

@@ -197,10 +197,10 @@ struct func_signature_struct* create_func_signature(char* name, struct param_lis
     return func_signature;
 }
 
-struct param_decl_struct* create_param(struct type_struct* param_type, struct id_list_struct* ids) {
+struct param_decl_struct* create_param(struct type_struct* param_type, struct id_struct* id) {
     struct param_decl_struct* param = (struct param_decl_struct*)malloc(sizeof(struct param_decl_struct));
 
-    param->ids = ids;
+    param->id = id;
     param->type = param_type;
 
     return param;
