@@ -145,7 +145,7 @@
     </Flex>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="create_tree_nodes.c" />
+    <ClCompile Include="create_tree_nodes.cpp" />
     <ClCompile Include="grammar.tab.cpp" />
     <ClCompile Include="lexer.flex.cpp" />
   </ItemGroup>

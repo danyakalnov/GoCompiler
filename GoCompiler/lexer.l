@@ -500,16 +500,3 @@ false {
 \] { printf("Found closing square bracket: %s\n", yytext); return yytext[0]; isLastSymbolTerminable = true; }
 
 %%
-
-int main(int argc, char* argv[]) 
-{
-	if (argc < 2) 
-	{
-		printf("No file with Go program text");
-		return 0;
-	}
-
-	yyin = fopen(argv[1], "r");
-
-	yylex();
-}

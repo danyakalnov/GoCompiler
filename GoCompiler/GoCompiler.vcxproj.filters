@@ -23,10 +23,10 @@
     <ClCompile Include="lexer.flex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="create_tree_nodes.c">
+    <ClCompile Include="grammar.tab.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="grammar.tab.cpp">
+    <ClCompile Include="create_tree_nodes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

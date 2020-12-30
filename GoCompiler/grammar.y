@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <malloc.h>
+#include "grammar.tab.h"
 #include "create_tree_nodes.h"
 
 void yyerror(const char* message) {
@@ -389,6 +390,5 @@ int main(int argc, char **argv ){
     FILE * tree = fopen("tree.dot", "w");
 
     yyparse();
-    // PrintProgram(root, tree);
     return 0;
 }
