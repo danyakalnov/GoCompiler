@@ -24,7 +24,7 @@ struct expr_struct* create_boolean_expr(int value) {
 
 struct expr_struct* create_id_expr(char* identifier) {
     struct expr_struct* result = (struct expr_struct*)malloc(sizeof(struct expr_struct));
-    result->type = id;
+    result->type = id_t;
     result->str_value = identifier;
 
     return result;
