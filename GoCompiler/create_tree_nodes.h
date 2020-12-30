@@ -52,7 +52,7 @@ struct array_lit_struct* create_array_lit(struct type_struct* type, struct expr_
 struct top_level_decl_struct* create_top_level_func(struct func_decl_struct* func_decl);
 struct top_level_decl_list_struct* create_top_level_decl_list(struct top_level_decl_struct* first_top_level_decl);
 struct top_level_decl_list_struct* add_to_top_level_decl_list(struct top_level_decl_list_struct* list, struct top_level_decl_struct* next_top_level_decl);
-struct expr_struct* create_array_expr(struct array_lit_struct* array_lit);
+struct expr_struct* create_array_expr(struct array_lit_struct* array_literal);
 struct package_decl_struct* create_package_decl(char* package_name);
 struct import_spec_struct* create_import_spec_with_alias(char* alias, char* path);
 struct import_spec_struct* create_import_spec(char* path);
