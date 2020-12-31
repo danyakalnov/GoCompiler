@@ -44,14 +44,20 @@ void print_package(struct package_decl_struct* package, void* parent, FILE* outp
 void print_top_level_decls(struct top_level_decl_list_struct* decls, void* parent, FILE* output_file) {
 	struct top_level_decl_struct* current_decl = decls->first;
 	while (current_decl != 0) {
-		print_top_level_decl(current_decl, output_file);
-		fprintf(output_file, "Id%p->Id%p\n", parent, current_decl);
+		print_top_level_decl(current_decl, decls, output_file);
 		current_decl = current_decl->next;
 	}
 }
 
-void print_top_level_decl(struct top_level_decl_struct* decl, FILE* output_file) {
-	
+void print_top_level_decl(struct top_level_decl_struct* decl, void* parent, FILE* output_file) {
+	if (decl->func_decl != 0) {
+		print_function(decl->func_decl, output_file);
+		print_edge(parent, decl->func_decl, "", output_file);
+	}
+	else {
+		print_declaration(decl->decl, output_file);
+		print_edge(parent, decl->decl, "", output_file);
+	}
 }
 
 void print_function(struct func_decl_struct* func, FILE* output_file) {
