@@ -80,19 +80,19 @@ void print_expr(struct expr_struct* expr, FILE* output_file) {
 	switch (expr->type)
 	{
 	case integer:
-		fprintf(output_file, "Id%p [label=\"INT\"]\n", expr);
+		print_node("INT", expr, output_file);
 		fprintf(output_file, "IdValue%p [label=\"%d\"]\n", expr, expr->int_value);
 		fprintf(output_file, "Id%p->IdValue%p\n", expr, expr);
 		break;
 
 	case str:
-		fprintf(output_file, "Id%p [label=\"STRING\"]\n", expr);
+		print_node("STRING", expr, output_file);
 		fprintf(output_file, "IdValue%p [label=\"%s\"]\n", expr, expr->str_value);
 		fprintf(output_file, "Id%p->IdValue%p\n", expr, expr);
 		break;
 
 	case boolean:
-		fprintf(output_file, "Id%p [label=\"BOOLEAN\"]\n", expr);
+		print_node("BOOLEAN", expr, output_file);
 		if (expr->int_value == 0) {
 			fprintf(output_file, "IdValue%p [label=\"false\"]\n", expr);
 		} 
@@ -103,92 +103,93 @@ void print_expr(struct expr_struct* expr, FILE* output_file) {
 		break;
 
 	case unary_minus:
-		fprintf(output_file, "Id%p [label=\"Unary -\"]\n", expr);
+		print_node("Unary -", expr, output_file);
 		print_expr(expr->left, output_file);
-		fprintf(output_file, "Id%p->Id%p\n", expr, expr->left);
+		print_edge(expr, expr->left, 0, output_file);
 		break;
 
 	case plus:
-		fprintf(output_file, "Id%p [label=\"Plus\"]\n", expr);
+		print_node("Plus +", expr, output_file);
 		print_expr(expr->left, output_file);
 		print_expr(expr->right, output_file);
-		fprintf(output_file, "Id%p->Id%p\n", expr, expr->left);
-		fprintf(output_file, "Id%p->Id%p\n", expr, expr->right);
+		print_edge(expr, expr->left, 0, output_file);
+		print_edge(expr, expr->right, 0, output_file);
 		break;
 
 	case minus:
-		fprintf(output_file, "Id%p [label=\"Minus\"]\n", expr);
+		print_node("Minus -", expr, output_file);
 		print_expr(expr->left, output_file);
 		print_expr(expr->right, output_file);
-		fprintf(output_file, "Id%p->Id%p\n", expr, expr->left);
-		fprintf(output_file, "Id%p->Id%p\n", expr, expr->right);
+		print_edge(expr, expr->left, 0, output_file);
+		print_edge(expr, expr->right, 0, output_file);
 		break;
 
 	case mul:
-		fprintf(output_file, "Id%p [label=\"Multiplication\"]\n", expr);
+		print_node("Multiplication *", expr, output_file);
 		print_expr(expr->left, output_file);
 		print_expr(expr->right, output_file);
-		fprintf(output_file, "Id%p->Id%p\n", expr, expr->left);
-		fprintf(output_file, "Id%p->Id%p\n", expr, expr->right);
+		print_edge(expr, expr->left, 0, output_file);
+		print_edge(expr, expr->right, 0, output_file);
 		break;
 
 	case divide:
-		fprintf(output_file, "Id%p [label=\"Divide\"]\n", expr);
+		print_node("Divide /", expr, output_file);
 		print_expr(expr->left, output_file);
 		print_expr(expr->right, output_file);
-		fprintf(output_file, "Id%p->Id%p\n", expr, expr->left);
-		fprintf(output_file, "Id%p->Id%p\n", expr, expr->right);
+		print_edge(expr, expr->left, 0, output_file);
+		print_edge(expr, expr->right, 0, output_file);
 		break;
 
 	case less:
-		fprintf(output_file, "Id%p [label=\"Less <\"]\n", expr);
+		print_node("Less <", expr, output_file);
 		print_expr(expr->left, output_file);
 		print_expr(expr->right, output_file);
-		fprintf(output_file, "Id%p->Id%p\n", expr, expr->left);
-		fprintf(output_file, "Id%p->Id%p\n", expr, expr->right);
+		print_edge(expr, expr->left, 0, output_file);
+		print_edge(expr, expr->right, 0, output_file);
 		break;
 
 	case greater:
-		fprintf(output_file, "Id%p [label=\"Greater >\"]\n", expr);
+		print_node("Greater >", expr, output_file);
 		print_expr(expr->left, output_file);
 		print_expr(expr->right, output_file);
-		fprintf(output_file, "Id%p->Id%p\n", expr, expr->left);
-		fprintf(output_file, "Id%p->Id%p\n", expr, expr->right);
+		print_edge(expr, expr->left, 0, output_file);
+		print_edge(expr, expr->right, 0, output_file);
 		break;
 
 	case less_or_equal:
-		fprintf(output_file, "Id%p [label=\"LessEql <=\"]\n", expr);
+		print_node("LessEql <=", expr, output_file);
 		print_expr(expr->left, output_file);
 		print_expr(expr->right, output_file);
-		fprintf(output_file, "Id%p->Id%p\n", expr, expr->left);
-		fprintf(output_file, "Id%p->Id%p\n", expr, expr->right);
+		print_edge(expr, expr->left, 0, output_file);
+		print_edge(expr, expr->right, 0, output_file);
 		break;
 
 	case greater_or_equal:
-		fprintf(output_file, "Id%p [label=\"GreaterEql >=\"]\n", expr);
+		print_node("GreaterEql >=", expr, output_file);
 		print_expr(expr->left, output_file);
 		print_expr(expr->right, output_file);
-		fprintf(output_file, "Id%p->Id%p\n", expr, expr->left);
-		fprintf(output_file, "Id%p->Id%p\n", expr, expr->right);
+		print_edge(expr, expr->left, 0, output_file);
+		print_edge(expr, expr->right, 0, output_file);
 		break;
 
 	case equal:
-		fprintf(output_file, "Id%p [label=\"Equal ==\"]\n", expr);
+		print_node("Equal ==", expr, output_file);
 		print_expr(expr->left, output_file);
 		print_expr(expr->right, output_file);
-		fprintf(output_file, "Id%p->Id%p\n", expr, expr->left);
-		fprintf(output_file, "Id%p->Id%p\n", expr, expr->right);
+		print_edge(expr, expr->left, 0, output_file);
+		print_edge(expr, expr->right, 0, output_file);
 		break;
 
 	case not_equal:
-		fprintf(output_file, "Id%p [label=\"Not equal !=\"]\n", expr);
+		print_node("Not equal !=", expr, output_file);
 		print_expr(expr->left, output_file);
 		print_expr(expr->right, output_file);
-		fprintf(output_file, "Id%p->Id%p\n", expr, expr->left);
-		fprintf(output_file, "Id%p->Id%p\n", expr, expr->right);
+		print_edge(expr, expr->left, 0, output_file);
+		print_edge(expr, expr->right, 0, output_file);
 		break;
 
 	case call:
+		print_node("Method call", expr, output_file);
 
 
 	default:
