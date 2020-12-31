@@ -29,6 +29,9 @@
     <ClCompile Include="create_tree_nodes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="print_tree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Bison Include="grammar.y">
@@ -43,6 +46,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="grammar.tab.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="print_tree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
