@@ -181,3 +181,11 @@ void print_type(struct type_struct* type, FILE* output_file) {
 			break;
 	}
 }
+
+void print_node(const char* label, void* node_pointer, FILE* output_file) {
+	fprintf(output_file, "Id%p [label=\"%s\"]; \n", node_pointer, label);
+}
+
+void print_edge(void* parent_node, void* child_node, const char* edge_label, FILE* output_file) {
+	fprintf(output_file, "Id%p -> Id%p [label=\"%s\"]; \n", parent_node, child_node, edge_label);
+}
