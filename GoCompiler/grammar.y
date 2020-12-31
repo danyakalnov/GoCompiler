@@ -384,12 +384,3 @@ array_key: INT { $$ = $1; }
 ;
 
 %%
-
-int main(int argc, char **argv ){
-	yyin = fopen(argv[1], "r" );
-
-    FILE * tree = fopen("tree.dot", "w");
-
-    yyparse();
-    return 0;
-}
