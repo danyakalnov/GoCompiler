@@ -189,7 +189,15 @@ void print_expr(struct expr_struct* expr, FILE* output_file) {
 		break;
 
 	case call:
+		break;
+	case array_indexing:
+		print_node("[]", expr, output_file);
+		print_expr(expr->left, output_file);
+		print_expr(expr->right, output_file);
 
+		print_edge(expr, expr->left, "array", output_file);
+		print_edge(expr, expr->right, "index", output_file);
+		break;
 
 	default:
 		break;
