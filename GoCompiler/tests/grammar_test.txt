@@ -1,0 +1,21 @@
+package main
+
+import "fmt";
+
+func main() {
+  myFunction([]int{1, 2})
+
+  var odds [4]int = [4]int{2: 5, 3: 7};
+
+  var a int = 1;
+  
+  for ; a < 0; a++  {
+    fmt.Println(a);
+  }
+
+  fmt.Println(odds);
+}
+
+func myFunction(a []int) {
+  fmt.Println(a)
+}
