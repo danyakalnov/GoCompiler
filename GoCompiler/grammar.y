@@ -6,6 +6,8 @@
 #include <malloc.h>
 #include "grammar.tab.h"
 #include "create_tree_nodes.h"
+#include "dot.h"
+#include "print_tree.h"
 
 void yyerror(const char* message) {
     fprintf(stderr, message);
@@ -13,8 +15,7 @@ void yyerror(const char* message) {
 int yylex();
 int yyparse();
 extern FILE* yyin;
-
-struct program_struct * root;
+extern "C" struct program_struct* root;
 
 %}
 
