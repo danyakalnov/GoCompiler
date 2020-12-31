@@ -109,12 +109,31 @@ void print_func_param(struct param_decl_struct* param, FILE* output_file) {
 	print_edge(param, param->type, "type", output_file);
 }
 
-void print_declaration(struct decl_stmt_struct*, FILE* output_file) {
+void print_declaration(struct decl_stmt_struct* decl, FILE* output_file) {
+	if (decl->declaration_type == const_t)
+		print_node("const decl", decl, output_file);
+	else if (decl->declaration_type == var_t)
+		print_node("var_decl", decl, output_file);
 
+	if (decl->spec != 0) {
+		print_declaration_spec(decl->spec, output_file);
+	}
+		
 }
 
-void print_declaration_spec(struct decl_spec_struct*, FILE* output_file) {
+void print_declaration_spec(struct decl_spec_struct* spec, FILE* output_file) {
+	print_node("spec", spec, output_file);
 
+	print_node(spec->id->name, spec->id, output_file);
+	print_edge(spec, spec->id, "identifier", output_file);
+
+	print_type(spec->type, output_file);
+	print_edge(spec, spec->type, "type", output_file);
+
+	if (spec->values != 0) {
+		print_expr(spec->values, output_file);
+		print_edge(spec, spec->values, "value", output_file);
+	}
 }
 
 void print_stmt(struct stmt_struct* stmt, FILE* output_file) {
