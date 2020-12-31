@@ -190,7 +190,21 @@ void print_expr(struct expr_struct* expr, FILE* output_file) {
 
 	case call:
 		print_node("Method call", expr, output_file);
+		print_expr(expr->left, output_file); /* Печать имени функции */
+		print_edge(expr, expr->left, 0, output_file);
+		if (expr->args != 0) {
+			print_node("Args", expr->args, output_file);
+			print_edge(expr, expr->args, 0, output_file);
+			struct expr_struct* current_arg = expr->args->first;
+			while (current_arg != 0) {
+				print_expr(current_arg, output_file);
+				print_edge(expr->args, current_arg, 0, output_file);
+				current_arg = current_arg->next;
+			}
+		}
+
 		break;
+
 	case array_indexing:
 		print_node("[]", expr, output_file);
 		print_expr(expr->left, output_file);
