@@ -14,19 +14,19 @@ void print_program(struct program_struct* program, FILE* output_file) {
 	}
 }
 
-void print_imports(struct import_decl_list_struct* imports, FILE* output_file) {
+void print_imports(struct import_decl_list_struct* imports, void* parent, FILE* output_file) {
 	
 }
 
 void print_import(struct import_decl_struct* import_decl, FILE* output_file) {
-	
+	fprintf(output_file, "Id%p [label=\"import\"]");
 }
 
-void print_package(struct package_decl_struct*, FILE* output_file) {
-	
+void print_package(struct package_decl_struct* package, FILE* output_file) {
+	fprintf(output_file, "Id%p [label=\"package %s\"]", package, package->package_name);
 }
 
-void print_top_level_decls(struct top_level_decl_list_struct*, FILE* output_file) {
+void print_top_level_decls(struct top_level_decl_list_struct*, void parent*, FILE* output_file) {
 	
 }
 void print_function(struct func_decl_struct*, FILE* output_file) {
@@ -55,7 +55,11 @@ void print_expr(struct expr_struct* expr, FILE* outuput_file) {
 	
 }
 
-void print_block(struct stmt_list_struct*, FILE* output_file) {
+void print_block(struct stmt_block_struct*, FILE* output_file) {
+	
+}
+
+void print_stmt_list(struct stmt_list_struct*, void* parent, FILE* output_file) {
 	
 }
 
