@@ -76,8 +76,124 @@ void print_stmt(struct stmt_struct* stmt, FILE* output_file) {
 	
 }
 
-void print_expr(struct expr_struct* expr, FILE* outuput_file) {
-	
+void print_expr(struct expr_struct* expr, FILE* output_file) {
+	switch (expr->type)
+	{
+	case integer:
+		fprintf(output_file, "Id%p [label=\"INT\"]\n", expr);
+		fprintf(output_file, "IdValue%p [label=\"%d\"]\n", expr, expr->int_value);
+		fprintf(output_file, "Id%p->IdValue%p\n", expr, expr);
+		break;
+
+	case str:
+		fprintf(output_file, "Id%p [label=\"STRING\"]\n", expr);
+		fprintf(output_file, "IdValue%p [label=\"%s\"]\n", expr, expr->str_value);
+		fprintf(output_file, "Id%p->IdValue%p\n", expr, expr);
+		break;
+
+	case boolean:
+		fprintf(output_file, "Id%p [label=\"BOOLEAN\"]\n", expr);
+		if (expr->int_value == 0) {
+			fprintf(output_file, "IdValue%p [label=\"false\"]\n", expr);
+		} 
+		else {
+			fprintf(output_file, "IdValue%p [label=\"true\"]\n", expr);
+		}
+		fprintf(output_file, "Id%p->IdValue%p\n", expr, expr);
+		break;
+
+	case unary_minus:
+		fprintf(output_file, "Id%p [label=\"Unary -\"]\n", expr);
+		print_expr(expr->left, output_file);
+		fprintf(output_file, "Id%p->Id%p\n", expr, expr->left);
+		break;
+
+	case plus:
+		fprintf(output_file, "Id%p [label=\"Plus\"]\n", expr);
+		print_expr(expr->left, output_file);
+		print_expr(expr->right, output_file);
+		fprintf(output_file, "Id%p->Id%p\n", expr, expr->left);
+		fprintf(output_file, "Id%p->Id%p\n", expr, expr->right);
+		break;
+
+	case minus:
+		fprintf(output_file, "Id%p [label=\"Minus\"]\n", expr);
+		print_expr(expr->left, output_file);
+		print_expr(expr->right, output_file);
+		fprintf(output_file, "Id%p->Id%p\n", expr, expr->left);
+		fprintf(output_file, "Id%p->Id%p\n", expr, expr->right);
+		break;
+
+	case mul:
+		fprintf(output_file, "Id%p [label=\"Multiplication\"]\n", expr);
+		print_expr(expr->left, output_file);
+		print_expr(expr->right, output_file);
+		fprintf(output_file, "Id%p->Id%p\n", expr, expr->left);
+		fprintf(output_file, "Id%p->Id%p\n", expr, expr->right);
+		break;
+
+	case divide:
+		fprintf(output_file, "Id%p [label=\"Divide\"]\n", expr);
+		print_expr(expr->left, output_file);
+		print_expr(expr->right, output_file);
+		fprintf(output_file, "Id%p->Id%p\n", expr, expr->left);
+		fprintf(output_file, "Id%p->Id%p\n", expr, expr->right);
+		break;
+
+	case less:
+		fprintf(output_file, "Id%p [label=\"Less <\"]\n", expr);
+		print_expr(expr->left, output_file);
+		print_expr(expr->right, output_file);
+		fprintf(output_file, "Id%p->Id%p\n", expr, expr->left);
+		fprintf(output_file, "Id%p->Id%p\n", expr, expr->right);
+		break;
+
+	case greater:
+		fprintf(output_file, "Id%p [label=\"Greater >\"]\n", expr);
+		print_expr(expr->left, output_file);
+		print_expr(expr->right, output_file);
+		fprintf(output_file, "Id%p->Id%p\n", expr, expr->left);
+		fprintf(output_file, "Id%p->Id%p\n", expr, expr->right);
+		break;
+
+	case less_or_equal:
+		fprintf(output_file, "Id%p [label=\"LessEql <=\"]\n", expr);
+		print_expr(expr->left, output_file);
+		print_expr(expr->right, output_file);
+		fprintf(output_file, "Id%p->Id%p\n", expr, expr->left);
+		fprintf(output_file, "Id%p->Id%p\n", expr, expr->right);
+		break;
+
+	case greater_or_equal:
+		fprintf(output_file, "Id%p [label=\"GreaterEql >=\"]\n", expr);
+		print_expr(expr->left, output_file);
+		print_expr(expr->right, output_file);
+		fprintf(output_file, "Id%p->Id%p\n", expr, expr->left);
+		fprintf(output_file, "Id%p->Id%p\n", expr, expr->right);
+		break;
+
+	case equal:
+		fprintf(output_file, "Id%p [label=\"Equal ==\"]\n", expr);
+		print_expr(expr->left, output_file);
+		print_expr(expr->right, output_file);
+		fprintf(output_file, "Id%p->Id%p\n", expr, expr->left);
+		fprintf(output_file, "Id%p->Id%p\n", expr, expr->right);
+		break;
+
+	case not_equal:
+		fprintf(output_file, "Id%p [label=\"Not equal !=\"]\n", expr);
+		print_expr(expr->left, output_file);
+		print_expr(expr->right, output_file);
+		fprintf(output_file, "Id%p->Id%p\n", expr, expr->left);
+		fprintf(output_file, "Id%p->Id%p\n", expr, expr->right);
+		break;
+
+	case call:
+
+
+	default:
+		break;
+	}
 }
 
 void print_block(struct stmt_block_struct*, FILE* output_file) {
