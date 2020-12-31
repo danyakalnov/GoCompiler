@@ -23,3 +23,4 @@ void print_array_literal(struct array_lit_struct* array_literal, FILE* output_fi
 void print_array_type(struct array_type_struct* array_type, FILE* output_file);
 void print_array_elements(struct array_element_list_struct*, FILE* output_file);
 void print_type(struct type_struct* type, FILE* output_file);
+void print_node(char* label, void* node_pointer);
