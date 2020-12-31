@@ -15,7 +15,7 @@ void print_declaration_spec(struct decl_spec_struct*, FILE* output_file);
 void print_stmt(struct stmt_struct* stmt, FILE* output_file);
 void print_expr(struct expr_struct* expr, FILE* output_file);
 void print_block(struct stmt_struct* block, FILE* output_file);
-void print_stmt_list(struct stmt_list_struct*, void* parent, FILE* output_file);
+void print_stmt_list(struct stmt_list_struct* list, void* parent, FILE* output_file);
 void print_if(struct if_stmt_struct* if_stmt, FILE* output_file);
 void print_for(struct for_stmt_struct* for_stmt, FILE* output_file);
 void print_return(struct return_stmt_struct*, FILE* output_file);
