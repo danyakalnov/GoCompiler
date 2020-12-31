@@ -17,6 +17,6 @@ void print_expr(struct expr_struct* expr, FILE* outuput_file);
 void print_block(struct stmt_block_struct*, FILE* output_file);
 void print_stmt_list(struct stmt_list_struct*, void* parent, FILE* output_file);
 void print_if(struct if_stmt_struct* if_stmt, FILE* output_file);
-void print_for(struct for_stmt_struct*, FILE* output_file);
+void print_for(struct for_stmt_struct* for_stmt, void* parent, FILE* output_file);
 void print_return(struct return_stmt_struct*, FILE* output_file);
 void print_array_literal(struct array_lit_struct* array_literal, FILE* output_file);
