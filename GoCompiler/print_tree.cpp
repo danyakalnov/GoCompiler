@@ -256,8 +256,9 @@ void print_for(struct for_stmt_struct* for_stmt, FILE* output_file) {
 	}
 }
 
-void print_return(struct return_stmt_struct*, FILE* output_file) {
-
+void print_return(struct return_stmt_struct* return_stmt, FILE* output_file) {
+	print_node("return", return_stmt, output_file);
+	print_expr_list(return_stmt->return_values, return_stmt, output_file);
 }
 
 void print_array_literal(struct array_lit_struct* array_literal, FILE* output_file) {
@@ -326,4 +327,15 @@ void print_node(const char* label, void* node_pointer, FILE* output_file) {
 
 void print_edge(void* parent_node, void* child_node, const char* edge_label, FILE* output_file) {
 	fprintf(output_file, "Id%p -> Id%p [label=\"%s\"]; \n", parent_node, child_node, edge_label);
+}
+
+void print_expr_list(struct expr_list_struct* list, void* parent, FILE* output_file) {
+	struct expr_struct* current = list->first;
+
+	while (current != 0) {
+		print_expr(current, output_file);
+		print_edge(parent, current, "", output_file);
+
+		current = current->next;
+	}
 }
