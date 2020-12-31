@@ -166,6 +166,7 @@ import_spec_list: import_spec { $$ = create_import_spec_list($1); puts("Import s
 ;
 
 import_spec: '.' STRING ';' { $$ = create_import_spec($2); }
+| STRING ';' { $$ = create_import_spec($1); }
 | ID STRING ';' { $$ = create_import_spec_with_alias($1, $2); }
 ;
 
