@@ -4,25 +4,37 @@ void print_program(struct program_struct* program, FILE* output_file) {
 	fprintf(output_file, "digraph G{\n");
 	fprintf(output_file, "Id%p [label=\"program\"]\n", program);
 	if (program->imports != 0) {
-		print_imports(program->imports, output_file);
+		print_imports(program->imports, program, output_file);
 	}
 	if (program->declarations != 0) {
-		print_top_level_decls(program->declarations, output_file);
+		print_top_level_decls(program->declarations, program, output_file);
 	}
 	if (program->package != 0) {
-		print_package(program->package, output_file);
+		print_package(program->package, program, output_file);
 	}
 }
 
 void print_imports(struct import_decl_list_struct* imports, void* parent, FILE* output_file) {
-	
+	struct import_decl_struct* current_import_decl = imports->first;
+	while (current_import_decl != 0) {
+		print_import(current_import_decl, output_file);
+		fprintf(output_file, "Id%p->Id%p\n", parent, current_import_decl);
+		current_import_decl = current_import_decl->next;
+	}
 }
 
 void print_import(struct import_decl_struct* import_decl, FILE* output_file) {
-	fprintf(output_file, "Id%p [label=\"import\"]");
+	if (import_decl->import_spec->import_alias) {
+		// Print import with alias
+		fprintf(output_file, "Id%p [label=\"import %s %s\"]\n", import_decl, import_decl->import_spec->import_alias, import_decl->import_spec->import_path);
+	}
+	else {
+		// Print import just with import path
+		fprintf(output_file, "Id%p [label=\"import %s\"]\n", import_decl, import_decl->import_spec->import_path);
+	}
 }
 
-void print_package(struct package_decl_struct* package, FILE* output_file) {
+void print_package(struct package_decl_struct* package, void* parent, FILE* output_file) {
 	fprintf(output_file, "Id%p [label=\"package %s\"]", package, package->package_name);
 }
 
