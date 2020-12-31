@@ -54,8 +54,8 @@ void print_top_level_decl(struct top_level_decl_struct* decl, FILE* output_file)
 	
 }
 
-void print_function(struct func_decl_struct*, FILE* output_file) {
-	
+void print_function(struct func_decl_struct* func, FILE* output_file) {
+
 }
 
 void print_declaration(struct decl_stmt_struct*, FILE* output_file) {
@@ -190,7 +190,20 @@ void print_expr(struct expr_struct* expr, FILE* output_file) {
 
 	case call:
 		print_node("Method call", expr, output_file);
+		break;
+	case array_indexing:
+		print_node("[]", expr, output_file);
+		print_expr(expr->left, output_file);
+		print_expr(expr->right, output_file);
 
+		print_edge(expr, expr->left, "array", output_file);
+		print_edge(expr, expr->right, "index", output_file);
+		break;
+
+	case id_t:
+		print_node("identifier", expr, output_file);
+		fprintf(output_file, "IdValue%p [label=\"%s\"]; \n", expr, expr->str_value);
+		break;
 
 	default:
 		break;
@@ -200,17 +213,19 @@ void print_expr(struct expr_struct* expr, FILE* output_file) {
 void print_block(struct stmt_struct* block, FILE* output_file) {
 	fprintf(output_file, "Id%p [label=\"block\"];\n", block);
 
-	struct stmt_struct* current = block->block_field->list->first;
-	while (current != 0) {
-		print_stmt(current, output_file);
-		fprintf(output_file, "Id%p -> Id%p;", block, current);
-		current = current->next;
-	}
+	print_stmt_list(block->block_field->list, block, output_file);
 
 }
 
-void print_stmt_list(struct stmt_list_struct*, void* parent, FILE* output_file) {
-	
+void print_stmt_list(struct stmt_list_struct* list, void* parent, FILE* output_file) {
+	struct stmt_struct* current = list->first;
+
+	while (current != 0) {
+		print_stmt(current, output_file);
+		print_edge(parent, current, "", output_file);
+
+		current = current->next;
+	}
 }
 
 void print_if(struct if_stmt_struct* if_stmt, FILE* output_file) {
@@ -237,8 +252,9 @@ void print_for(struct for_stmt_struct* for_stmt, FILE* output_file) {
 	}
 }
 
-void print_return(struct return_stmt_struct*, FILE* output_file) {
-
+void print_return(struct return_stmt_struct* return_stmt, FILE* output_file) {
+	print_node("return", return_stmt, output_file);
+	print_expr_list(return_stmt->return_values, return_stmt, output_file);
 }
 
 void print_array_literal(struct array_lit_struct* array_literal, FILE* output_file) {
@@ -261,6 +277,8 @@ void print_array_type(struct array_type_struct* array_type, FILE* output_file) {
 
 void print_array_elements(struct array_element_list_struct* elements, FILE* output_file) {
 	struct array_keyed_element_struct* current = elements->first;
+
+	print_node("elements", elements, output_file);
 
 	while (current != 0) {
 		print_array_element(current, output_file);
@@ -305,4 +323,15 @@ void print_node(const char* label, void* node_pointer, FILE* output_file) {
 
 void print_edge(void* parent_node, void* child_node, const char* edge_label, FILE* output_file) {
 	fprintf(output_file, "Id%p -> Id%p [label=\"%s\"]; \n", parent_node, child_node, edge_label);
+}
+
+void print_expr_list(struct expr_list_struct* list, void* parent, FILE* output_file) {
+	struct expr_struct* current = list->first;
+
+	while (current != 0) {
+		print_expr(current, output_file);
+		print_edge(parent, current, "", output_file);
+
+		current = current->next;
+	}
 }
