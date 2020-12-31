@@ -9,7 +9,7 @@ void print_import(struct import_decl_struct* import_decl, FILE* output_file);
 void print_package(struct package_decl_struct* package, void* parent, FILE* output_file);
 void print_top_level_decls(struct top_level_decl_list_struct* decls, void* parent, FILE* output_file);
 void print_top_level_decl(struct top_level_decl_struct* decl, FILE* output_file);
-void print_function(struct func_decl_struct*, FILE* output_file);
+void print_function(struct func_decl_struct* func, FILE* output_file);
 void print_declaration(struct decl_stmt_struct*, FILE* output_file);
 void print_declaration_spec(struct decl_spec_struct*, FILE* output_file);
 void print_stmt(struct stmt_struct* stmt, FILE* output_file);
