@@ -112,7 +112,7 @@ ESCAPED_CHAR \\[abfnrtv\\'"]
 
 	int runeCodePoint;
 
-	bool isLastSymbolTerminable;
+	bool isLastSymbolTerminable = false;
 %}
 
 \\n {
