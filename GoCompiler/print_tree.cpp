@@ -26,7 +26,7 @@ void print_package(struct package_decl_struct* package, FILE* output_file) {
 	fprintf(output_file, "Id%p [label=\"package %s\"]", package, package->package_name);
 }
 
-void print_top_level_decls(struct top_level_decl_list_struct*, void parent*, FILE* output_file) {
+void print_top_level_decls(struct top_level_decl_list_struct*, void* parent, FILE* output_file) {
 	
 }
 void print_function(struct func_decl_struct*, FILE* output_file) {
