@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="create_tree_nodes.cpp" />
+    <ClCompile Include="dot.cpp" />
     <ClCompile Include="grammar.tab.cpp" />
     <ClCompile Include="lexer.flex.cpp" />
     <ClCompile Include="print_tree.cpp" />
@@ -160,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="create_tree_nodes.h" />
+    <ClInclude Include="dot.h" />
     <ClInclude Include="grammar.tab.h" />
     <ClInclude Include="print_tree.h" />
     <ClInclude Include="tree_nodes.h" />
