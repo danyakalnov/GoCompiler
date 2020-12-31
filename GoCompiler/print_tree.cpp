@@ -221,8 +221,15 @@ void print_block(struct stmt_struct* block, FILE* output_file) {
 
 }
 
-void print_stmt_list(struct stmt_list_struct*, void* parent, FILE* output_file) {
-	
+void print_stmt_list(struct stmt_list_struct* list, void* parent, FILE* output_file) {
+	struct stmt_struct* current = list->first;
+
+	while (current != 0) {
+		print_stmt(current, output_file);
+		print_edge(parent, current, "", output_file);
+
+		current = current->next;
+	}
 }
 
 void print_if(struct if_stmt_struct* if_stmt, FILE* output_file) {
@@ -273,6 +280,8 @@ void print_array_type(struct array_type_struct* array_type, FILE* output_file) {
 
 void print_array_elements(struct array_element_list_struct* elements, FILE* output_file) {
 	struct array_keyed_element_struct* current = elements->first;
+
+	print_node("elements", elements, output_file);
 
 	while (current != 0) {
 		print_array_element(current, output_file);
