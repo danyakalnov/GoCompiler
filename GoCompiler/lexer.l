@@ -4,7 +4,7 @@
 %{
 	#include <stdio.h>
 	#include <conio.h>
-	//#include <unicode/unistr.h> // что это?
+	//#include <unicode/unistr.h> // пїЅпїЅпїЅ пїЅпїЅпїЅ?
 	#include <uchar.h>
 	#include <wchar.h>
 	#include <ctype.h>
@@ -77,7 +77,7 @@ LETTER [a-zA-Z_]
 
 %x COMMENT
 %x SINGLE_LINE_COMMENT
-%x STRING
+%x STRING_LITERAL
 %x RUNE
 
 DECIMAL_DIGITS {DECIMAL_DIGIT}(\_?{DECIMAL_DIGIT})*
@@ -160,50 +160,50 @@ ESCAPED_CHAR \\[abfnrtv\\'"]
 
 \" {
 	stringLiteral[0] = 0;
-	BEGIN(STRING);
+	BEGIN(STRING_LITERAL);
 }
 
-<STRING>[^\\\"\n]+ {
+<STRING_LITERAL>[^\\\"\n]+ {
 	strcat(stringLiteral, yytext);
 }
 
-<STRING>\\n {
+<STRING_LITERAL>\\n {
 	strcat(stringLiteral, "\n");
 }
 
-<STRING>\\a {
+<STRING_LITERAL>\\a {
 	strcat(stringLiteral, "\a");
 }
 
-<STRING>\\b {
+<STRING_LITERAL>\\b {
 	strcat(stringLiteral, "\b");
 }
 
-<STRING>\\f {
+<STRING_LITERAL>\\f {
 	strcat(stringLiteral, "\f");
 }
 
-<STRING>\\t {
+<STRING_LITERAL>\\t {
 	strcat(stringLiteral, "\t");
 }
 
-<STRING>\\r {
+<STRING_LITERAL>\\r {
 	strcat(stringLiteral, "\r");
 }
 
-<STRING>\\v {
+<STRING_LITERAL>\\v {
 	strcat(stringLiteral, "\v");
 }
 
-<STRING>\\\' {
+<STRING_LITERAL>\\\' {
 	printf("Error: Illegal escape sequence\n");
 }
 
-<STRING>\\\" {
+<STRING_LITERAL>\\\" {
 	strcat(stringLiteral, "\"");
 }
 
-<STRING>\" {
+<STRING_LITERAL>\" {
 	printf("Found string literal: %s\n", stringLiteral);
 	yylval.String = stringLiteral;
 	isLastSymbolTerminable = true;
