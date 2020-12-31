@@ -21,7 +21,7 @@ void print_for(struct for_stmt_struct* for_stmt, FILE* output_file);
 void print_return(struct return_stmt_struct*, FILE* output_file);
 void print_array_literal(struct array_lit_struct* array_literal, FILE* output_file);
 void print_array_type(struct array_type_struct* array_type, FILE* output_file);
-void print_array_elements(struct array_element_list_struct*, FILE* output_file);
+void print_array_elements(struct array_element_list_struct* elements, FILE* output_file);
 void print_type(struct type_struct* type, FILE* output_file);
 void print_node(const char* label, void* node_pointer);
 void print_func_signature(struct func_signature_struct* signature, FILE* output_file);
