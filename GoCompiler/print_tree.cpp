@@ -67,7 +67,7 @@ void print_stmt(struct stmt_struct* stmt, FILE* output_file) {
 	switch (stmt->type) {
 		case for_loop_t:
 			print_for(stmt->for_stmt_field, output_file);
-			fprintf(output_file, "Id%p->Id%p\n", stmt, stmt->for_stmt_field);
+			fprintf(output_file, "Id%p->Id%p;\n", stmt, stmt->for_stmt_field);
 			break;
 	}
 	
@@ -77,8 +77,16 @@ void print_expr(struct expr_struct* expr, FILE* outuput_file) {
 	
 }
 
-void print_block(struct stmt_block_struct*, FILE* output_file) {
-	
+void print_block(struct stmt_struct* block, FILE* output_file) {
+	fprintf(output_file, "Id%p [label=\"block\"];\n", block);
+
+	struct stmt_struct* current = block->block_field->list->first;
+	while (current != 0) {
+		print_stmt(current, output_file);
+		fprintf(output_file, "Id%p -> Id%p;", block, current);
+		current = current->next;
+	}
+
 }
 
 void print_stmt_list(struct stmt_list_struct*, void* parent, FILE* output_file) {
@@ -90,8 +98,23 @@ void print_if(struct if_stmt_struct* if_stmt, FILE* output_file) {
 
 }
 
-void print_for(struct for_stmt_struct*, FILE* output_file) {
-	
+void print_for(struct for_stmt_struct* for_stmt, FILE* output_file) {
+	fprintf(output_file, "Id%p [label=\"for\"];\n", for_stmt);
+	print_block(for_stmt->block, output_file);
+	fprintf(output_file, "Id%p -> Id%p;", for_stmt, for_stmt->block);
+
+	if(for_stmt->type == for_with_clause || for_stmt->type == for_with_condition) {
+		print_expr(for_stmt->for_condition, output_file);
+		fprintf(output_file, "Id%p -> Id%p [label=\"condition\"];\n", for_stmt, for_stmt->for_condition);
+	}
+
+	if (for_stmt->type == for_with_clause) {
+		print_stmt(for_stmt->for_clause_init_stmt, output_file);
+		fprintf(output_file, "Id%p -> Id%p [label=\"init stmt\"];\n", for_stmt, for_stmt->for_clause_init_stmt);
+
+		print_stmt(for_stmt->for_clause_post_stmt, output_file);
+		fprintf(output_file, "Id%p -> Id%p [label=\"post stmt\"];\n", for_stmt, for_stmt->for_clause_post_stmt);
+	}
 }
 
 void print_return(struct return_stmt_struct*, FILE* output_file) {
