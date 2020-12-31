@@ -1,3 +1,5 @@
+#pragma once
+
 enum type_type {
 	func_t,
 	int_t,
