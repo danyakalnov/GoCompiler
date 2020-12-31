@@ -149,6 +149,7 @@
     <ClCompile Include="dot.cpp" />
     <ClCompile Include="grammar.tab.cpp" />
     <ClCompile Include="lexer.flex.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="print_tree.cpp" />
   </ItemGroup>
   <ItemGroup>
