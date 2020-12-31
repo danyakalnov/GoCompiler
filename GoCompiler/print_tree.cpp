@@ -54,8 +54,8 @@ void print_top_level_decl(struct top_level_decl_struct* decl, FILE* output_file)
 	
 }
 
-void print_function(struct func_decl_struct*, FILE* output_file) {
-	
+void print_function(struct func_decl_struct* func, FILE* output_file) {
+
 }
 
 void print_declaration(struct decl_stmt_struct*, FILE* output_file) {
@@ -212,12 +212,7 @@ void print_expr(struct expr_struct* expr, FILE* output_file) {
 void print_block(struct stmt_struct* block, FILE* output_file) {
 	fprintf(output_file, "Id%p [label=\"block\"];\n", block);
 
-	struct stmt_struct* current = block->block_field->list->first;
-	while (current != 0) {
-		print_stmt(current, output_file);
-		fprintf(output_file, "Id%p -> Id%p;", block, current);
-		current = current->next;
-	}
+	print_stmt_list(block->block_field->list, block, output_file);
 
 }
 
