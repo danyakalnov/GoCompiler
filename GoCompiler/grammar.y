@@ -169,7 +169,7 @@ import_spec: '.' STRING ';' { $$ = create_import_spec($2); }
 | ID STRING ';' { $$ = create_import_spec_with_alias($1, $2); }
 ;
 
-package_clause: PACKAGE_KEYWORD ID ';' { $$ = create_package_decl($2); }
+package_clause: PACKAGE_KEYWORD ID { $$ = create_package_decl($2); }
 ;
 
 type: INT_KEYWORD { $$ = create_basic_type(int_t); }
