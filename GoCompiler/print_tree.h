@@ -24,6 +24,6 @@ void print_array_type(struct array_type_struct* array_type, FILE* output_file);
 void print_array_elements(struct array_element_list_struct* elements, FILE* output_file);
 void print_array_element(struct array_keyed_element_struct* element, FILE* output_file);
 void print_type(struct type_struct* type, FILE* output_file);
-void print_node(const char* label, void* node_pointer);
+void print_node(const char* label, void* node_pointer, FILE* output_file);
 void print_func_signature(struct func_signature_struct* signature, FILE* output_file);
-void print_edge(void* parent_node, void* child_node, const char* edge_label);
+void print_edge(void* parent_node, void* child_node, const char* edge_label, FILE* output_file);
