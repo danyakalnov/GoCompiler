@@ -55,7 +55,52 @@ void print_top_level_decl(struct top_level_decl_struct* decl, FILE* output_file)
 }
 
 void print_function(struct func_decl_struct* func, FILE* output_file) {
+	print_node("function\ndeclaration", func, output_file);
+	print_func_signature(func->func_signature, output_file);
+	print_block(func->block, output_file);
 
+	print_edge(func, func->func_signature, "signature", output_file);
+	print_edge(func, func->block, "block", output_file);
+}
+
+void print_func_signature(struct func_signature_struct* signature, FILE* output_file) {
+	print_node("func", signature, output_file);
+
+	fprintf(output_file, "IdFuncName%p [label=\"%s\"]; \n", signature, signature->func_name);
+	fprintf(output_file, "Id%p -> IdFuncName%p [label=\"name\"]", signature, signature);
+
+	print_func_params(signature->params, output_file);
+	print_edge(signature, signature->params, "", output_file);
+
+	if (signature->return_value->return_values != 0) {
+		print_func_params(signature->return_value->return_values, output_file);
+		print_edge(signature, signature->return_value->return_values, "return", output_file);
+	}
+	else {
+		print_type(signature->return_value->return_type, output_file);
+		print_edge(signature, signature->return_value->return_type, "return", output_file);
+	}
+}
+
+void print_func_params(struct param_list_struct* params, FILE* output_file) {
+	struct param_decl_struct* current = params->first;
+
+	print_node("params", params, output_file);
+
+	while (current != 0) {
+		print_func_param(current, output_file);
+		print_edge(params, current, "", output_file);
+		current = current->next;
+	}
+}
+
+void print_func_param(struct param_decl_struct* param, FILE* output_file) {
+	print_node("param", param, output_file);
+	print_node(param->id->name, param->id, output_file);
+	print_type(param->type, output_file);
+
+	print_edge(param, param->id, "id", output_file);
+	print_edge(param, param->type, "type", output_file);
 }
 
 void print_declaration(struct decl_stmt_struct*, FILE* output_file) {
