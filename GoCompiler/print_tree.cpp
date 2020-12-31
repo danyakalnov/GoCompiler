@@ -117,8 +117,12 @@ void print_declaration(struct decl_stmt_struct* decl, FILE* output_file) {
 
 	if (decl->spec != 0) {
 		print_declaration_spec(decl->spec, output_file);
+		print_edge(decl, decl->spec, "", output_file);
 	}
-		
+	else if (decl->spec_list != 0) {
+		print_declaration_spec_list(decl->spec_list, output_file);
+		print_edge(decl, decl->spec_list, "", output_file);
+	}
 }
 
 void print_declaration_spec(struct decl_spec_struct* spec, FILE* output_file) {
