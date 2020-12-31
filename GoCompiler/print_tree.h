@@ -14,6 +14,7 @@ void print_func_params(struct param_list_struct* params, FILE* output_file);
 void print_func_param(struct param_decl_struct* param, FILE* output_file);
 void print_declaration(struct decl_stmt_struct*decl, FILE* output_file);
 void print_declaration_spec(struct decl_spec_struct* spec, FILE* output_file);
+void print_declaration_spec_list(struct decl_spec_list_struct* spec_list, FILE* output_file);
 void print_stmt(struct stmt_struct* stmt, FILE* output_file);
 void print_expr(struct expr_struct* expr, FILE* output_file);
 void print_block(struct stmt_struct* block, FILE* output_file);
