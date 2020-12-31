@@ -25,3 +25,4 @@ void print_array_elements(struct array_element_list_struct*, FILE* output_file);
 void print_type(struct type_struct* type, FILE* output_file);
 void print_node(const char* label, void* node_pointer);
 void print_func_signature(struct func_signature_struct* signature, FILE* output_file);
+void print_edge(void* parent_node, void* child_node, const char* edge_label);
