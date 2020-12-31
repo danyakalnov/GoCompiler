@@ -4,11 +4,13 @@
 %{
 	#include <stdio.h>
 	#include <conio.h>
-	//#include <unicode/unistr.h> // пїЅпїЅпїЅ пїЅпїЅпїЅ?
+	//#include <unicode/unistr.h> // что это?
 	#include <uchar.h>
 	#include <wchar.h>
 	#include <ctype.h>
 	#include "grammar.tab.h"
+
+	bool isLastSymbolTerminable = false;
 
 	void removeCharFromStr(const char * str, char * dest, char deleted_char) {
 		int j = 0;
@@ -111,12 +113,12 @@ ESCAPED_CHAR \\[abfnrtv\\'"]
 	long long int num;
 
 	int runeCodePoint;
-
-	bool isLastSymbolTerminable = false;
 %}
 
-\\n {
+[\n\v\r] {
 	if (isLastSymbolTerminable) {
+		isLastSymbolTerminable = false;
+		printf(";\n");
 		return ';';
 	}
 }
@@ -207,8 +209,8 @@ ESCAPED_CHAR \\[abfnrtv\\'"]
 	printf("Found string literal: %s\n", stringLiteral);
 	yylval.String = stringLiteral;
 	isLastSymbolTerminable = true;
-	return STRING;
 	BEGIN(INITIAL);
+	return STRING;
 }
 
 {IMAGINARY_DECIMAL_LITERAL} {
@@ -306,6 +308,7 @@ chan {
 }
 
 const {
+	printf("const\n");
 	isLastSymbolTerminable = false;
 	return CONST_KEYWORD;
 }
@@ -323,6 +326,7 @@ defer {
 }
 
 else {
+	printf("else\n");
 	isLastSymbolTerminable = false;
 	return ELSE_KEYWORD;
 }
@@ -332,11 +336,13 @@ fallthrough {
 }
 
 for {
+	printf("for\n");
 	isLastSymbolTerminable = false;
 	return FOR_KEYWORD;
 }
 
 func {
+	printf("func\n");
 	isLastSymbolTerminable = false;
 	return FUNC_KEYWORD;
 }
@@ -350,26 +356,31 @@ goto {
 }
 
 if {
+	printf("if\n");
 	isLastSymbolTerminable = false;
 	return IF_KEYWORD;
 }
 
 import {
+	printf("import\n");
 	isLastSymbolTerminable = false;
 	return IMPORT_KEYWORD;
 }
 
 int {
+	printf("int\n");
 	isLastSymbolTerminable = false;
 	return INT_KEYWORD;
 }
 
 byte {
+	printf("byte\n");
 	isLastSymbolTerminable = false;
 	return BYTE_KEYWORD;
 }
 
 string {
+	printf("string\n");
 	isLastSymbolTerminable = false;
 	return STRING_KEYWORD;
 }
@@ -383,6 +394,7 @@ map {
 }
 
 package {
+	printf("package\n");
 	isLastSymbolTerminable = false;
 	return PACKAGE_KEYWORD;
 }
@@ -414,21 +426,25 @@ type {
 }
 
 var {
+	printf("var\n");
 	isLastSymbolTerminable = false;
 	return VAR_KEYWORD;
 }
 
 bool {
+	printf("bool\n");
 	isLastSymbolTerminable = false;
 	return BOOL_KEYWORD;
 }
 
 true {
+	printf("true\n");
 	isLastSymbolTerminable = false;
 	return TRUE_KEYWORD;
 }
 
 false {
+	printf("false\n");
 	isLastSymbolTerminable = false;
 	return FALSE_KEYWORD;
 }
@@ -441,10 +457,10 @@ false {
 	return ID;
 }
 
-"+" { isLastSymbolTerminable = false; return yytext[0]; }
-"-" { isLastSymbolTerminable = false; return yytext[0]; }
-"*" { isLastSymbolTerminable = false; return yytext[0]; }
-"/" { isLastSymbolTerminable = false; return yytext[0]; }
+"+" { printf("+\n"); isLastSymbolTerminable = false; return yytext[0]; }
+"-" { printf("-\n"); isLastSymbolTerminable = false; return yytext[0]; }
+"*" { printf("*\n"); isLastSymbolTerminable = false; return yytext[0]; }
+"/" { printf("/\n"); isLastSymbolTerminable = false; return yytext[0]; }
 "%" { isLastSymbolTerminable = false; return yytext[0]; }
 
 "&" { printf("Found bitwise operator: %s\n", yytext); }
@@ -454,11 +470,11 @@ false {
 ">>" { printf("Found bitwise operator: %s\n", yytext); }
 "&^" { printf("Found bitwise operator: %s\n", yytext); }
 
-"=" { isLastSymbolTerminable = false; return yytext[0]; }
-"+=" { isLastSymbolTerminable = false; return PLUS_ASSIGN; }
-"-=" { isLastSymbolTerminable = false; return MINUS_ASSIGN; }
-"*=" { isLastSymbolTerminable = false; return MULTIPLY_ASSIGN; }
-"/=" { isLastSymbolTerminable = false; return DIVISION_ASSIGN; }
+"=" { printf("=\n"); isLastSymbolTerminable = false; return yytext[0]; }
+"+=" { printf("+=\n"); isLastSymbolTerminable = false; return PLUS_ASSIGN; }
+"-=" { printf("-=\n"); isLastSymbolTerminable = false; return MINUS_ASSIGN; }
+"*=" { printf("*=\n"); isLastSymbolTerminable = false; return MULTIPLY_ASSIGN; }
+"/=" { printf("/=\n"); isLastSymbolTerminable = false; return DIVISION_ASSIGN; }
 "%=" { printf("Found assignment operator: %s\n", yytext); }
 "&=" { printf("Found assignment operator: %s\n", yytext); }
 "|=" { printf("Found assignment operator: %s\n", yytext); }
@@ -467,36 +483,38 @@ false {
 ">>=" { printf("Found assignment operator: %s\n", yytext); }
 "&^=" { printf("Found assignment operator: %s\n", yytext); }
 
-":=" { isLastSymbolTerminable = false; return SHORT_EQUALS; }
+":=" { printf(":=\n"); isLastSymbolTerminable = false; return SHORT_EQUALS; }
 "<-" { printf("Found channel assignment operator: %s\n", yytext); }
 
-"&&" { isLastSymbolTerminable = false; return AND; }
-"||" { isLastSymbolTerminable = false; return OR; }
+"&&" { printf("&&\n"); isLastSymbolTerminable = false; return AND; }
+"||" { printf("||\n"); isLastSymbolTerminable = false; return OR; }
 
-"++" { isLastSymbolTerminable = true; return INCREMENT; }
-"--" { isLastSymbolTerminable = true; return DECREMENT; }
+"++" { printf("++\n"); isLastSymbolTerminable = true; return INCREMENT; }
+"--" { printf("--\n"); isLastSymbolTerminable = true; return DECREMENT; }
 
-"==" { isLastSymbolTerminable = false; return EQUAL; }
-"<" { isLastSymbolTerminable = false; return LESS; }
-">" { isLastSymbolTerminable = false; return GREATER; }
-"!" { isLastSymbolTerminable = false; return yytext[0]; }
-"!=" { isLastSymbolTerminable = false; return NOT_EQUAL; }
-"<=" { isLastSymbolTerminable = false; return LESS_OR_EQUAL; }
-">=" { isLastSymbolTerminable = false; return GREATER_OR_EQUAL; }
+"==" { printf("==\n"); isLastSymbolTerminable = false; return EQUAL; }
+"<" { printf("<\n"); isLastSymbolTerminable = false; return LESS; }
+">" { printf(">\n"); isLastSymbolTerminable = false; return GREATER; }
+"!" { printf("!\n"); isLastSymbolTerminable = false; return yytext[0]; }
+"!=" { printf("!=\n"); isLastSymbolTerminable = false; return NOT_EQUAL; }
+"<=" { printf("<=\n"); isLastSymbolTerminable = false; return LESS_OR_EQUAL; }
+">=" { printf(">=\n"); isLastSymbolTerminable = false; return GREATER_OR_EQUAL; }
 
 "..." { printf("Found ellipsis: %s\n", yytext); }
-"," { isLastSymbolTerminable = false; return yytext[0]; }
-"." { isLastSymbolTerminable = false; return yytext[0]; }
-";" { isLastSymbolTerminable = false; return yytext[0]; }
-":" { isLastSymbolTerminable = false; return yytext[0]; }
+"," { printf(",\n"); isLastSymbolTerminable = false; return yytext[0]; }
+"." { printf(".\n"); isLastSymbolTerminable = false; return yytext[0]; }
+";" { printf(";\n"); isLastSymbolTerminable = false; return yytext[0]; }
+":" { printf(":\n"); isLastSymbolTerminable = false; return yytext[0]; }
 
-\( { isLastSymbolTerminable = false; return yytext[0]; }
-\) { isLastSymbolTerminable = true; return yytext[0]; }
+\( { printf("(\n"); isLastSymbolTerminable = false; return yytext[0]; }
+\) { printf(")\n"); isLastSymbolTerminable = true; return yytext[0]; }
 
-\{ { isLastSymbolTerminable = false; return yytext[0]; }
-\} { isLastSymbolTerminable = true; return yytext[0]; }
+\{ { printf("{\n"); isLastSymbolTerminable = false; return yytext[0]; }
+\} { printf("}\n"); isLastSymbolTerminable = true; return yytext[0]; }
 
-\[ { isLastSymbolTerminable = false; return yytext[0]; }
-\] { isLastSymbolTerminable = true; return yytext[0]; }
+\[ printf("[\n"); { isLastSymbolTerminable = false; return yytext[0]; }
+\] { printf("]\n"); isLastSymbolTerminable = true; return yytext[0]; }
+
+<<EOF>> { return -1; }
 
 %%
