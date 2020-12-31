@@ -125,5 +125,59 @@ void print_return(struct return_stmt_struct*, FILE* output_file) {
 }
 
 void print_array_literal(struct array_lit_struct* array_literal, FILE* output_file) {
+	fprintf(output_file, "Id%p [label=\"array literal\"]; \n", array_literal);
 
+	print_array_type(array_literal->type, output_file);
+	fprintf(output_file, "Id%p -> Id%p;\n", array_literal, array_literal->type);
+
+	print_array_elements(array_literal->array_value, output_file);
+	fprintf(output_file, "Id%p -> Id%p;\n", array_literal, array_literal->array_value);
+}
+
+void print_array_type(struct array_type_struct* array_type, FILE* output_file) {
+	print_node("array type", array_type, output_file);
+	print_type(array_type->type, output_file);
+	print_edge(array_type, array_type->type, "element type", output_file);
+	print_expr(array_type->length, output_file);
+	print_edge(array_type, array_type->length, "array length", output_file);
+}
+
+void print_array_elements(struct array_element_list_struct* elements, FILE* output_file) {
+	struct array_keyed_element_struct* current = elements->first;
+
+	while (current != 0) {
+		print_array_element(current, output_file);
+		current = current->next;
+	}
+}
+
+void print_array_element(struct array_keyed_element_struct* element, FILE* output_file) {
+	print_node("array el", element, output_file);
+	fprintf(output_file, "IdKey%p [label=\"%i\"]; \n", element, element->key);
+	fprintf(output_file, "Id%p -> IdKey%p [label=\"key\"]; \n", element, element);
+	print_expr(element->expr, output_file);
+	fprintf(output_file, "Id%p -> Id%p [label=\"value\"]; \n", element, element->expr);
+}
+
+void print_type(struct type_struct* type, FILE* output_file) {
+	switch (type->type) {
+		case int_t:
+			print_node("int", type, output_file);
+			break;
+		case bool_t:
+			print_node("bool", type, output_file);
+			break;
+		case byte_t: 
+			print_node("byte", type, output_file);
+			break;
+		case string_t:
+			print_node("string", type, output_file);
+			break;
+		case func_t:
+			print_func_signature(type->func_type, output_file);
+			break;
+		case arr_t:
+			print_array_type(type->array_type, output_file);
+			break;
+	}
 }
