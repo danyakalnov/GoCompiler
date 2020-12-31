@@ -8,7 +8,7 @@ void print_imports(struct import_decl_list_struct* imports, void* parent, FILE* 
 void print_import(struct import_decl_struct* import_decl, FILE* output_file);
 void print_package(struct package_decl_struct* package, void* parent, FILE* output_file);
 void print_top_level_decls(struct top_level_decl_list_struct* decls, void* parent, FILE* output_file);
-void print_top_level_decl(struct top_level_decl_struct* decl, FILE* output_file);
+void print_top_level_decl(struct top_level_decl_struct* decl, void* parent, FILE* output_file);
 void print_function(struct func_decl_struct* func, FILE* output_file);
 void print_func_params(struct param_list_struct* params, FILE* output_file);
 void print_func_param(struct param_decl_struct* param, FILE* output_file);
