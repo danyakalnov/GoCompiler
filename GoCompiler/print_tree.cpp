@@ -199,6 +199,11 @@ void print_expr(struct expr_struct* expr, FILE* output_file) {
 		print_edge(expr, expr->right, "index", output_file);
 		break;
 
+	case id_t:
+		print_node("identifier", expr, output_file);
+		fprintf(output_file, "IdValue%p [label=\"%s\"]; \n", expr, expr->str_value);
+		break;
+
 	default:
 		break;
 	}
