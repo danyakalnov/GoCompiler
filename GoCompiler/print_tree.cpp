@@ -136,6 +136,17 @@ void print_declaration_spec(struct decl_spec_struct* spec, FILE* output_file) {
 	}
 }
 
+void print_declaration_spec_list(struct decl_spec_list_struct* spec_list, FILE* output_file) {
+	struct decl_spec_struct* current = spec_list->first;
+
+	print_node("specs", spec_list, output_file);
+
+	while (current != 0) {
+		print_declaration_spec(current, output_file);
+		print_edge(spec_list, current, "", output_file);
+	}
+}
+
 void print_stmt(struct stmt_struct* stmt, FILE* output_file) {
 	switch (stmt->type) {
 		case for_loop_t:
