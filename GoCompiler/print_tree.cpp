@@ -327,9 +327,38 @@ void print_stmt_list(struct stmt_list_struct* list, void* parent, FILE* output_f
 	}
 }
 
+void print_branch(struct if_stmt_part_struct* if_stmt_part, FILE* output_file) {
+	print_node("Branch", if_stmt_part, output_file);
+	if (if_stmt_part->pre_condition_stmt != 0) {
+		print_stmt(if_stmt_part->pre_condition_stmt, output_file);
+		print_edge(if_stmt_part, if_stmt_part->pre_condition_stmt, "PreCondStmt", output_file);
+	}
+
+	print_expr(if_stmt_part->condition, output_file);
+	print_edge(if_stmt_part, if_stmt_part->condition, "Cond", output_file);
+
+	print_block(if_stmt_part->if_block, output_file);
+	print_edge(if_stmt_part, if_stmt_part->if_block, "Body", output_file);
+}
+
 void print_if(struct if_stmt_struct* if_stmt, FILE* output_file) {
+	print_node("IfStmt", if_stmt, output_file);
+	print_branch(if_stmt->if_stmt_part, output_file);
+	print_edge(if_stmt, if_stmt->if_stmt_part, "if", output_file);
 
+	if (if_stmt->else_if_stmts != 0) {
+		struct if_stmt_part_struct* current = if_stmt->else_if_stmts->first;
+		while (current != 0) {
+			print_branch(current, output_file);
+			print_edge(if_stmt, current, "else-if", output_file);
+			current = current->next;
+		}
+	}
 
+	if (if_stmt->else_block != 0) {
+		print_block(if_stmt->else_block, output_file);
+		print_edge(if_stmt, if_stmt->else_block, "else", output_file);
+	}
 }
 
 void print_for(struct for_stmt_struct* for_stmt, FILE* output_file) {
