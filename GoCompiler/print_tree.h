@@ -27,3 +27,4 @@ void print_type(struct type_struct* type, FILE* output_file);
 void print_node(const char* label, void* node_pointer, FILE* output_file);
 void print_func_signature(struct func_signature_struct* signature, FILE* output_file);
 void print_edge(void* parent_node, void* child_node, const char* edge_label, FILE* output_file);
+void print_expr_list(struct expr_list_struct* list, void* parent, FILE* output_file);
