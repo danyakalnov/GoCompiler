@@ -361,8 +361,8 @@ top_level_decl: const_decl { $$ = create_top_level_declaration($1->decl_stmt_fie
 | func_decl { $$ = $1; }
 ;
 
-top_level_decl_list_not_empty: top_level_decl ';' { $$ = create_top_level_decl_list($1); }
-| top_level_decl_list_not_empty top_level_decl ';' { $$ = add_to_top_level_decl_list($1, $2); }
+top_level_decl_list_not_empty: top_level_decl { $$ = create_top_level_decl_list($1); }
+| top_level_decl_list_not_empty top_level_decl { $$ = add_to_top_level_decl_list($1, $2); }
 ;
 
 top_level_decl_list: /* empty */ { $$ = 0; puts("Empty top level declarations list"); }
