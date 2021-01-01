@@ -15,7 +15,7 @@ void yyerror(const char* message) {
 int yylex();
 int yyparse();
 extern FILE* yyin;
-extern "C" struct program_struct* root;
+extern struct program_struct* root;
 
 %}
 
@@ -149,8 +149,8 @@ extern "C" struct program_struct* root;
 
 %%
 
-program: package_clause ';' top_level_decl_list { $$ = create_program($1, $3); }
-| package_clause ';' import_decl_list top_level_decl_list { $$ = create_program_with_imports($1, $3, $4); }
+program: package_clause ';' top_level_decl_list { root = create_program($1, $3); }
+| package_clause ';' import_decl_list top_level_decl_list { root = create_program_with_imports($1, $3, $4); }
 ;
 
 import_decl: IMPORT_KEYWORD import_spec { $$ = create_import_decl_for_spec($2); }
@@ -210,6 +210,7 @@ expr: ID { $$ = create_id_expr($1); }
 | expr NOT_EQUAL expr { $$ = create_operation_expr(not_equal, $1, $3); }
 | expr '[' expr ']' { $$ = create_operation_expr(array_indexing, $1, $3); }
 | ID '(' expr_list ')' { $$ = create_function_call($1, $3); }
+| ID '.' ID { $$ = create_qualified_id_expr($1, $3); }
 ;
 
 expr_list: /* empty */ { $$ = 0; puts("Empty expression list"); }

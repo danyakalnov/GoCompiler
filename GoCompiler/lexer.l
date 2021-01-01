@@ -493,8 +493,8 @@ false {
 "--" { printf("--\n"); isLastSymbolTerminable = true; return DECREMENT; }
 
 "==" { printf("==\n"); isLastSymbolTerminable = false; return EQUAL; }
-"<" { printf("<\n"); isLastSymbolTerminable = false; return LESS; }
-">" { printf(">\n"); isLastSymbolTerminable = false; return GREATER; }
+"<" { printf("<\n"); isLastSymbolTerminable = false; return '<'; }
+">" { printf(">\n"); isLastSymbolTerminable = false; return '>'; }
 "!" { printf("!\n"); isLastSymbolTerminable = false; return yytext[0]; }
 "!=" { printf("!=\n"); isLastSymbolTerminable = false; return NOT_EQUAL; }
 "<=" { printf("<=\n"); isLastSymbolTerminable = false; return LESS_OR_EQUAL; }
@@ -510,7 +510,7 @@ false {
 \) { printf(")\n"); isLastSymbolTerminable = true; return yytext[0]; }
 
 \{ { printf("{\n"); isLastSymbolTerminable = false; return yytext[0]; }
-\} { printf("}\n"); isLastSymbolTerminable = true; return yytext[0]; }
+\} { printf("}\n"); isLastSymbolTerminable = false; return yytext[0]; }
 
 \[ printf("[\n"); { isLastSymbolTerminable = false; return yytext[0]; }
 \] { printf("]\n"); isLastSymbolTerminable = true; return yytext[0]; }

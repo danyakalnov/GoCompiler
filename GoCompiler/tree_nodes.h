@@ -36,6 +36,7 @@ enum expr_type {
 	array_lit,
 	id_t,
 	member_access,
+	qualified_identifier_t
 };
 
 struct expr_struct {
