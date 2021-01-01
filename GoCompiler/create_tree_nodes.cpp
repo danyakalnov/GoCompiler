@@ -574,3 +574,12 @@ struct top_level_decl_struct* create_top_level_declaration(struct decl_stmt_stru
 
     return top_level_decl;
 }
+
+struct expr_struct* create_qualified_id_expr(char* package_name, char* id_in_package) {
+    struct expr_struct* qualified_id = (struct expr_struct*)malloc(sizeof(struct expr_struct));
+
+    qualified_id->left = create_id_expr(package_name);
+    qualified_id->right = create_id_expr(id_in_package);
+
+    return qualified_id;
+}
