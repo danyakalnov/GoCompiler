@@ -210,7 +210,7 @@ expr: ID { $$ = create_id_expr($1); }
 | expr NOT_EQUAL expr { $$ = create_operation_expr(not_equal, $1, $3); }
 | expr '[' expr ']' { $$ = create_operation_expr(array_indexing, $1, $3); }
 | ID '(' expr_list ')' { $$ = create_function_call($1, $3); }
-| ID '.' ID '(' expr_list ')'
+| ID '.' ID
 ;
 
 expr_list: /* empty */ { $$ = 0; puts("Empty expression list"); }
