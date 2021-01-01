@@ -210,6 +210,7 @@ expr: ID { $$ = create_id_expr($1); }
 | expr NOT_EQUAL expr { $$ = create_operation_expr(not_equal, $1, $3); }
 | expr '[' expr ']' { $$ = create_operation_expr(array_indexing, $1, $3); }
 | ID '(' expr_list ')' { $$ = create_function_call($1, $3); }
+| ID '.' ID '(' expr_list ')'
 ;
 
 expr_list: /* empty */ { $$ = 0; puts("Empty expression list"); }
@@ -361,8 +362,8 @@ top_level_decl: const_decl { $$ = create_top_level_declaration($1->decl_stmt_fie
 | func_decl { $$ = $1; }
 ;
 
-top_level_decl_list_not_empty: top_level_decl { $$ = create_top_level_decl_list($1); }
-| top_level_decl_list_not_empty top_level_decl { $$ = add_to_top_level_decl_list($1, $2); }
+top_level_decl_list_not_empty: top_level_decl ';' { $$ = create_top_level_decl_list($1); }
+| top_level_decl_list_not_empty top_level_decl ';' { $$ = add_to_top_level_decl_list($1, $2); }
 ;
 
 top_level_decl_list: /* empty */ { $$ = 0; puts("Empty top level declarations list"); }
