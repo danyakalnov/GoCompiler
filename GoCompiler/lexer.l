@@ -510,7 +510,7 @@ false {
 \) { printf(")\n"); isLastSymbolTerminable = true; return yytext[0]; }
 
 \{ { printf("{\n"); isLastSymbolTerminable = false; return yytext[0]; }
-\} { printf("}\n"); isLastSymbolTerminable = true; return yytext[0]; }
+\} { printf("}\n"); isLastSymbolTerminable = false; return yytext[0]; }
 
 \[ printf("[\n"); { isLastSymbolTerminable = false; return yytext[0]; }
 \] { printf("]\n"); isLastSymbolTerminable = true; return yytext[0]; }
