@@ -546,12 +546,12 @@ struct func_return_struct* create_values_func_return(struct param_list_struct* r
     return func_return;
 }
 
-struct expr_struct* create_function_call(char* callable_id, struct expr_list_struct* args) {
+struct expr_struct* create_function_call(struct expr_struct* callable, struct expr_list_struct* args) {
     struct expr_struct* func_call = (struct expr_struct*)malloc(sizeof(struct expr_struct));
 
     func_call->type = call;
     func_call->args = args;
-    func_call->left = create_id_expr(callable_id);
+    func_call->left = callable;
 
     return func_call;
 }
