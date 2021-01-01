@@ -5,7 +5,7 @@ struct expr_struct* create_string_expr(char* value);
 struct expr_struct* create_boolean_expr(int value);
 struct expr_struct* create_id_expr(char* identifier);
 struct expr_struct* create_qualified_id_expr(char* package_name, char* id_in_package);
-struct expr_struct* create_function_call(char* callable_id, struct expr_list_struct* args);
+struct expr_struct* create_function_call(struct expr_struct* callable, struct expr_list_struct* args);
 struct expr_struct* create_operation_expr(enum expr_type type, struct expr_struct* left, struct expr_struct* right);
 struct stmt_struct* create_empty_for_stmt(struct stmt_struct* block);
 struct stmt_struct* create_for_with_condition(struct expr_struct* condition, struct stmt_struct* block);
