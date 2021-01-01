@@ -15,7 +15,7 @@ void yyerror(const char* message) {
 int yylex();
 int yyparse();
 extern FILE* yyin;
-extern "C" struct program_struct* root;
+extern struct program_struct* root;
 
 %}
 
@@ -149,7 +149,7 @@ extern "C" struct program_struct* root;
 
 %%
 
-program: package_clause ';' top_level_decl_list { $$ = create_program($1, $3); }
+program: package_clause ';' top_level_decl_list { root = create_program($1, $3); }
 | package_clause ';' import_decl_list top_level_decl_list { $$ = create_program_with_imports($1, $3, $4); }
 ;
 
