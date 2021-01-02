@@ -559,6 +559,7 @@ struct func_return_struct* create_type_func_return(struct type_struct* type) {
     struct func_return_struct* func_return = (struct func_return_struct*)malloc(sizeof(struct func_return_struct));
 
     func_return->return_type = type;
+    func_return->return_values = 0;
 
     return func_return;
 }
@@ -567,6 +568,7 @@ struct func_return_struct* create_values_func_return(struct param_list_struct* r
     struct func_return_struct* func_return = (struct func_return_struct*)malloc(sizeof(struct func_return_struct));
 
     func_return->return_values = return_values;
+    func_return->return_type = 0;
 
     return func_return;
 }
