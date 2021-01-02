@@ -548,13 +548,15 @@ void print_edge(void* parent_node, void* child_node, const char* edge_label, FIL
 }
 
 void print_expr_list(struct expr_list_struct* list, void* parent, FILE* output_file) {
-	struct expr_struct* current = list->first;
+	if (list != 0) {
+		struct expr_struct* current = list->first;
 
-	while (current != 0) {
-		print_expr(current, output_file);
-		print_edge(parent, current, "", output_file);
+		while (current != 0) {
+			print_expr(current, output_file);
+			print_edge(parent, current, "", output_file);
 
-		current = current->next;
+			current = current->next;
+		}
 	}
 }
 
