@@ -24,7 +24,7 @@ void print_imports(struct import_decl_list_struct* imports, void* parent, FILE* 
 }
 
 void print_import(struct import_decl_struct* import_decl, FILE* output_file) {
-	if (import_decl->import_spec->import_alias) {
+	if (import_decl->import_spec->import_alias != nullptr) {
 		// Print import with alias
 		fprintf(output_file, "Id%p [label=\"import_decl\"]\n", import_decl);
 		fprintf(output_file, "Id%p->Id%p [label=\"%s %s\"]\n", 
@@ -61,7 +61,7 @@ void print_top_level_decl(struct top_level_decl_struct* decl, void* parent, FILE
 }
 
 void print_function(struct func_decl_struct* func, FILE* output_file) {
-	print_node("function\ndeclaration", func, output_file);
+	print_node("func decl", func, output_file);
 	print_func_signature(func->func_signature, output_file);
 	print_block(func->block, output_file);
 
@@ -75,14 +75,16 @@ void print_func_signature(struct func_signature_struct* signature, FILE* output_
 	fprintf(output_file, "IdFuncName%p [label=\"%s\"]; \n", signature, signature->func_name);
 	fprintf(output_file, "Id%p -> IdFuncName%p [label=\"name\"]", signature, signature);
 
-	print_func_params(signature->params, output_file);
-	print_edge(signature, signature->params, "", output_file);
+	if (signature->params != 0) {
+		print_func_params(signature->params, output_file);
+		print_edge(signature, signature->params, "", output_file);
+	}
 
-	if (signature->return_value->return_values != 0) {
+	if (signature->return_value != 0 && signature->return_value->return_values != 0) {
 		print_func_params(signature->return_value->return_values, output_file);
 		print_edge(signature, signature->return_value->return_values, "return", output_file);
 	}
-	else {
+	else if (signature->return_value != 0 && signature->return_value->return_type != 0) {
 		print_type(signature->return_value->return_type, output_file);
 		print_edge(signature, signature->return_value->return_type, "return", output_file);
 	}

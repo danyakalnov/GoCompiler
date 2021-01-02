@@ -10,10 +10,11 @@ func main() {
   var a int = 1;
   
   for ; a < 0; a++  {
-    if a > 5 { a --; }
+    if a > 5 { a--; }
   }
 };
 
 func myFunction(a [4]int) {
   fmt.Println(a);
+  a[1] = 0;
 };

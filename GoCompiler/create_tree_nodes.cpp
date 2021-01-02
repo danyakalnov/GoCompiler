@@ -397,6 +397,7 @@ struct import_spec_struct* create_import_spec_with_alias(char* alias, char* path
 struct import_spec_struct* create_import_spec(char* path) {
     struct import_spec_struct* result = (struct import_spec_struct*)malloc(sizeof(struct import_spec_struct));
     result->import_path = path;
+    result->import_alias = nullptr;
 
     return result;
 }

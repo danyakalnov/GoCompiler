@@ -300,14 +300,14 @@ stmt_list: /* empty */ { $$ = 0; }
 block: '{' stmt_list '}' { $$ = create_block($2); }
 ;
 
-for_stmt_init_stmt: /* empty */
+for_stmt_init_stmt: /* empty */ { $$ = 0; }
 | expr { $$ = create_expr_stmt($1); }
 | inc_dec_stmt { $$ = $1; }
 | assignment { $$ = $1; }
 | short_var_decl { $$ = $1; }
 ;
 
-for_stmt_post_stmt: /* empty */
+for_stmt_post_stmt: /* empty */ { $$ = 0; }
 | expr { $$ = create_expr_stmt($1); }
 | inc_dec_stmt { $$ = $1; }
 | assignment { $$ = $1; }
