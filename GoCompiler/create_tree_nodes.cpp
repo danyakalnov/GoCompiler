@@ -340,6 +340,10 @@ struct stmt_struct* create_decl_stmt_from_spec(struct decl_spec_struct* spec, en
 
     struct stmt_struct* stmt = (struct stmt_struct*)malloc(sizeof(struct stmt_struct));
     stmt->decl_stmt_field = decl;
+    if (declaration_type == var_t)
+        stmt->type = var_decl_t;
+    else if (declaration_type == const_t)
+        stmt->type = const_decl_t;
 
     return stmt;
 }
@@ -352,6 +356,10 @@ struct stmt_struct* create_decl_stmt_from_list(struct decl_spec_list_struct* dec
 
     struct stmt_struct* stmt = (struct stmt_struct*)malloc(sizeof(struct stmt_struct));
     stmt->decl_stmt_field = decl;
+    if (declaration_type == var_t)
+        stmt->type = var_decl_t;
+    else if (declaration_type == const_t)
+        stmt->type = const_decl_t;
 
     return stmt;
 }
