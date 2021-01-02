@@ -257,7 +257,7 @@ inc_dec_stmt: expr INCREMENT { $$ = create_inc_dec_stmt($1, inc_t); }
 | expr DECREMENT { $$ = create_inc_dec_stmt($1, dec_t); }
 ;
 
-assignment: expr_list_not_empty '=' expr_list_not_empty { $$ = create_assignment(assignment_t, $1, $3); }
+assignment: expr_list_not_empty '=' expr_list_not_empty { $$ = create_assignment(simple_assignment_t, $1, $3); }
 | expr_list_not_empty PLUS_ASSIGN expr_list_not_empty { $$ = create_assignment(plus_assignment_t, $1, $3); }
 | expr_list_not_empty MINUS_ASSIGN expr_list_not_empty { $$ = create_assignment(minus_assignment_t, $1, $3); }
 | expr_list_not_empty MULTIPLY_ASSIGN expr_list_not_empty { $$ = create_assignment(mul_assignment_t, $1, $3); }
