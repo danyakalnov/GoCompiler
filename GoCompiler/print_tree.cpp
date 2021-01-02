@@ -36,7 +36,7 @@ void print_import(struct import_decl_struct* import_decl, FILE* output_file) {
 		// Print import just with import path
 		fprintf(output_file, "Id%p [label=\"import_decl\"]\n", import_decl);
 		fprintf(output_file, "Id%p [label=\"%s\"]\n", import_decl->import_spec, import_decl->import_spec->import_path);
-		fprintf(output_file, "Id%p->Id%p\n", import_decl, import_decl->import_spec);
+		fprintf(output_file, "Id%p->Id%p [label=\"imported\\npackage\"];\n", import_decl, import_decl->import_spec);
 	}
 }
 
@@ -139,8 +139,10 @@ void print_declaration_spec(struct decl_spec_struct* spec, FILE* output_file) {
 	print_node(spec->id->name, spec->id, output_file);
 	print_edge(spec, spec->id, "identifier", output_file);
 
-	print_type(spec->type, output_file);
-	print_edge(spec, spec->type, "type", output_file);
+	if (spec->type != 0) {
+		print_type(spec->type, output_file);
+		print_edge(spec, spec->type, "type", output_file);
+	}
 
 	if (spec->values != 0) {
 		print_expr(spec->values, output_file);
@@ -340,17 +342,22 @@ void print_expr(struct expr_struct* expr, FILE* output_file) {
 		break;
 
 	case call:
-		print_node("Method call", expr, output_file);
+		print_node("Func call", expr, output_file);
 		print_expr(expr->left, output_file); /* ������ ����� ������� */
-		print_edge(expr, expr->left, 0, output_file);
+		print_edge(expr, expr->left, "func name", output_file);
 		if (expr->args != 0) {
 			print_node("Args", expr->args, output_file);
-			print_edge(expr, expr->args, 0, output_file);
+			print_edge(expr, expr->args, "args", output_file);
 			struct expr_struct* current_arg = expr->args->first;
+
+			int arg_index = 0;
+
 			while (current_arg != 0) {
 				print_expr(current_arg, output_file);
-				print_edge(expr->args, current_arg, 0, output_file);
+				fprintf(output_file, "Id%p -> Id%p [label=\"%i\"]; \n", expr->args, current_arg, arg_index);
+
 				current_arg = current_arg->next;
+				arg_index++;
 			}
 		}
 
