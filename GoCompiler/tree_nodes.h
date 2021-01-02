@@ -138,6 +138,7 @@ struct else_if_stmt_list_struct {
 };
 
 enum assignment_type {
+	simple_assignment_t,
 	plus_assignment_t,
 	minus_assignment_t,
 	mul_assignment_t,
