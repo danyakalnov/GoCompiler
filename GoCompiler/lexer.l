@@ -370,19 +370,19 @@ import {
 
 int {
 	printf("int\n");
-	isLastSymbolTerminable = false;
+	isLastSymbolTerminable = true;
 	return INT_KEYWORD;
 }
 
 byte {
 	printf("byte\n");
-	isLastSymbolTerminable = false;
+	isLastSymbolTerminable = true;
 	return BYTE_KEYWORD;
 }
 
 string {
 	printf("string\n");
-	isLastSymbolTerminable = false;
+	isLastSymbolTerminable = true;
 	return STRING_KEYWORD;
 }
 
@@ -434,19 +434,19 @@ var {
 
 bool {
 	printf("bool\n");
-	isLastSymbolTerminable = false;
+	isLastSymbolTerminable = true;
 	return BOOL_KEYWORD;
 }
 
 true {
 	printf("true\n");
-	isLastSymbolTerminable = false;
+	isLastSymbolTerminable = true;
 	return TRUE_KEYWORD;
 }
 
 false {
 	printf("false\n");
-	isLastSymbolTerminable = false;
+	isLastSymbolTerminable = true;
 	return FALSE_KEYWORD;
 }
 
