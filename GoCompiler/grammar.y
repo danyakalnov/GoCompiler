@@ -234,7 +234,7 @@ const_spec_list: /* empty */ { $$ = 0; }
 ;
 
 const_decl: CONST_KEYWORD const_spec { $$ = create_decl_stmt_from_spec($2, const_t); }
-| CONST_KEYWORD '(' const_spec_list ')' { $$ = create_decl_stmt_from_list($3, const_t); }
+| CONST_KEYWORD '(' const_spec_list ')' ';' { $$ = create_decl_stmt_from_list($3, const_t); }
 ;
 
 var_spec: ID type ';' { $$ = create_decl_spec(create_id($1), 0, $2); }
@@ -250,7 +250,7 @@ var_spec_list: /* empty */ { $$ = 0; }
 | var_spec_list_not_empty { $$ = $1; }
 
 var_decl: VAR_KEYWORD var_spec { $$ = create_decl_stmt_from_spec($2, var_t); }
-| VAR_KEYWORD '(' var_spec_list ')' { $$ = create_decl_stmt_from_list($3, var_t); }
+| VAR_KEYWORD '(' var_spec_list ')' ';' { $$ = create_decl_stmt_from_list($3, var_t); }
 ;
 
 inc_dec_stmt: expr INCREMENT { $$ = create_inc_dec_stmt($1, inc_t); }
