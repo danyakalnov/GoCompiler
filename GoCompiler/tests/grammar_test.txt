@@ -1,11 +1,13 @@
 package main
 
 import "fmt";
+import m "lib/math";
 
 func main() {
   myFunction([2]int{1, 2})
 
   var odds [4]int = [4]int{2: 5, 3: 7};
+  var booleans [2]bool;
 
   const (
   	b int = 0;
@@ -13,14 +15,30 @@ func main() {
   	d string = "Go(lang)vno";
   );
 
-  var a int = 1;
+  if b > 0 {
+  	fmt.Println("b > 0");
+  } else if c == 1 {
+  	fmt.Println("c == 1");
+  } else if c > 2 {
+  	c--;
+  	fmt.Println(c);
+  }
 
-  for ; a < 0; a++  {
+  odds[2], odds[3] = 5, 7
+  booleans[0], booleans[1] = true, false
+
+  fmt.Println(odds[2], odds[3], d);
+
+  for a : =0 ; a < 0; a++  {
     if a > 5 { a--; }
   }
+
+  return
 };
 
-func myFunction(a [4]int) {
+func myFunction(a [4]int) int {
   fmt.Println(a);
   a[1] = 0;
+
+  return a[1]
 };
