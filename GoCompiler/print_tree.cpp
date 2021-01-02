@@ -559,7 +559,7 @@ void print_expr_list(struct expr_list_struct* list, void* parent, FILE* output_f
 }
 
 void print_assignment(struct assignment_stmt_struct* assignment, FILE* output_file) {
-	char assignment_label[2];
+	char assignment_label[4];
 
 	switch(assignment->type) {
 	case simple_assignment_t:
