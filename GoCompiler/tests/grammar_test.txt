@@ -24,7 +24,7 @@ func main() {
   }
 
   odds[2], odds[3] = 5, 7
-  booleans[0], booleans[1] = true, false
+  booleans[0], booleans[1] = true, false;
 
   fmt.Println(odds[2], odds[3], d);
   fmt.Println(m.E);
