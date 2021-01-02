@@ -398,13 +398,15 @@ void print_block(struct stmt_block_struct* block, FILE* output_file) {
 }
 
 void print_stmt_list(struct stmt_list_struct* list, void* parent, FILE* output_file) {
-	struct stmt_struct* current = list->first;
+	if (list != 0) {
+		struct stmt_struct* current = list->first;
 
-	while (current != 0) {
-		print_stmt(current, output_file);
-		print_edge(parent, current, "", output_file);
+		while (current != 0) {
+			print_stmt(current, output_file);
+			print_edge(parent, current, "", output_file);
 
-		current = current->next;
+			current = current->next;
+		}
 	}
 }
 
