@@ -443,7 +443,7 @@ void print_if(struct if_stmt_struct* if_stmt, FILE* output_file) {
 void print_for(struct for_stmt_struct* for_stmt, FILE* output_file) {
 	fprintf(output_file, "Id%p [label=\"for\"];\n", for_stmt);
 	print_block(for_stmt->block->block_field, output_file);
-	fprintf(output_file, "Id%p -> Id%p;\n", for_stmt, for_stmt->block);
+	fprintf(output_file, "Id%p -> Id%p;\n", for_stmt, for_stmt->block->block_field);
 
 	if(for_stmt->type == for_with_clause || for_stmt->type == for_with_condition) {
 		print_expr(for_stmt->for_condition, output_file);
