@@ -1,4 +1,5 @@
 #include "print_tree.h"
+#include "string.h"
 
 void print_program(struct program_struct* program, FILE* output_file) {
 	fprintf(output_file, "digraph G{\n");
@@ -165,6 +166,12 @@ void print_stmt(struct stmt_struct* stmt, FILE* output_file) {
 		print_if(stmt->if_stmt_field, output_file);
 		print_edge(stmt, stmt->if_stmt_field, "", output_file);
 		break;
+
+	case assignment_t:
+		print_assignment(stmt->assignment_field, output_file);
+		print_edge(stmt, stmt->assignment_field, "", output_file);
+		break;
+
 	case for_loop_t:
 		print_for(stmt->for_stmt_field, output_file);
 		print_edge(stmt, stmt->for_stmt_field, "for", output_file);
@@ -494,5 +501,56 @@ void print_expr_list(struct expr_list_struct* list, void* parent, FILE* output_f
 		print_edge(parent, current, "", output_file);
 
 		current = current->next;
+	}
+}
+
+void print_assignment(struct assignment_stmt_struct* assignment, FILE* output_file) {
+	char assignment_label[2];
+
+	switch(assignment->type) {
+	case simple_assignment_t:
+		strcpy(assignment_label, "=");
+		break;
+
+	case plus_assignment_t:
+		strcpy(assignment_label, "+=");
+		break;
+
+	case minus_assignment_t:
+		strcpy(assignment_label, "-=");
+		break;
+
+	case mul_assignment_t:
+		strcpy(assignment_label, "*=");
+		break;
+
+	case div_assignment_t:
+		strcpy(assignment_label, "/=");
+		break;
+	}
+
+	print_node(assignment_label, assignment, output_file);
+	
+	struct expr_struct* left_current = assignment->left->first;
+	struct expr_struct* right_current = assignment->right->first;
+
+	int expr_index = 0;
+
+	while (left_current != 0 && right_current != 0) {
+		// Print assignment index
+		fprintf(output_file, "Id%i%p [label=\"%i\"]; \n", expr_index, assignment, expr_index);
+
+		// Print edge between assignment and assignment index
+		fprintf(output_file, "Id%p -> Id%i%p", assignment, expr_index, assignment);
+
+		print_expr(left_current, output_file);
+		fprintf(output_file, "Id%i%p -> Id%p [label=\"left\"];\n", expr_index, assignment, left_current);
+
+		print_expr(right_current, output_file);
+		fprintf(output_file, "Id%i%p -> Id%p [label=\"right\"];\n", expr_index, assignment, right_current);
+
+		expr_index++;
+		left_current = left_current->next;
+		right_current = right_current->next;
 	}
 }
