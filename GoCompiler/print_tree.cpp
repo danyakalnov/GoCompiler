@@ -365,6 +365,12 @@ void print_expr(struct expr_struct* expr, FILE* output_file) {
 		print_node(expr->str_value, expr, output_file);
 		break;
 
+	case array_lit:
+		print_node("expr", expr, output_file);
+		print_array_literal(expr->arr, output_file);
+		print_edge(expr, expr->arr, "", output_file);
+		break;
+
 	default:
 		break;
 	}
@@ -469,6 +475,7 @@ void print_array_elements(struct array_element_list_struct* elements, FILE* outp
 
 	while (current != 0) {
 		print_array_element(current, output_file);
+		print_edge(elements, current, "", output_file);
 		current = current->next;
 	}
 }
