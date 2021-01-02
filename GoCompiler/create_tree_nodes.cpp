@@ -120,6 +120,7 @@ struct stmt_struct* create_for_clause_stmt(
     for_stmt->for_clause_post_stmt = post_stmt;
     for_stmt->for_condition = condition;
     for_stmt->block = block;
+    for_stmt->type = for_with_clause;
 
     struct stmt_struct* result = (struct stmt_struct*)malloc(sizeof(struct stmt_struct*));
     result->type = for_loop_t;
