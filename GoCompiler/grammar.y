@@ -3,13 +3,13 @@
 %{
 
 #include <stdio.h>
-#include "grammar.tab.h"
 #include "create_tree_nodes.h"
 #include "print_tree.h"
 
 void yyerror(const char* message) {
     fprintf(stderr, message);
 }
+
 int yylex();
 int yyparse();
 extern FILE* yyin;
