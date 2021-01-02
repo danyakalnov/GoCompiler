@@ -215,14 +215,14 @@ void print_stmt(struct stmt_struct* stmt, FILE* output_file) {
 
 	case inc_t:
 		fprintf(output_file, "IdInc%p [label=\"++\"]\n", stmt);
-		fprintf(output_file, "Id%p->IdInc%p", stmt, stmt);
+		fprintf(output_file, "Id%p->IdInc%p\n", stmt, stmt);
 		print_expr(stmt->expr_field, output_file);
 		fprintf(output_file, "IdInc%p->Id%p\n", stmt, stmt->expr_field);
 		break;
 
 	case dec_t:
 		fprintf(output_file, "IdInc%p [label=\"--\"]\n", stmt);
-		fprintf(output_file, "Id%p->IdInc%p", stmt, stmt);
+		fprintf(output_file, "Id%p->IdInc%p\n", stmt, stmt);
 		print_expr(stmt->expr_field, output_file);
 		fprintf(output_file, "IdInc%p->Id%p\n", stmt, stmt->expr_field);
 		break;
@@ -297,8 +297,8 @@ void print_expr(struct expr_struct* expr, FILE* output_file) {
 		print_node("Less <", expr, output_file);
 		print_expr(expr->left, output_file);
 		print_expr(expr->right, output_file);
-		print_edge(expr, expr->left, 0, output_file);
-		print_edge(expr, expr->right, 0, output_file);
+		print_edge(expr, expr->left, "left", output_file);
+		print_edge(expr, expr->right, "right", output_file);
 		break;
 
 	case greater:
@@ -417,13 +417,13 @@ void print_branch(struct if_stmt_part_struct* if_stmt_part, FILE* output_file) {
 	print_edge(if_stmt_part, if_stmt_part->condition, "Cond", output_file);
 
 	print_block(if_stmt_part->if_block->block_field, output_file);
-	print_edge(if_stmt_part, if_stmt_part->if_block, "Body", output_file);
+	print_edge(if_stmt_part, if_stmt_part->if_block->block_field, "Body", output_file);
 }
 
 void print_if(struct if_stmt_struct* if_stmt, FILE* output_file) {
 	print_node("IfStmt", if_stmt, output_file);
 	print_branch(if_stmt->if_stmt_part, output_file);
-	print_edge(if_stmt, if_stmt->if_stmt_part, "if", output_file);
+	print_edge(if_stmt, if_stmt->if_stmt_part, "", output_file);
 
 	if (if_stmt->else_if_stmts != 0) {
 		struct if_stmt_part_struct* current = if_stmt->else_if_stmts->first;
