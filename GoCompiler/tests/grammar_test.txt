@@ -10,7 +10,7 @@ func main() {
   var a int = 1;
   
   for ; a < 0; a++  {
-    if a > 5 { a --; }
+    if a > 5 { a--; }
   }
 };
 
