@@ -12,6 +12,7 @@ void print_program(struct program_struct* program, FILE* output_file) {
 	if (program->package != 0) {
 		print_package(program->package, program, output_file);
 	}
+	fprintf(output_file, "}");
 }
 
 void print_imports(struct import_decl_list_struct* imports, void* parent, FILE* output_file) {
