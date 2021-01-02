@@ -7,7 +7,16 @@ func main() {
 
   var odds [4]int = [4]int{2: 5, 3: 7};
   
-  for a := 0; a < 0; a++  {
+  const a = 0
+  var (
+  	b int;
+  	c int;
+  	d byte;
+  )
+
+  b, c, d = 1, 2, 3
+
+  for ; a < 0; a++  {
     if a > 5 { a--; }
   }
 };
