@@ -93,6 +93,7 @@ struct stmt_struct* create_empty_for_stmt(struct stmt_struct* block) {
 
     struct for_stmt_struct* for_stmt = (struct for_stmt_struct*)malloc(sizeof(struct for_stmt_struct));
     for_stmt->block = block;
+    for_stmt->type = empty_for;
 
     result->type = for_loop_t;
     result->for_stmt_field = for_stmt;
@@ -104,6 +105,7 @@ struct stmt_struct* create_for_with_condition(struct expr_struct* condition, str
     struct for_stmt_struct* for_stmt = (struct for_stmt_struct*)malloc(sizeof(struct for_stmt_struct));
     for_stmt->for_condition = condition;
     for_stmt->block = block;
+    for_stmt->type = for_with_condition;
 
     struct stmt_struct* result = (struct stmt_struct*)malloc(sizeof(struct stmt_struct*));
     result->type = for_loop_t;
@@ -190,6 +192,14 @@ struct stmt_list_struct* add_to_stmt_list(struct stmt_list_struct* list, struct 
     stmt->next = 0;
 
     return list;
+}
+
+struct stmt_struct* create_empty_stmt() {
+    struct stmt_struct* empty_stmt = (struct stmt_struct*)malloc(sizeof(struct stmt_struct));
+
+    empty_stmt->type = empty_stmt_t;
+
+    return empty_stmt;
 }
 
 struct top_level_decl_struct* create_func_decl(struct func_signature_struct* signature, struct stmt_struct* block) {
