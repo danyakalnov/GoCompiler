@@ -3,10 +3,8 @@
 %{
 
 #include <stdio.h>
-#include <malloc.h>
 #include "grammar.tab.h"
 #include "create_tree_nodes.h"
-#include "dot.h"
 #include "print_tree.h"
 
 void yyerror(const char* message) {
