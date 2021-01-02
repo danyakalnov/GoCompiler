@@ -496,8 +496,12 @@ void print_array_elements(struct array_element_list_struct* elements, FILE* outp
 
 void print_array_element(struct array_keyed_element_struct* element, FILE* output_file) {
 	print_node("array el", element, output_file);
-	fprintf(output_file, "IdKey%p [label=\"%i\"]; \n", element, element->key);
-	fprintf(output_file, "Id%p -> IdKey%p [label=\"key\"]; \n", element, element);
+	
+	if (element->key >= 0) {
+		fprintf(output_file, "IdKey%p [label=\"%i\"]; \n", element, element->key);
+		fprintf(output_file, "Id%p -> IdKey%p [label=\"key\"]; \n", element, element);
+	}
+
 	print_expr(element->expr, output_file);
 	fprintf(output_file, "Id%p -> Id%p [label=\"value\"]; \n", element, element->expr);
 }
