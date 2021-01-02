@@ -29,7 +29,7 @@ void print_import(struct import_decl_struct* import_decl, FILE* output_file) {
 	if (import_decl->import_spec->import_alias != nullptr) {
 		// Print import with alias
 		fprintf(output_file, "Id%p [label=\"import_decl\"]\n", import_decl);
-		fprintf(output_file, "Id%p [label=\"%s %s\"];\n", import_decl->import_spec, import_decl->import_spec->import_alias, import_decl->import_spec->import_path);
+		fprintf(output_file, "Id%p [label=\"%s as %s\"];\n", import_decl->import_spec, import_decl->import_spec->import_path, import_decl->import_spec->import_alias);
 		fprintf(output_file, "Id%p->Id%p;\n", import_decl, import_decl->import_spec);
 	}
 	else {
