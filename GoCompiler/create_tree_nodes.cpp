@@ -346,6 +346,7 @@ struct stmt_struct* create_decl_stmt_from_spec(struct decl_spec_struct* spec, en
     struct decl_stmt_struct* decl = (struct decl_stmt_struct*)malloc(sizeof(struct decl_stmt_struct));
 
     decl->spec = spec;
+    decl->spec_list = 0;
     decl->declaration_type = declaration_type;
 
     struct stmt_struct* stmt = (struct stmt_struct*)malloc(sizeof(struct stmt_struct));
@@ -362,6 +363,7 @@ struct stmt_struct* create_decl_stmt_from_list(struct decl_spec_list_struct* dec
     struct decl_stmt_struct* decl = (struct decl_stmt_struct*)malloc(sizeof(struct decl_stmt_struct));
 
     decl->spec_list = decl_spec_list;
+    decl->spec = 0;
     decl->declaration_type = declaration_type;
 
     struct stmt_struct* stmt = (struct stmt_struct*)malloc(sizeof(struct stmt_struct));
