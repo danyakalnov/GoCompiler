@@ -162,6 +162,10 @@ void print_declaration_spec_list(struct decl_spec_list_struct* spec_list, FILE* 
 void print_stmt(struct stmt_struct* stmt, FILE* output_file) {
 	print_node("stmt", stmt, output_file);
 	switch (stmt->type) {
+	case empty_stmt_t:
+		print_node("empty stmt", stmt, output_file);
+		break;
+
 	case if_stmt_t:
 		print_if(stmt->if_stmt_field, output_file);
 		print_edge(stmt, stmt->if_stmt_field, "", output_file);
