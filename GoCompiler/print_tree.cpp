@@ -3,14 +3,14 @@
 void print_program(struct program_struct* program, FILE* output_file) {
 	fprintf(output_file, "digraph G{\n");
 	fprintf(output_file, "Id%p [label=\"program\"]\n", program);
+	if (program->package != 0) {
+		print_package(program->package, program, output_file);
+	}
 	if (program->imports != 0) {
 		print_imports(program->imports, program, output_file);
 	}
 	if (program->declarations != 0) {
 		print_top_level_decls(program->declarations, program, output_file);
-	}
-	if (program->package != 0) {
-		print_package(program->package, program, output_file);
 	}
 	fprintf(output_file, "}");
 }
@@ -28,18 +28,20 @@ void print_import(struct import_decl_struct* import_decl, FILE* output_file) {
 	if (import_decl->import_spec->import_alias != nullptr) {
 		// Print import with alias
 		fprintf(output_file, "Id%p [label=\"import_decl\"]\n", import_decl);
-		fprintf(output_file, "Id%p->Id%p [label=\"%s %s\"]\n", 
-			import_decl, import_decl->import_spec, import_decl->import_spec->import_alias, import_decl->import_spec->import_path);
+		fprintf(output_file, "Id%p [label=\"%s %s\"]", import_decl->import_spec, import_decl->import_spec->import_alias, import_decl->import_spec->import_path);
+		fprintf(output_file, "Id%p->Id%p", import_decl, import_decl->import_spec);
 	}
 	else {
 		// Print import just with import path
 		fprintf(output_file, "Id%p [label=\"import_decl\"]\n", import_decl);
-		fprintf(output_file, "Id%p->Id%p [label=\"%s\"]\n", import_decl, import_decl->import_spec, import_decl->import_spec->import_path);
+		fprintf(output_file, "Id%p [label=\"%s\"]", import_decl->import_spec, import_decl->import_spec->import_path);
+		fprintf(output_file, "Id%p->Id%p\n", import_decl, import_decl->import_spec);
 	}
 }
 
 void print_package(struct package_decl_struct* package, void* parent, FILE* output_file) {
 	fprintf(output_file, "Id%p [label=\"package %s\"]", package, package->package_name);
+	print_edge(parent, package, "package", output_file);
 }
 
 void print_top_level_decls(struct top_level_decl_list_struct* decls, void* parent, FILE* output_file) {
