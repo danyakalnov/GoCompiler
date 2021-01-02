@@ -15,5 +15,6 @@ func main() {
 };
 
 func myFunction(a [4]int) {
+  fmt.Println(a);
   a[1] = 0;
 };
