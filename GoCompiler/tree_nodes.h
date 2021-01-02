@@ -64,10 +64,6 @@ enum stmt_type {
 	for_loop_t,
 	if_stmt_t,
 	assignment_t,
-	plus_assignment_t,
-	minus_assignment_t,
-	mul_assignment_t,
-	div_assignment_t,
 	short_var_decl_t,
 	var_decl_t,
 	const_decl_t,
@@ -141,7 +137,16 @@ struct else_if_stmt_list_struct {
 	struct if_stmt_part_struct* last;
 };
 
+enum assignment_type {
+	plus_assignment_t,
+	minus_assignment_t,
+	mul_assignment_t,
+	div_assignment_t,
+};
+
 struct assignment_stmt_struct {
+	enum assignment_type type;
+
 	struct expr_list_struct* left;
 	struct expr_list_struct* right;
 };
