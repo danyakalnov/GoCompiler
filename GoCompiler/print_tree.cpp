@@ -72,7 +72,7 @@ void print_function(struct func_decl_struct* func, FILE* output_file) {
 	print_block(func->block->block_field, output_file);
 
 	print_edge(func, func->func_signature, "signature", output_file);
-	print_edge(func, func->block, "block", output_file);
+	print_edge(func, func->block->block_field, "block", output_file);
 }
 
 void print_func_signature(struct func_signature_struct* signature, FILE* output_file) {
@@ -362,8 +362,7 @@ void print_expr(struct expr_struct* expr, FILE* output_file) {
 		break;
 
 	case id_t:
-		print_node("identifier", expr, output_file);
-		fprintf(output_file, "IdValue%p [label=\"%s\"]; \n", expr, expr->str_value);
+		print_node(expr->str_value, expr, output_file);
 		break;
 
 	default:
@@ -561,7 +560,7 @@ void print_assignment(struct assignment_stmt_struct* assignment, FILE* output_fi
 		fprintf(output_file, "Id%i%p [label=\"%i\"]; \n", expr_index, assignment, expr_index);
 
 		// Print edge between assignment and assignment index
-		fprintf(output_file, "Id%p -> Id%i%p", assignment, expr_index, assignment);
+		fprintf(output_file, "Id%p -> Id%i%p; \n", assignment, expr_index, assignment);
 
 		print_expr(left_current, output_file);
 		fprintf(output_file, "Id%i%p -> Id%p [label=\"left\"];\n", expr_index, assignment, left_current);
