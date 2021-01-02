@@ -6,10 +6,8 @@ func main() {
   myFunction([2]int{1, 2})
 
   var odds [4]int = [4]int{2: 5, 3: 7};
-
-  var a int = 1;
   
-  for ; a < 0; a++  {
+  for a := 0; a < 0; a++  {
     if a > 5 { a--; }
   }
 };
