@@ -601,6 +601,7 @@ struct expr_struct* create_qualified_id_expr(char* package_name, char* id_in_pac
 
     qualified_id->left = create_id_expr(package_name);
     qualified_id->right = create_id_expr(id_in_package);
+    qualified_id->type = qualified_identifier_t;
 
     return qualified_id;
 }
