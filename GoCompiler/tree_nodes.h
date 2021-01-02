@@ -60,6 +60,7 @@ struct expr_struct {
 };
 
 enum stmt_type {
+	empty_stmt_t,
 	expr_stmt_t,
 	for_loop_t,
 	if_stmt_t,

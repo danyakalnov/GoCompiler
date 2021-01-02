@@ -194,6 +194,14 @@ struct stmt_list_struct* add_to_stmt_list(struct stmt_list_struct* list, struct 
     return list;
 }
 
+struct stmt_struct* create_empty_stmt() {
+    struct stmt_struct* empty_stmt = (struct stmt_struct*)malloc(sizeof(struct stmt_struct));
+
+    empty_stmt->type = empty_stmt_t;
+
+    return empty_stmt;
+}
+
 struct top_level_decl_struct* create_func_decl(struct func_signature_struct* signature, struct stmt_struct* block) {
     struct func_decl_struct* func_decl = (struct func_decl_struct*)malloc(sizeof(struct func_decl_struct));
 
