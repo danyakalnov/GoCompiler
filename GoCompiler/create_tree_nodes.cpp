@@ -470,7 +470,7 @@ struct import_decl_list_struct* add_to_import_decl_list(struct import_decl_list_
     list->last = next_element;
     next_element->next = 0;
 
-    return 0;
+    return list;
 }
 
 struct program_struct* create_program(struct package_decl_struct* package, struct top_level_decl_list_struct* decls) {
