@@ -207,7 +207,8 @@ ESCAPED_CHAR \\[abfnrtv\\'"]
 
 <STRING_LITERAL>\" {
 	printf("Found string literal: %s\n", stringLiteral);
-	yylval.String = stringLiteral;
+	yylval.String = (char*)malloc(strlen(stringLiteral) + 1);
+	strcpy(yylval.String, stringLiteral);
 	isLastSymbolTerminable = true;
 	BEGIN(INITIAL);
 	return STRING;
