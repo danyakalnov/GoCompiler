@@ -158,6 +158,8 @@ void print_declaration_spec_list(struct decl_spec_list_struct* spec_list, FILE* 
 	while (current != 0) {
 		print_declaration_spec(current, output_file);
 		print_edge(spec_list, current, "", output_file);
+
+		current = current->next;
 	}
 }
 
