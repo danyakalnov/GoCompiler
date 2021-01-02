@@ -26,7 +26,7 @@ struct else_if_stmt_list_struct* create_else_if_stmt_list(struct if_stmt_part_st
 struct else_if_stmt_list_struct* add_to_else_if_stmt_list(struct else_if_stmt_list_struct* list, struct if_stmt_part_struct* el);
 struct stmt_list_struct* create_stmt_list(struct stmt_struct* first_stmt);
 struct stmt_list_struct* add_to_stmt_list(struct stmt_list_struct* list, struct stmt_struct* stmt);
-struct stmt_struct* create_assignment(enum stmt_type type, struct expr_list_struct* left, struct expr_list_struct* right);
+struct stmt_struct* create_assignment(enum assignment_type type, struct expr_list_struct* left, struct expr_list_struct* right);
 struct stmt_struct* create_expr_stmt(struct expr_struct* expression);
 struct stmt_struct* create_block(struct stmt_list_struct* statements);
 struct top_level_decl_struct* create_func_decl(struct func_signature_struct* signature, struct stmt_struct* block);
