@@ -193,12 +193,32 @@ void print_stmt(struct stmt_struct* stmt, FILE* output_file) {
 		break;
 
 	case block_t:
-		print_block(stmt, output_file);
+		print_block(stmt->block_field, output_file);
 		print_edge(stmt, stmt->block_field, "block", output_file);
 		break;
+        
 	case expr_stmt_t:
 		print_expr(stmt->expr_field, output_file);
 		print_edge(stmt, stmt->expr_field, "expr stmt", output_file);
+		break;
+
+	case return_stmt_t:
+		print_return(stmt->return_stmt_field, output_file);
+		print_edge(stmt, stmt->return_stmt_field, "return", output_file);
+		break;
+
+	case inc_t:
+		fprintf(output_file, "IdInc%p [label=\"++\"]\n", stmt);
+		fprintf(output_file, "Id%p->IdInc%p", stmt, stmt);
+		print_expr(stmt->expr_field, output_file);
+		fprintf(output_file, "IdInc%p->Id%p\n", stmt, stmt->expr_field);
+		break;
+
+	case dec_t:
+		fprintf(output_file, "IdInc%p [label=\"--\"]\n", stmt);
+		fprintf(output_file, "Id%p->IdInc%p", stmt, stmt);
+		print_expr(stmt->expr_field, output_file);
+		fprintf(output_file, "IdInc%p->Id%p\n", stmt, stmt->expr_field);
 		break;
 	}
 }
@@ -317,7 +337,7 @@ void print_expr(struct expr_struct* expr, FILE* output_file) {
 
 	case call:
 		print_node("Method call", expr, output_file);
-		print_expr(expr->left, output_file); /* Печать имени функции */
+		print_expr(expr->left, output_file); /* пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 		print_edge(expr, expr->left, 0, output_file);
 		if (expr->args != 0) {
 			print_node("Args", expr->args, output_file);
