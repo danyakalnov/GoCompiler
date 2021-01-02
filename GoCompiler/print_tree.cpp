@@ -260,39 +260,39 @@ void print_expr(struct expr_struct* expr, FILE* output_file) {
 	case unary_minus:
 		print_node("Unary -", expr, output_file);
 		print_expr(expr->left, output_file);
-		print_edge(expr, expr->left, 0, output_file);
+		print_edge(expr, expr->left, "", output_file);
 		break;
 
 	case plus:
 		print_node("Plus +", expr, output_file);
 		print_expr(expr->left, output_file);
 		print_expr(expr->right, output_file);
-		print_edge(expr, expr->left, 0, output_file);
-		print_edge(expr, expr->right, 0, output_file);
+		print_edge(expr, expr->left, "", output_file);
+		print_edge(expr, expr->right, "", output_file);
 		break;
 
 	case minus:
 		print_node("Minus -", expr, output_file);
 		print_expr(expr->left, output_file);
 		print_expr(expr->right, output_file);
-		print_edge(expr, expr->left, 0, output_file);
-		print_edge(expr, expr->right, 0, output_file);
+		print_edge(expr, expr->left, "", output_file);
+		print_edge(expr, expr->right, "", output_file);
 		break;
 
 	case mul:
 		print_node("Multiplication *", expr, output_file);
 		print_expr(expr->left, output_file);
 		print_expr(expr->right, output_file);
-		print_edge(expr, expr->left, 0, output_file);
-		print_edge(expr, expr->right, 0, output_file);
+		print_edge(expr, expr->left, "", output_file);
+		print_edge(expr, expr->right, "", output_file);
 		break;
 
 	case divide:
 		print_node("Divide /", expr, output_file);
 		print_expr(expr->left, output_file);
 		print_expr(expr->right, output_file);
-		print_edge(expr, expr->left, 0, output_file);
-		print_edge(expr, expr->right, 0, output_file);
+		print_edge(expr, expr->left, "", output_file);
+		print_edge(expr, expr->right, "", output_file);
 		break;
 
 	case less:
@@ -307,40 +307,40 @@ void print_expr(struct expr_struct* expr, FILE* output_file) {
 		print_node("Greater >", expr, output_file);
 		print_expr(expr->left, output_file);
 		print_expr(expr->right, output_file);
-		print_edge(expr, expr->left, 0, output_file);
-		print_edge(expr, expr->right, 0, output_file);
+		print_edge(expr, expr->left, "", output_file);
+		print_edge(expr, expr->right, "", output_file);
 		break;
 
 	case less_or_equal:
 		print_node("LessEql <=", expr, output_file);
 		print_expr(expr->left, output_file);
 		print_expr(expr->right, output_file);
-		print_edge(expr, expr->left, 0, output_file);
-		print_edge(expr, expr->right, 0, output_file);
+		print_edge(expr, expr->left, "", output_file);
+		print_edge(expr, expr->right, "", output_file);
 		break;
 
 	case greater_or_equal:
 		print_node("GreaterEql >=", expr, output_file);
 		print_expr(expr->left, output_file);
 		print_expr(expr->right, output_file);
-		print_edge(expr, expr->left, 0, output_file);
-		print_edge(expr, expr->right, 0, output_file);
+		print_edge(expr, expr->left, "", output_file);
+		print_edge(expr, expr->right, "", output_file);
 		break;
 
 	case equal:
 		print_node("Equal ==", expr, output_file);
 		print_expr(expr->left, output_file);
 		print_expr(expr->right, output_file);
-		print_edge(expr, expr->left, 0, output_file);
-		print_edge(expr, expr->right, 0, output_file);
+		print_edge(expr, expr->left, "", output_file);
+		print_edge(expr, expr->right, "", output_file);
 		break;
 
 	case not_equal:
 		print_node("Not equal !=", expr, output_file);
 		print_expr(expr->left, output_file);
 		print_expr(expr->right, output_file);
-		print_edge(expr, expr->left, 0, output_file);
-		print_edge(expr, expr->right, 0, output_file);
+		print_edge(expr, expr->left, "", output_file);
+		print_edge(expr, expr->right, "", output_file);
 		break;
 
 	case call:
