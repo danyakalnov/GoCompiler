@@ -325,6 +325,7 @@ if_stmt_start: IF_KEYWORD simple_stmt expr block { $$ = create_if_stmt_part($2, 
 if_stmt: if_stmt_start { $$ = create_if_stmt($1, 0, 0); }
 | if_stmt_start ELSE_KEYWORD block { $$ = create_if_stmt($1, 0, $3); }
 | if_stmt_start else_if_stmt_list ELSE_KEYWORD block { $$ = create_if_stmt($1, $2, $4); }
+| if_stmt_start else_if_stmt_list { $$ = create_if_stmt($1, $2, 0); }
 ;
 
 else_if_stmt: ELSE_KEYWORD if_stmt_start { $$ = $2; }
