@@ -45,6 +45,8 @@ void print_package(struct package_decl_struct* package, void* parent, FILE* outp
 }
 
 void print_top_level_decls(struct top_level_decl_list_struct* decls, void* parent, FILE* output_file) {
+	print_node("top_level_decls", decls, output_file);
+	print_edge(parent, decls, "decls", output_file);
 	struct top_level_decl_struct* current_decl = decls->first;
 	while (current_decl != 0) {
 		print_top_level_decl(current_decl, decls, output_file);
@@ -66,7 +68,7 @@ void print_top_level_decl(struct top_level_decl_struct* decl, void* parent, FILE
 void print_function(struct func_decl_struct* func, FILE* output_file) {
 	print_node("func decl", func, output_file);
 	print_func_signature(func->func_signature, output_file);
-	print_block(func->block, output_file);
+	print_block(func->block->block_field, output_file);
 
 	print_edge(func, func->func_signature, "signature", output_file);
 	print_edge(func, func->block, "block", output_file);
@@ -157,11 +159,31 @@ void print_declaration_spec_list(struct decl_spec_list_struct* spec_list, FILE* 
 }
 
 void print_stmt(struct stmt_struct* stmt, FILE* output_file) {
+	print_node("stmt", stmt, output_file);
 	switch (stmt->type) {
-		case for_loop_t:
-			print_for(stmt->for_stmt_field, output_file);
-			fprintf(output_file, "Id%p->Id%p;\n", stmt, stmt->for_stmt_field);
-			break;
+	case for_loop_t:
+		print_for(stmt->for_stmt_field, output_file);
+		print_edge(stmt, stmt->for_stmt_field, "for", output_file);
+		break;
+
+	case short_var_decl_t:
+		print_declaration(stmt->short_var_decl_field, output_file);
+		print_edge(stmt, stmt->short_var_decl_field, "short_var", output_file);
+		break;
+
+	case var_decl_t:
+		print_declaration(stmt->decl_stmt_field, output_file);
+		print_edge(stmt, stmt->decl_stmt_field, "var_decl", output_file);
+		break;
+
+	case const_decl_t:
+		print_declaration(stmt->decl_stmt_field, output_file);
+		print_edge(stmt, stmt->decl_stmt_field, "const_decl", output_file);
+		break;
+
+	case block_t:
+		print_block(stmt, output_file);
+		print_edge(stmt, stmt->block_field, "block", output_file);
 	}
 	
 }
@@ -314,11 +336,9 @@ void print_expr(struct expr_struct* expr, FILE* output_file) {
 	}
 }
 
-void print_block(struct stmt_struct* block, FILE* output_file) {
+void print_block(struct stmt_block_struct* block, FILE* output_file) {
 	fprintf(output_file, "Id%p [label=\"block\"];\n", block);
-
-	print_stmt_list(block->block_field->list, block, output_file);
-
+	print_stmt_list(block->list, block, output_file);
 }
 
 void print_stmt_list(struct stmt_list_struct* list, void* parent, FILE* output_file) {
@@ -342,7 +362,7 @@ void print_branch(struct if_stmt_part_struct* if_stmt_part, FILE* output_file) {
 	print_expr(if_stmt_part->condition, output_file);
 	print_edge(if_stmt_part, if_stmt_part->condition, "Cond", output_file);
 
-	print_block(if_stmt_part->if_block, output_file);
+	print_block(if_stmt_part->if_block->block_field, output_file);
 	print_edge(if_stmt_part, if_stmt_part->if_block, "Body", output_file);
 }
 
@@ -361,14 +381,14 @@ void print_if(struct if_stmt_struct* if_stmt, FILE* output_file) {
 	}
 
 	if (if_stmt->else_block != 0) {
-		print_block(if_stmt->else_block, output_file);
+		print_block(if_stmt->else_block->block_field, output_file);
 		print_edge(if_stmt, if_stmt->else_block, "else", output_file);
 	}
 }
 
 void print_for(struct for_stmt_struct* for_stmt, FILE* output_file) {
 	fprintf(output_file, "Id%p [label=\"for\"];\n", for_stmt);
-	print_block(for_stmt->block, output_file);
+	print_block(for_stmt->block->block_field, output_file);
 	fprintf(output_file, "Id%p -> Id%p;\n", for_stmt, for_stmt->block);
 
 	if(for_stmt->type == for_with_clause || for_stmt->type == for_with_condition) {
