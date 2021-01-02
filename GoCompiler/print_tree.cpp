@@ -496,10 +496,16 @@ void print_type(struct type_struct* type, FILE* output_file) {
 			print_node("string", type, output_file);
 			break;
 		case func_t:
+			print_node("composite type", type, output_file);
 			print_func_signature(type->func_type, output_file);
+			
+			print_edge(type, type->func_type, "", output_file);
 			break;
 		case arr_t:
+			print_node("composite type", type, output_file);
 			print_array_type(type->array_type, output_file);
+			
+			print_edge(type, type->array_type, "", output_file);
 			break;
 	}
 }
