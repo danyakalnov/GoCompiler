@@ -382,6 +382,9 @@ void print_expr(struct expr_struct* expr, FILE* output_file) {
 		print_edge(expr, expr->arr, "", output_file);
 		break;
 
+	case qualified_identifier_t:
+		fprintf(output_file, "Id%p [label=\"%s.%s\"]; \n", expr, expr->left->str_value, expr->right->str_value);
+
 	default:
 		break;
 	}
