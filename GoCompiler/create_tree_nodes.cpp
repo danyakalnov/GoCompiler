@@ -89,7 +89,7 @@ struct expr_struct* create_array_lit(struct type_struct* type, struct expr_struc
 }
 
 struct stmt_struct* create_empty_for_stmt(struct stmt_struct* block) {
-    struct stmt_struct* result = (struct stmt_struct*)malloc(sizeof(struct stmt_struct*));
+    struct stmt_struct* result = (struct stmt_struct*)malloc(sizeof(struct stmt_struct));
 
     struct for_stmt_struct* for_stmt = (struct for_stmt_struct*)malloc(sizeof(struct for_stmt_struct));
     for_stmt->block = block;
@@ -102,7 +102,7 @@ struct stmt_struct* create_empty_for_stmt(struct stmt_struct* block) {
 }
 
 struct stmt_struct* create_for_with_condition(struct expr_struct* condition, struct stmt_struct* block) {
-    struct stmt_struct* result = (struct stmt_struct*)malloc(sizeof(struct stmt_struct*));
+    struct stmt_struct* result = (struct stmt_struct*)malloc(sizeof(struct stmt_struct));
 
     struct for_stmt_struct* for_stmt = (struct for_stmt_struct*)malloc(sizeof(struct for_stmt_struct));
     for_stmt->for_condition = condition;
@@ -118,7 +118,7 @@ struct stmt_struct* create_for_with_condition(struct expr_struct* condition, str
 struct stmt_struct* create_for_clause_stmt(
     struct stmt_struct* init_stmt, struct stmt_struct* post_stmt, struct expr_struct* condition, struct stmt_struct* block
 ) {
-    struct stmt_struct* result = (struct stmt_struct*)malloc(sizeof(struct stmt_struct*));
+    struct stmt_struct* result = (struct stmt_struct*)malloc(sizeof(struct stmt_struct));
 
     struct for_stmt_struct* for_stmt = (struct for_stmt_struct*)malloc(sizeof(struct for_stmt_struct));
     for_stmt->for_clause_init_stmt = init_stmt;
@@ -584,11 +584,12 @@ struct expr_struct* create_function_call(struct expr_struct* callable, struct ex
 }
 
 struct stmt_struct* create_short_var_decl(struct id_struct* identifier, struct expr_struct* expression) {
+    struct stmt_struct* stmt = (struct stmt_struct*)malloc(sizeof(struct stmt_struct));
+
     struct decl_stmt_struct* short_var_decl_value = (struct decl_stmt_struct*)malloc(sizeof(struct decl_stmt_struct));
     short_var_decl_value->spec = create_decl_spec(identifier, expression, 0);
     short_var_decl_value->declaration_type = var_t;
 
-    struct stmt_struct* stmt = (struct stmt_struct*)malloc(sizeof(struct stmt_struct*));
     stmt->decl_stmt_field = short_var_decl_value;
     stmt->type = short_var_decl_t;
 
