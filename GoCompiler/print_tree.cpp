@@ -184,8 +184,12 @@ void print_stmt(struct stmt_struct* stmt, FILE* output_file) {
 	case block_t:
 		print_block(stmt, output_file);
 		print_edge(stmt, stmt->block_field, "block", output_file);
+		break;
+	case expr_stmt_t:
+		print_expr(stmt->expr_field, output_file);
+		print_edge(stmt, stmt->expr_field, "expr stmt", output_file);
+		break;
 	}
-	
 }
 
 void print_expr(struct expr_struct* expr, FILE* output_file) {
