@@ -20,7 +20,7 @@ void print_imports(struct import_decl_list_struct* imports, void* parent, FILE* 
 	struct import_decl_struct* current_import_decl = imports->first;
 	while (current_import_decl != 0) {
 		print_import(current_import_decl, output_file);
-		fprintf(output_file, "Id%p->Id%p\n", parent, current_import_decl);
+		fprintf(output_file, "Id%p->Id%p;\n", parent, current_import_decl);
 		current_import_decl = current_import_decl->next;
 	}
 }
@@ -29,8 +29,8 @@ void print_import(struct import_decl_struct* import_decl, FILE* output_file) {
 	if (import_decl->import_spec->import_alias != nullptr) {
 		// Print import with alias
 		fprintf(output_file, "Id%p [label=\"import_decl\"]\n", import_decl);
-		fprintf(output_file, "Id%p [label=\"%s %s\"]", import_decl->import_spec, import_decl->import_spec->import_alias, import_decl->import_spec->import_path);
-		fprintf(output_file, "Id%p->Id%p", import_decl, import_decl->import_spec);
+		fprintf(output_file, "Id%p [label=\"%s %s\"];\n", import_decl->import_spec, import_decl->import_spec->import_alias, import_decl->import_spec->import_path);
+		fprintf(output_file, "Id%p->Id%p;\n", import_decl, import_decl->import_spec);
 	}
 	else {
 		// Print import just with import path
