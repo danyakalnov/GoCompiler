@@ -97,14 +97,16 @@ void print_func_signature(struct func_signature_struct* signature, FILE* output_
 }
 
 void print_func_params(struct param_list_struct* params, FILE* output_file) {
-	struct param_decl_struct* current = params->first;
+	if (params != 0) {
+		struct param_decl_struct* current = params->first;
 
-	print_node("params", params, output_file);
+		print_node("params", params, output_file);
 
-	while (current != 0) {
-		print_func_param(current, output_file);
-		print_edge(params, current, "", output_file);
-		current = current->next;
+		while (current != 0) {
+			print_func_param(current, output_file);
+			print_edge(params, current, "", output_file);
+			current = current->next;
+		}
 	}
 }
 
