@@ -36,12 +36,21 @@ func main() {
     if a > 5 { a--; }
   }
 
+  for a > 2 {
+  	fmt.Println(a);
+  	a--;
+  }
+
   return
 };
 
 func myFunction(a [2]int) int {
   fmt.Println(a);
   a[1] = 0;
+
+  for {
+  	fmt.Println(a)
+  }
 
   return a[1]
 };
