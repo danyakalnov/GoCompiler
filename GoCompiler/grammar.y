@@ -3,13 +3,13 @@
 %{
 
 #include <stdio.h>
-#include "grammar.tab.h"
 #include "create_tree_nodes.h"
 #include "print_tree.h"
 
 void yyerror(const char* message) {
     fprintf(stderr, message);
 }
+
 int yylex();
 int yyparse();
 extern FILE* yyin;
@@ -203,7 +203,7 @@ expr: ID { $$ = create_id_expr($1); }
 | expr '<' expr { $$ = create_operation_expr(less, $1, $3); }
 | expr '>' expr { $$ = create_operation_expr(greater, $1, $3); }
 | expr GREATER_OR_EQUAL expr { $$ = create_operation_expr(greater_or_equal, $1, $3); }
-| expr LESS_OR_EQUAL expr { $$ = (less_or_equal, $1, $3); }
+| expr LESS_OR_EQUAL expr { $$ = create_operation_expr(less_or_equal, $1, $3); }
 | expr EQUAL expr { $$ = create_operation_expr(equal, $1, $3); }
 | expr NOT_EQUAL expr { $$ = create_operation_expr(not_equal, $1, $3); }
 | expr '[' expr ']' { $$ = create_operation_expr(array_indexing, $1, $3); }
