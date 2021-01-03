@@ -447,7 +447,6 @@ void print_if(struct if_stmt_struct* if_stmt, FILE* output_file) {
 }
 
 void print_for(struct for_stmt_struct* for_stmt, FILE* output_file) {
-	fprintf(output_file, "Id%p [label=\"for\"];\n", for_stmt);
 	print_block(for_stmt->block->block_field, output_file);
 	fprintf(output_file, "Id%p -> Id%p;\n", for_stmt, for_stmt->block->block_field);
 
@@ -463,6 +462,24 @@ void print_for(struct for_stmt_struct* for_stmt, FILE* output_file) {
 		print_stmt(for_stmt->for_clause_post_stmt, output_file);
 		fprintf(output_file, "Id%p -> Id%p [label=\"post stmt\"];\n", for_stmt, for_stmt->for_clause_post_stmt);
 	}
+
+	char for_label[100];
+	switch (for_stmt->type) {
+	case for_with_condition:
+		strcpy(for_label, "for\\n(condition only)");
+		break;
+	case for_with_clause:
+		strcpy(for_label, "for\\n(clause)");
+		break;
+	case empty_for:
+		strcpy(for_label, "for\\n(infinite)");
+		break;
+	default:
+		strcpy(for_label, "for");
+		break;
+	}
+
+	fprintf(output_file, "Id%p [label=\"%s\"];\n", for_stmt, for_label);
 }
 
 void print_return(struct return_stmt_struct* return_stmt, FILE* output_file) {
