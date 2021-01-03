@@ -442,7 +442,7 @@ void print_if(struct if_stmt_struct* if_stmt, FILE* output_file) {
 
 	if (if_stmt->else_block != 0) {
 		print_block(if_stmt->else_block->block_field, output_file);
-		print_edge(if_stmt, if_stmt->else_block, "else", output_file);
+		print_edge(if_stmt, if_stmt->else_block->block_field, "else", output_file);
 	}
 }
 
