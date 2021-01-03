@@ -29,7 +29,10 @@ func main() {
   fmt.Println(odds[2], odds[3], d);
   fmt.Println(m.E);
 
-  for a := 0 ; a < 0; a++  {
+  var a int;
+  r := 0;
+
+  for a = 0; a < 0; a++ {
     if a > 5 { a--; }
   }
 
