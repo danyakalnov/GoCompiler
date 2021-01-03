@@ -12,7 +12,7 @@ func main() {
   const (
   	b int = 0;
   	c int = 1;
-  	d string = "Go(lang)vno";
+  	d string = "Go(lang)";
   );
 
   if b > 0 {
