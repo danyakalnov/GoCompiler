@@ -41,6 +41,12 @@ func main() {
   	a--;
   }
 
+  if a == 0 {
+  	fmt.Println("a == 0")
+  } else {
+  	fmt.Println(a)
+  }
+
   return
 };
 
