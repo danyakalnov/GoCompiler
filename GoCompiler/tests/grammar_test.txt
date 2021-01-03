@@ -45,7 +45,6 @@ func main() {
   	fmt.Println("a == 0")
   } else {
   	fmt.Println(a)
-  	fmt.Println("value of \"a\"")
   }
 
   return
