@@ -230,6 +230,16 @@ void print_stmt(struct stmt_struct* stmt, FILE* output_file) {
 		print_expr(stmt->expr_field, output_file);
 		fprintf(output_file, "IdInc%p->Id%p\n", stmt, stmt->expr_field);
 		break;
+
+	case continue_t:
+		fprintf(output_file, "IdContinue%p [label=\"continue\"];\n", stmt);
+		fprintf(output_file, "Id%p -> IdContinue%p;\n", stmt, stmt);
+		break;
+
+	case break_t:
+		fprintf(output_file, "IdBreak%p [label=\"break\"];\n", stmt);
+		fprintf(output_file, "Id%p -> IdBreak%p;\n", stmt, stmt);
+		break;
 	}
 }
 
