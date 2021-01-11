@@ -71,7 +71,9 @@ enum stmt_type {
 	block_t,
 	return_stmt_t,
 	inc_t,
-	dec_t
+	dec_t,
+	break_t,
+	continue_t
 };
 
 enum decl_type {
