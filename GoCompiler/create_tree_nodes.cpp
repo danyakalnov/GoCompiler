@@ -612,3 +612,17 @@ struct expr_struct* create_qualified_id_expr(char* package_name, char* id_in_pac
 
     return qualified_id;
 }
+
+struct stmt_struct* create_continue_stmt() {
+    struct stmt_struct* continue_stmt = (struct stmt_struct*)malloc(sizeof(struct stmt_struct));
+    continue_stmt->type = continue_t;
+
+    return continue_stmt;
+}
+
+struct stmt_struct* create_break_stmt() {
+    struct stmt_struct* break_stmt = (struct stmt_struct*)malloc(sizeof(struct stmt_struct));
+    break_stmt->type = break_t;
+
+    return break_stmt;
+}

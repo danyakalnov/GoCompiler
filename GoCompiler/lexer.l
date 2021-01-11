@@ -298,6 +298,7 @@ ESCAPED_CHAR \\[abfnrtv\\'"]
 
 break {
 	printf("Found 'break' keyword\n");
+	return BREAK_KEYWORD;
 }
 
 case {
@@ -316,6 +317,7 @@ const {
 
 continue {
 	printf("Found 'continue' keyword\n");
+	return CONTINUE_KEYWORD;
 }
 
 default {

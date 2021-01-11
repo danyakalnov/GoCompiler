@@ -83,6 +83,8 @@ extern struct program_struct* root;
 %token NIL_KEYWORD
 %token PACKAGE_KEYWORD
 %token IMPORT_KEYWORD
+%token BREAK_KEYWORD
+%token CONTINUE_KEYWORD
 %token <Id> ID
 %token <Int_val> INT 
 %token <String> STRING
@@ -285,6 +287,8 @@ stmt: simple_stmt_not_empty { $$ = $1; }
 | if_stmt { $$ = $1; }
 | for_stmt { $$ = $1; }
 | block { $$ = $1; }
+| BREAK_KEYWORD ';' { $$ = create_break_stmt(); }
+| CONTINUE_KEYWORD ';' { $$ = create_continue_stmt(); }
 ;
 
 stmt_list_not_empty: stmt { $$ = create_stmt_list($1); }
