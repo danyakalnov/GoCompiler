@@ -17,11 +17,13 @@ void print_program(struct program_struct* program, FILE* output_file) {
 }
 
 void print_imports(struct import_decl_list_struct* imports, void* parent, FILE* output_file) {
-	struct import_decl_struct* current_import_decl = imports->first;
-	while (current_import_decl != 0) {
-		print_import(current_import_decl, output_file);
-		fprintf(output_file, "Id%p->Id%p;\n", parent, current_import_decl);
-		current_import_decl = current_import_decl->next;
+	if (imports != 0) {
+		struct import_decl_struct* current_import_decl = imports->first;
+		while (current_import_decl != 0) {
+			print_import(current_import_decl, output_file);
+			fprintf(output_file, "Id%p->Id%p;\n", parent, current_import_decl);
+			current_import_decl = current_import_decl->next;
+		}
 	}
 }
 
