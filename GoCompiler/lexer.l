@@ -298,6 +298,7 @@ ESCAPED_CHAR \\[abfnrtv\\'"]
 
 break {
 	printf("Found 'break' keyword\n");
+	isLastSymbolTerminable = true;
 	return BREAK_KEYWORD;
 }
 
@@ -317,6 +318,7 @@ const {
 
 continue {
 	printf("Found 'continue' keyword\n");
+	isLastSymbolTerminable = true;
 	return CONTINUE_KEYWORD;
 }
 
