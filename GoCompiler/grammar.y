@@ -287,8 +287,8 @@ stmt: simple_stmt_not_empty { $$ = $1; }
 | if_stmt { $$ = $1; }
 | for_stmt { $$ = $1; }
 | block { $$ = $1; }
-| BREAK_KEYWORD ';' { $$ = 0; }
-| CONTINUE_KEYWORD ';' {  }
+| BREAK_KEYWORD ';' { $$ = create_break_stmt(); }
+| CONTINUE_KEYWORD ';' { $$ = create_continue_stmt(); }
 ;
 
 stmt_list_not_empty: stmt { $$ = create_stmt_list($1); }
