@@ -60,5 +60,18 @@ func myFunction(a [2]int) int {
   	fmt.Println(a)
   }
 
+  var (
+    d int = 0;
+    e int = 0;
+  );
+
+  for d > 0 {
+    break
+  }
+
+  for e > 0 {
+    continue
+  }
+
   return a[1]
 };
