@@ -477,6 +477,7 @@ struct program_struct* create_program(struct package_decl_struct* package, struc
     struct program_struct* program = (struct program_struct*)malloc(sizeof(struct program_struct));
     program->package = package;
     program->declarations = decls;
+    program->imports = 0;
 
     return program;
 }
